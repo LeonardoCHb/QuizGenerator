@@ -1,22 +1,70 @@
 {
     "env": {
-        "browser": true,
-        "es2021": true
+      "es2021": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "standard",
+      "plugin:prettier/recommended",
+      "prettier"
     ],
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
+    "plugins": ["react", "eslint-plugin-import-helpers"],
     "rules": {
+      "react/prop-types": "off",
+      "react/display-name": "off",
+      "react/jsx-filename-extension": [
+        "warn",
+        { "extensions": [".jsx", "js"] }
+      ],
+      "import/namespace": ["error", { "allowComputed": true }],
+      "import-helpers/order-imports": [
+        "error",
+        {
+          "newlinesBetween": "always",
+          "groups": ["module", "/^~/", ["parent", "sibling", "index"]],
+          "alphabetize": { "order": "asc", "ignoreCase": true }
+        }
+      ],
+      "camelcase": [
+        "error",
+        {
+          "properties": "never",
+          "ignoreDestructuring": true,
+          "allow": ["UNSAFE_componentWillMount"]
+        }
+      ]
+    },
+    "settings": {
+      "react": {
+        "createClass": "createReactClass",
+        "pragma": "React",
+        "fragment": "Fragment",
+        "version": "detect",
+        "flowVersion": "0.53"
+      },
+      "propWrapperFunctions": [
+        "forbidExtraProps",
+        { "property": "freeze", "object": "Object" },
+        { "property": "myFavoriteWrapper" }
+      ],
+      "linkComponents": [
+        "Hyperlink",
+        { "name": "Link", "linkAttribute": "to" }
+      ]
+    },
+    "globals": {
+      "localStorage": true,
+      "fetch": true,
+      "alert": true
     }
-}
+  }
