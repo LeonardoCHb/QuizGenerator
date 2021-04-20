@@ -1,0 +1,19 @@
+/* button{
+    margin-left: 50rem;
+} */
+div{
+    display: flex;
+    justify-content: center;
+    margin-top: 10rem;
+}
+button{
+    width: 12rem;
+    height: 3rem;
+    cursor: pointer;
+    color: black;
+    background-color: lightblue;
+    outline: auto;
+}
+button:hover{
+    background-color: rgb(56, 171, 209);
+}
