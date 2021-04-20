@@ -1,0 +1,33 @@
+div{
+    width: 100%;
+    height: 5rem;
+    background-color:lightblue;
+    display: flex;
+    justify-content:right ;
+}
+
+.login{
+    position: absolute;
+    right: 2rem;
+    width: 2rem;
+    height: 2rem;
+    margin-top:1rem;
+    cursor: pointer;
+}
+.cadastro{
+    position: absolute;
+    right: 5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-top:0.8rem;
+    cursor: pointer;
+}
+a{
+    color: white;
+}
+
+img{
+    width: 3rem;
+    height: 4rem;
+}
+
