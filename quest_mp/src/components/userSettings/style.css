@@ -1,0 +1,53 @@
+.close {
+    width: 2rem;
+    height: 2rem;
+    margin-top: 1rem;
+    background-color:white;
+    color: red;
+    border-radius: 50%;
+    margin-left: 50%;
+}
+.close:hover{
+    background-color: violet;
+    color:white;
+}
+.ModalPop{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.loginh1{
+    margin-left: 46%;
+}
+.cadastroh1{
+    margin-left: 44%;
+}
+.esquecih1{
+    margin-left: 36%;
+}
+input{
+    margin-left: 25%;
+    width: 25rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+.login{
+    margin-left: 25%;
+    margin-top: 2rem;
+}
+.cadastro{
+    margin-left: 25%;
+    margin-top: 2rem;
+}
+.esqueci{
+    margin-left: 25%;
+    margin-top: 2rem;
+}
+.signin{
+    width: 1.5rem;
+    height:1.5rem;
+}
+.user{
+    width: 1.5rem;
+    height:1.5rem;  
+}
