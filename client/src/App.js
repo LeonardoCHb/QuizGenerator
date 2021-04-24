@@ -1,8 +1,13 @@
-import { Button } from "@material-ui/core";
 import React from "react";
 
-function App() {
-  return <Button color="primary">Hello World</Button>;
-}
+import Home from "./pages/Home/index";
+
+import "./styles/global.css";
+
+const App = () => (
+  <>
+    <Home />
+  </>
+);
 
 export default App;
