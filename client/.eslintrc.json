@@ -42,7 +42,10 @@
           "ignoreDestructuring": true,
           "allow": ["UNSAFE_componentWillMount"]
         }
-      ]
+      ],
+      "prettier/prettier": ["error", {
+       "endOfLine":"auto"
+     }]
     },
     "settings": {
       "react": {

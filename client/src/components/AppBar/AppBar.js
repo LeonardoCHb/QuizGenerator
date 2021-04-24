@@ -7,8 +7,9 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   userName: {
@@ -93,7 +94,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
-  const user = null;
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    history.push("/");
+    setUser(null);
+  };
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
 
   return (
     <div className={classes.grow}>
@@ -126,15 +141,19 @@ export default function PrimarySearchAppBar() {
             <div className={classes.profile}>
               <Avatar
                 className={classes.purple}
-                src="https://robohash.org/leo"
-              />
+                alt={user?.result.name}
+                src={user?.result.imageUrl}
+              >
+                {user?.result.name.charAt(0)}
+              </Avatar>
               <Typography className={classes.userName} variant="h6">
-                Texto
+                {user?.result.name}
               </Typography>
               <Button
                 variant="contained"
                 className={classes.logout}
                 color="secondary"
+                onClick={logout}
               >
                 Logout
               </Button>
