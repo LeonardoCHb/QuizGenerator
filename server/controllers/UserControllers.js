@@ -3,12 +3,12 @@ import userModel from "../models/userModels.js"
 
 // Acha um usuario
 export const findUser = async (req, res) => {
-    const loginData = req.body
-    const email = loginData.email
-    console.log(email)
+    const {email} = req.body
+    console.log({email})
 
     try {
         const UserModel = await userModel.findOne({email}).exec()
+        console.log(UserModel)
         res.status(200).json(UserModel)
     } catch(error) {
         res.status(404).json({ERRO: 'Esse usuario nao existe!'})
@@ -23,21 +23,6 @@ export const getUsers = async (req, res) => {
         res.status(200).json(UserModel)
     } catch(error) {
         res.status(404).json({ERRO: 'Esse usuario nao existe!'})
-    }
-
-}
-
-export const createUser = async (req, res) => {
-    const userData = req.body
-   
-    const newUser = new userModel(userData)
-
-    try {
-        await newUser.save()
-
-        res.status(201).json(newUser)
-    } catch(error) {
-        res.status(409).json({message: error.message})
     }
 
 }

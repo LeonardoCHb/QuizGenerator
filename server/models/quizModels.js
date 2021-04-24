@@ -11,6 +11,9 @@ const quizSchema = mongoose.Schema({
         unique: true,
         required: true,
     }, */
+    public:{
+        type: Boolean
+    },
     questions: [],
     responses: [],
     createdAt: {

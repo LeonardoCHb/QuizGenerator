@@ -1,4 +1,4 @@
-import  mongoose  from "mongoose"
+//import  mongoose  from "mongoose"
 import quizModel from "../models/quizModels.js"
 
 // Acha um usuario
