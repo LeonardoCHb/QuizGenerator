@@ -1,9 +1,3 @@
-# Como rodar
-
-Para rodar é necessário ter o react instalado e o yarn, após a instalação dos dois itens basta ir para a pasta client e rodar o yarn install após yarn start.
-Também é necessário ter as extenções do prettier e do esLint.
-Para test basta rodar o yarn test.
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
