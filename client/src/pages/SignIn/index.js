@@ -11,6 +11,7 @@ import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import { signin, signup } from "../../actions/auth";
 import AppBar from "../../components/AppBar/AppBar";
 import Icon from "./icon.js";
 import Input from "./Input";
@@ -44,21 +45,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+
+  // eslint-disable-next-line no-unused-vars
+  const [formData, setFormData] = useState(initialState);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignup) {
+      console.log(formData);
+      dispatch(signup(formData, history));
+    } else {
+      dispatch(signin(formData, history));
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
@@ -91,7 +116,7 @@ const Auth = () => {
               {isSignup && (
                 <>
                   <Input
-                    name="userName"
+                    name="name"
                     label="User Name"
                     handleChange={handleChange}
                     autoFocus

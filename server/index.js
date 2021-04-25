@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors())
 
 
-app.use("/", register)
+app.use("/auth", register)
 app.use("/adm", adm)
 app.use("/quiz", quiz)
 
