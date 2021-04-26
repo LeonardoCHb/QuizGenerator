@@ -1,100 +1,23 @@
+// estilização
 import AppBar from "@material-ui/core/AppBar";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import { deepPurple } from "@material-ui/core/colors";
 import InputBase from "@material-ui/core/InputBase";
-import { fade, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
+// react
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  userName: {
-    display: "flex",
-    alignItems: "center",
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
-  },
-  profile: {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "400px",
-  },
-  heading: {
-    color: "inherit",
-    textDecoration: "none",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
-    },
-  },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
-  },
-}));
+// estilos internos
+import styles from "./styles.js";
+
+const useStyles = styles;
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
-  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const history = useHistory();
@@ -107,6 +30,8 @@ export default function PrimarySearchAppBar() {
   };
 
   useEffect(() => {
+    // em construcao
+    // const token = user?.token;
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
@@ -144,7 +69,10 @@ export default function PrimarySearchAppBar() {
                 alt={user?.result.name}
                 src={user?.result.imageUrl}
               >
-                {user?.result.name.charAt(0)}
+                <Avatar
+                  alt="My robohash"
+                  src={`https://robohash.org/${user?.result._id}`}
+                />
               </Avatar>
               <Typography className={classes.userName} variant="h6">
                 {user?.result.name}
@@ -155,7 +83,7 @@ export default function PrimarySearchAppBar() {
                 color="secondary"
                 onClick={logout}
               >
-                Logout
+                Sair
               </Button>
             </div>
           ) : (
@@ -165,7 +93,7 @@ export default function PrimarySearchAppBar() {
               variant="contained"
               color="primary"
             >
-              Sign In
+              Entrar
             </Button>
           )}
         </Toolbar>
