@@ -2,7 +2,10 @@
 import AppBar from "@material-ui/core/AppBar";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
 import InputBase from "@material-ui/core/InputBase";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
@@ -22,7 +25,13 @@ export default function PrimarySearchAppBar() {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const logout = () => {
     dispatch({ type: "LOGOUT" });
     history.push("/");
@@ -64,7 +73,7 @@ export default function PrimarySearchAppBar() {
           <div className={classes.grow} />
           {user ? (
             <div className={classes.profile}>
-              <Avatar
+              {/* <Avatar
                 className={classes.purple}
                 alt={user?.result.name}
                 src={user?.result.imageUrl}
@@ -73,18 +82,37 @@ export default function PrimarySearchAppBar() {
                   alt="My robohash"
                   src={`https://robohash.org/${user?.result._id}`}
                 />
-              </Avatar>
-              <Typography className={classes.userName} variant="h6">
-                {user?.result.name}
-              </Typography>
-              <Button
-                variant="contained"
-                className={classes.logout}
-                color="secondary"
-                onClick={logout}
-              >
-                Sair
-              </Button>
+              </Avatar> */}
+              <div>
+                <Button
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  className={classes.Menu}
+                  onClick={handleClick}
+                >
+                  <Avatar
+                    alt="My robohash"
+                    src={`https://robohash.org/${user?.result._id}`}
+                  />
+                  <Typography className={classes.userName} variant="h6">
+                    {user?.result.name}
+                  </Typography>
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  className={classes.MenuItem}
+                  anchorEl={anchorEl}
+                  keepMounted
+                  variant="outilined"
+                  elevation="1"
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                  TransitionComponent={Fade}
+                >
+                  <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                  <MenuItem onClick={logout}>Sair</MenuItem>
+                </Menu>
+              </div>
             </div>
           ) : (
             <Button

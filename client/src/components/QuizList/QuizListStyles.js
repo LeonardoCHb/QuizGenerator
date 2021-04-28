@@ -29,6 +29,8 @@ export default makeStyles((theme) => ({
   },
   BottomButton: {
     color: green.A400,
+    flex: 1,
+    justifyContent: "Bottom",
   },
   CotainerBottomButton: {
     justifyContent: "flex-end",

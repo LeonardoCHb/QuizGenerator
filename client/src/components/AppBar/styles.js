@@ -80,4 +80,15 @@ export default makeStyles((theme) => ({
       display: "none",
     },
   },
+  Menu: {
+    position: "absolute",
+    right: "0rem",
+    top: "0.3rem",
+    color: fade(theme.palette.common.white, 1),
+    boxShadow: "0 1px 2px 1px rgba(0, 0, 0, .3)",
+  },
+  MenuItem: {
+    backgroundColor: fade(theme.palette.primary.dark, 0.1),
+    boxShadow: "0 1px 2px 1px rgba(0, 0, 0, .3)",
+  },
 }));
