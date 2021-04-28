@@ -1,104 +1,85 @@
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
+import { Button } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+// import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+// import { palette } from "@material-ui/system";
 import React from "react";
-import "./QuizList.css";
 
-const useStyles2 = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-    maxHeight: 10,
-    maxWidth: 30,
-  },
-});
+import styles from "./QuizListStyles";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  mediaCard: {
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secundary,
-  },
-}));
+const useStyles = styles;
 
 export default function NestedGrid() {
   const classes = useStyles();
-
-  function MediaCard() {
-    const classes = useStyles2();
-    return (
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image="/static/images/cards/contemplative-reptile.jpg"
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              IBGE
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              O Instituto Brasileiro de Geografia e Estatística é um instituto
-              público da adminwadsdwasdwasdwasdwaO Instituto Brasileiro de
-              Geografia e Estatística é um instituto público da
-              adminwadsdwasdwasdwasdwaO Instituto Brasileiro de Geografia e
-              Estatística é um instituto público da adminwadsdwasdwasdwasdwa
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button className="ButtonColorC" variant="outlined" size="small">
-            Compartilhar
-          </Button>
-          <Button className="ButtonColorR" variant="outlined" size="small">
-            Responder
-          </Button>
-        </CardActions>
-      </Card>
-    );
-  }
 
   function FormRow() {
     return (
       <React.Fragment>
         <Grid item xs={4}>
-          <Card className={classes.root}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <p className="CreateQuizTitle">NOVO QUESTIONARIO</p>
-                <h1 className="CreateQuiz">+</h1>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          <a href="/">
+            <div className="paperHover">
+              <Paper className={classes.CreatePaper}>
+                <h2>Criar Questionário</h2>
+                <Button className={classes.PlusButton} bgcolor="success.main">
+                  +
+                </Button>
+              </Paper>
+            </div>
+          </a>
         </Grid>
         <Grid item xs={4}>
-          <MediaCard className={classes.mediaCard}></MediaCard>
+          <Paper className={classes.paper}>
+            <div>
+              <h2>Quiz</h2>
+              <p>teste</p>
+            </div>
+            <CardActions>
+              <Button
+                className={classes.BottomButton}
+                size="small"
+                color="primary"
+              >
+                Share
+              </Button>
+              <Button
+                className={classes.BottomButton}
+                size="small"
+                color="primary"
+              >
+                Learn More
+              </Button>
+            </CardActions>
+          </Paper>
         </Grid>
         <Grid item xs={4}>
-          <MediaCard className={classes.mediaCard}></MediaCard>
-        </Grid>
-        <Grid item xs={4}>
-          <MediaCard className={classes.mediaCard}></MediaCard>
-        </Grid>
-        <Grid item xs={4}>
-          <MediaCard className={classes.mediaCard}></MediaCard>
+          <Paper className={classes.paper}>
+            <div>
+              <h2>Quiz</h2>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga
+                nostrum natus quibusdam obcaecati rerum animi est repudiandae
+                earum, aperiam aspernatur incidunt tenetur dicta doloremque. Et
+                est consequuntur soluta facere autem.
+              </p>
+            </div>
+            <CardActions>
+              <Button
+                className={classes.BottomButton}
+                size="small"
+                color="primary"
+              >
+                Share
+              </Button>
+              <Button
+                className={classes.BottomButton}
+                size="small"
+                color="primary"
+              >
+                Learn More
+              </Button>
+            </CardActions>
+          </Paper>
         </Grid>
       </React.Fragment>
     );
@@ -106,8 +87,8 @@ export default function NestedGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
-        <Grid container item xs={12} spacing={3}>
+      <Grid container spacing={4}>
+        <Grid container item xs={13} spacing={3}>
           <FormRow />
         </Grid>
       </Grid>
