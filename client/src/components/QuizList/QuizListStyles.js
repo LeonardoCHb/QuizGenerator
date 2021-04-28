@@ -7,9 +7,12 @@ export default makeStyles((theme) => ({
     marginTop: 30,
   },
   paper: {
-    height: 200,
     padding: theme.spacing(1),
     textAlign: "center",
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: "22.5vh",
   },
   CreatePaper: {
     height: 200,
@@ -27,4 +30,9 @@ export default makeStyles((theme) => ({
   BottomButton: {
     color: green.A400,
   },
+  CotainerBottomButton: {
+    justifyContent: "flex-end",
+    flex: 1,
+  },
+  ContainerHolder: {},
 }));

@@ -32,22 +32,25 @@ export default function NestedGrid() {
           <Paper className={classes.paper}>
             <div>
               <h2>Quiz</h2>
-              <p>teste</p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+                tempora at explicabo consectetur natus reprehenderit alias
+              </p>
             </div>
-            <CardActions>
+            <CardActions className={classes.CotainerBottomButton}>
               <Button
                 className={classes.BottomButton}
                 size="small"
                 color="primary"
               >
-                Share
+                COMPARTILHE
               </Button>
               <Button
                 className={classes.BottomButton}
                 size="small"
                 color="primary"
               >
-                Learn More
+                RESPONDA
               </Button>
             </CardActions>
           </Paper>
@@ -63,20 +66,20 @@ export default function NestedGrid() {
                 est consequuntur soluta facere autem.
               </p>
             </div>
-            <CardActions>
+            <CardActions className={classes.CotainerBottomButton}>
               <Button
                 className={classes.BottomButton}
                 size="small"
                 color="primary"
               >
-                Share
+                COMPARTILHE
               </Button>
               <Button
                 className={classes.BottomButton}
                 size="small"
                 color="primary"
               >
-                Learn More
+                RESPONDA
               </Button>
             </CardActions>
           </Paper>
