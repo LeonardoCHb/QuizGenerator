@@ -1,9 +1,9 @@
 import { Button } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
-// import CardContent from "@material-ui/core/CardContent";
+import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-// import { palette } from "@material-ui/system";
+import AddIcon from "@material-ui/icons/Add";
 import React from "react";
 
 import styles from "./QuizListStyles";
@@ -17,24 +17,37 @@ export default function NestedGrid() {
     return (
       <React.Fragment>
         <Grid item xs={4}>
-          <a href="/">
-            <div className="paperHover">
-              <Paper className={classes.CreatePaper}>
-                <h2>Criar Questionário</h2>
-                <Button className={classes.PlusButton} bgcolor="success.main">
-                  +
-                </Button>
-              </Paper>
+          <Paper className={classes.paper}>
+            <div>
+              <h2>Quiz</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A</p>
             </div>
-          </a>
+            <CardActions className={classes.CotainerBottomButton}>
+              <Button
+                className={classes.BottomButton}
+                size="small"
+                color="primary"
+              >
+                COMPARTILHAR
+              </Button>
+              <Button
+                className={classes.BottomButton}
+                size="small"
+                color="primary"
+              >
+                RESPONDER
+              </Button>
+            </CardActions>
+          </Paper>
         </Grid>
         <Grid item xs={4}>
           <Paper className={classes.paper}>
             <div>
               <h2>Quiz</h2>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
-                tempora at explicabo consectetur natus reprehenderit alias
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga
+                nostrum natus quibusdam obcaecati rerum animi est repudiandae
+                earum, aperiam aspernatur incidunt tenetur dicta doloremque. Et
               </p>
             </div>
             <CardActions className={classes.CotainerBottomButton}>
@@ -43,14 +56,14 @@ export default function NestedGrid() {
                 size="small"
                 color="primary"
               >
-                COMPARTILHE
+                COMPARTILHAR
               </Button>
               <Button
                 className={classes.BottomButton}
                 size="small"
                 color="primary"
               >
-                RESPONDA
+                RESPONDER
               </Button>
             </CardActions>
           </Paper>
@@ -72,14 +85,14 @@ export default function NestedGrid() {
                 size="small"
                 color="primary"
               >
-                COMPARTILHE
+                COMPARTILHAR
               </Button>
               <Button
                 className={classes.BottomButton}
                 size="small"
                 color="primary"
               >
-                RESPONDA
+                RESPONDER
               </Button>
             </CardActions>
           </Paper>
@@ -91,6 +104,17 @@ export default function NestedGrid() {
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
+        <Grid
+          className={classes.CreateButton}
+          container
+          item
+          xs={13}
+          spacing={20}
+        >
+          <Fab color="primary" aria-label="add">
+            <AddIcon />
+          </Fab>
+        </Grid>
         <Grid container item xs={13} spacing={3}>
           <FormRow />
         </Grid>

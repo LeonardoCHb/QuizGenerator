@@ -12,20 +12,12 @@ export default makeStyles((theme) => ({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    height: "22.5vh",
+    height: 170,
   },
-  CreatePaper: {
-    height: 200,
-    padding: theme.spacing(1),
-    color: theme.palette.text.primary,
-    textAlign: "center",
-    fontSize: 20,
-    fontSizeAdjust: 36,
-  },
-  PlusButton: {
-    color: green.A400,
-    fontSize: 115,
-    height: 130,
+  CreateButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   BottomButton: {
     color: green.A400,
