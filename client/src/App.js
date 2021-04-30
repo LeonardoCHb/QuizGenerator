@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import AppBar from "./components/AppBar/AppBar";
+import CreateQuiz from "./pages/CreateQuiz/index";
 import Home from "./pages/Home/index";
 import Auth from "./pages/SignIn/index";
 
@@ -14,6 +15,7 @@ const App = () => (
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/auth" exact component={Auth} />
+        <Route path="/CreateQuiz" exact component={CreateQuiz} />
       </Switch>
     </div>
   </BrowserRouter>

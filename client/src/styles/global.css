@@ -6,9 +6,11 @@
 }
 
 body {
-    background-image: linear-gradient( 0deg,  rgba(33,150,243,1) 1.8%, rgba(22,255,245,0.60) 97.1% );
-    background-attachment: fixed;
+    /* background-image: linear-gradient( 0deg,  rgba(33,150,243,1) 1.8%, rgba(22,255,245,0.60) 97.1% ); */
+    background: url("./images/background2.jpg") no-repeat fixed;
+    background-position: top;
     background-size: cover;
+    overflow-x: hidden;
 }
 
 a {
@@ -20,11 +22,13 @@ a {
 }
 @media(max-width: 1080px) {
     html{
-        font-size: 93.75%;  
+        font-size: 93.75%;
+        padding: 0rem;
     }
 }
 @media(max-width: 720px) {
     html{
-        font-size: 87.5%; 
+        font-size: 87.5%;
+        padding: 0rem;
     }   
 }

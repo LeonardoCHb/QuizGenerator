@@ -82,7 +82,7 @@ export default makeStyles((theme) => ({
   },
   Menu: {
     position: "absolute",
-    right: "0rem",
+    right: "0.9rem",
     top: "0.3rem",
     color: fade(theme.palette.common.white, 1),
     boxShadow: "0 1px 2px 1px rgba(0, 0, 0, .3)",
@@ -90,5 +90,8 @@ export default makeStyles((theme) => ({
   MenuItem: {
     backgroundColor: fade(theme.palette.primary.dark, 0.1),
     boxShadow: "0 1px 2px 1px rgba(0, 0, 0, .3)",
+  },
+  " @media (max-width: 900px)": {
+    paddingLeft: 0,
   },
 }));

@@ -14,6 +14,10 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     height: 170,
   },
+  text: {
+    height: "80%",
+    // overflow: "auto",
+  },
   CreateButton: {
     flex: 1,
     justifyContent: "center",
@@ -21,11 +25,6 @@ export default makeStyles((theme) => ({
   },
   BottomButton: {
     color: green.A400,
-    flex: 1,
-    justifyContent: "Bottom",
-  },
-  CotainerBottomButton: {
-    justifyContent: "flex-end",
     flex: 1,
   },
   ContainerHolder: {},

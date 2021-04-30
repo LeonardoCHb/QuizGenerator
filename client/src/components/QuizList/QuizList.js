@@ -1,10 +1,14 @@
-import { Button } from "@material-ui/core";
+/* eslint-disable no-unused-vars */
+import { Button, Tooltip } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import AddIcon from "@material-ui/icons/Add";
-import React from "react";
+// react
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import styles from "./QuizListStyles";
 
@@ -18,7 +22,7 @@ export default function NestedGrid() {
       <React.Fragment>
         <Grid item xs={4}>
           <Paper className={classes.paper}>
-            <div>
+            <div className={classes.text}>
               <h2>Quiz</h2>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A</p>
             </div>
@@ -42,7 +46,7 @@ export default function NestedGrid() {
         </Grid>
         <Grid item xs={4}>
           <Paper className={classes.paper}>
-            <div>
+            <div className={classes.text}>
               <h2>Quiz</h2>
               <p>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga
@@ -70,7 +74,7 @@ export default function NestedGrid() {
         </Grid>
         <Grid item xs={4}>
           <Paper className={classes.paper}>
-            <div>
+            <div className={classes.text}>
               <h2>Quiz</h2>
               <p>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga
@@ -111,9 +115,21 @@ export default function NestedGrid() {
           xs={13}
           spacing={20}
         >
-          <Fab color="primary" aria-label="add">
-            <AddIcon />
-          </Fab>
+          <Tooltip
+            title="Criar Questionario"
+            placement="top-start"
+            aria-label="add"
+            arrow
+          >
+            <Fab
+              color="primary"
+              component={Link}
+              to={localStorage.getItem("profile") ? "/CreateQuiz" : "/auth"}
+              aria-label="add"
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
         </Grid>
         <Grid container item xs={13} spacing={3}>
           <FormRow />

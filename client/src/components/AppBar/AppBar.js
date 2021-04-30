@@ -9,6 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
+import decode from "jwt-decode";
 // react
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -16,6 +17,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 
 // estilos internos
 import styles from "./styles.js";
+import "./styles.css";
 
 const useStyles = styles;
 
@@ -39,8 +41,14 @@ export default function PrimarySearchAppBar() {
   };
 
   useEffect(() => {
-    // em construcao
-    // const token = user?.token;
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
@@ -119,7 +127,7 @@ export default function PrimarySearchAppBar() {
               component={Link}
               to="/auth"
               variant="contained"
-              color="primary"
+              color="rgba(0, 0, 255, 0.3)"
             >
               Entrar
             </Button>
