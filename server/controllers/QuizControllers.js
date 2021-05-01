@@ -30,8 +30,8 @@ export const getQuizs = async (req, res) => {
 export const createQuiz = async (req, res) => {
     const QuizData = req.body
    
-    const newQuiz = new quizModel(QuizData)
-
+    const newQuiz = new quizModel({...QuizData, creator: req.userId, createdAt: new Date().toISOString() })
+    console.log(newQuiz)
     try {
         await newQuiz.save()
 

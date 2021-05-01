@@ -1,15 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  Container: {
-    flex: 1,
-    justifyContent: "center",
-    marginTop: "auto",
-    marginBottom: theme.spacing(4),
-    height: "auto",
-    marginLeft: "-5rem",
-    width: "42rem",
-  },
   paper: {
     marginTop: theme.spacing(4),
     display: "flex",

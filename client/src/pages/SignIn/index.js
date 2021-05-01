@@ -46,13 +46,16 @@ const Auth = () => {
       dispatch(signin(formData, history));
     }
   };
+
   // bota as informacoes do usuario no formulario
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   // visualizar senha ou nao
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
+
   // muda modo entre entrar ou registrar
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);

@@ -1,31 +1,17 @@
 import mongoose from 'mongoose'
-/* import userModel from './userModels' */
 
 const quizSchema = mongoose.Schema({
-    quizName: {
-        type: String,
-        required: true,
+    title: { type: String, required: true },
+    name: { type: String, required: true},
+    description: { type: String, required: true },
+    creator: { type: String, required: true },
+    public: { type: Boolean, required: true },
+    questions: {
+        type: [Object],
+        default: [],
+        required: true
     },
-    /* email: {
-        type:String,
-        unique: true,
-        required: true,
-    }, */
-    public:{
-        type: Boolean
-    },
-    questions: [],
-    responses: [],
-    createdAt: {
-        type: Date,
-        default: new Date()
-    },
-    id_user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'userModel'
-    }
+    createdAt: { type: Date, default: new Date() }
 })
 
-const quizModel = mongoose.model('quizModel', quizSchema)
-
-export default quizModel
+export default  mongoose.model('quizModel', quizSchema)

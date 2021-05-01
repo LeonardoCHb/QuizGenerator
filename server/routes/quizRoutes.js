@@ -9,6 +9,6 @@ const router = express.Router()
 router.get('/quiz/findAll', getQuiz)
 router.patch('/quiz/:id', updateQuiz)
 router.delete('/quiz/:id', deleteQuiz) */
-router.post('/quiz', auth, createQuiz)
+router.post('/create', auth, createQuiz)
 
 export default router

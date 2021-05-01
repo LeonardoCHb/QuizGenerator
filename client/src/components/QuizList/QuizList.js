@@ -1,14 +1,9 @@
-/* eslint-disable no-unused-vars */
-import { Button, Tooltip } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
-import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import AddIcon from "@material-ui/icons/Add";
 // react
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import React from "react";
 
 import styles from "./QuizListStyles";
 
@@ -108,29 +103,6 @@ export default function NestedGrid() {
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
-        <Grid
-          className={classes.CreateButton}
-          container
-          item
-          xs={13}
-          spacing={20}
-        >
-          <Tooltip
-            title="Criar Questionario"
-            placement="top-start"
-            aria-label="add"
-            arrow
-          >
-            <Fab
-              color="primary"
-              component={Link}
-              to={localStorage.getItem("profile") ? "/CreateQuiz" : "/auth"}
-              aria-label="add"
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
-        </Grid>
         <Grid container item xs={13} spacing={3}>
           <FormRow />
         </Grid>

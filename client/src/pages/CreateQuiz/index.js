@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { createQuiz } from "../../actions/quiz";
-import SelectQuestion from "../../components/SelectQuestion/SelectQuestion.js";
+import SelectTypeQuestion from "../../components/SelectQuestion/SelectQuestion";
 import styles from "./styles.js";
 
 const useStyles = styles;
@@ -22,9 +22,21 @@ const initialQuiz = {
   public: false,
   questions: [],
 };
+/*
+const initialQuestion = {
+  typeQuestion: null,
+  hasResponse: null,
+  question: {
+    title: null,
+    wording: null,
+    options: null,
+    response: null,
+  },
+}; */
 
 const CreateQuiz = () => {
   const [quizData, setQuizData] = useState(initialQuiz);
+  // const [question, setQuestion] = useState(initialQuestion);
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -40,15 +52,15 @@ const CreateQuiz = () => {
     return (
       <Paper className={classes.paper}>
         <Typography variant="h6" align="center">
-          Por favor entre para criar seus questionarios.
+          Voce precisa estar logado para criar uma conta.
         </Typography>
       </Paper>
     );
   }
 
   return (
-    <Container component="main" maxWidth="xs" backgroundColor="primary">
-      <Paper className={classes.Container}>
+    <Container component="main" maxWidth="md">
+      <Paper>
         <div className={classes.paper}>
           <form
             autoComplete="off"
@@ -74,7 +86,6 @@ const CreateQuiz = () => {
                   name="description"
                   fullWidth
                   multiline="true"
-                  rows={4}
                   label="Descricao"
                   value={quizData.description}
                   onChange={(e) =>
@@ -83,8 +94,8 @@ const CreateQuiz = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Box border={1}>
-                  <SelectQuestion />
+                <Box>
+                  <SelectTypeQuestion />
                 </Box>
               </Grid>
               <Grid item xs={12}>
@@ -92,10 +103,9 @@ const CreateQuiz = () => {
                   control={
                     <Checkbox
                       name="public"
-                      onChange={(e) => {
-                        setQuizData({ ...quizData, public: e.target.checked });
-                        console.log(e.target.checked);
-                      }}
+                      onChange={(e) =>
+                        setQuizData({ ...quizData, public: e.target.checked })
+                      }
                       color="primary"
                     />
                   }

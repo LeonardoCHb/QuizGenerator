@@ -1,14 +1,9 @@
-import { deepPurple } from "@material-ui/core/colors";
 import { fade, makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   userName: {
     display: "flex",
     alignItems: "center",
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
   },
   profile: {
     display: "flex",
@@ -18,6 +13,9 @@ export default makeStyles((theme) => ({
   heading: {
     color: "inherit",
     textDecoration: "none",
+    marginRight: "3rem",
+    marginLeft: "1rem",
+    textAlign: "center",
   },
   grow: {
     flexGrow: 1,
@@ -60,24 +58,11 @@ export default makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
       width: "20ch",
-    },
-  },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
-    },
-  },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none",
     },
   },
   Menu: {
@@ -93,5 +78,13 @@ export default makeStyles((theme) => ({
   },
   " @media (max-width: 900px)": {
     paddingLeft: 0,
+  },
+  root: {
+    "& > *": {
+      display: "flex",
+      margin: 0,
+      padding: 5,
+      border: 0,
+    },
   },
 }));

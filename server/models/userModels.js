@@ -17,9 +17,7 @@ const userSchema = mongoose.Schema({
     createdAt: {
         type: Date,
         default: new Date()
-    },
+    }
 })
 
-const userModel = mongoose.model('userModel', userSchema)
-
-export default userModel
+export default mongoose.model('userModel', userSchema)

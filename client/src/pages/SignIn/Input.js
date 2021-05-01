@@ -2,6 +2,7 @@ import { TextField, Grid, InputAdornment, IconButton } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import React from "react";
+
 const Input = ({
   name,
   handleChange,

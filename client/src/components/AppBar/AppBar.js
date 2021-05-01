@@ -1,11 +1,7 @@
 // estilização
 import AppBar from "@material-ui/core/AppBar";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import Fade from "@material-ui/core/Fade";
 import InputBase from "@material-ui/core/InputBase";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
@@ -15,9 +11,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
+// componente menu de perfil do usuario (menu a direita da app bar)
+import DropMenu from "./Menu";
 // estilos internos
 import styles from "./styles.js";
-import "./styles.css";
 
 const useStyles = styles;
 
@@ -27,13 +24,7 @@ export default function PrimarySearchAppBar() {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
   const logout = () => {
     dispatch({ type: "LOGOUT" });
     history.push("/");
@@ -54,14 +45,13 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.root}>
         <Toolbar>
           <Typography
             component={Link}
             to="/"
-            className={classes.heading + " " + classes.title}
+            className={classes.heading + " " + classes.userName}
             variant="h6"
-            noWrap
           >
             Quiz Generator
           </Typography>
@@ -80,48 +70,7 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           {user ? (
-            <div className={classes.profile}>
-              {/* <Avatar
-                className={classes.purple}
-                alt={user?.result.name}
-                src={user?.result.imageUrl}
-              >
-                <Avatar
-                  alt="My robohash"
-                  src={`https://robohash.org/${user?.result._id}`}
-                />
-              </Avatar> */}
-              <div>
-                <Button
-                  aria-controls="simple-menu"
-                  aria-haspopup="true"
-                  className={classes.Menu}
-                  onClick={handleClick}
-                >
-                  <Avatar
-                    alt="My robohash"
-                    src={`https://robohash.org/${user?.result._id}`}
-                  />
-                  <Typography className={classes.userName} variant="h6">
-                    {user?.result.name}
-                  </Typography>
-                </Button>
-                <Menu
-                  id="simple-menu"
-                  className={classes.MenuItem}
-                  anchorEl={anchorEl}
-                  keepMounted
-                  variant="outilined"
-                  elevation="1"
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                  TransitionComponent={Fade}
-                >
-                  <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                  <MenuItem onClick={logout}>Sair</MenuItem>
-                </Menu>
-              </div>
-            </div>
+            <DropMenu user={user} Logout={logout} />
           ) : (
             <Button
               component={Link}

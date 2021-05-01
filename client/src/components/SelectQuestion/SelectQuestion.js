@@ -1,6 +1,7 @@
 import { Tooltip } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import { useTheme } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
@@ -12,9 +13,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import SwipeableViews from "react-swipeable-views";
 
-import Checkbox from "../TypeQuestions/Checkbox";
-import Choice from "../TypeQuestions/choice";
-import Text from "../TypeQuestions/Text";
+// import Checkbox from "../TypeQuestions/Checkbox";
+import Choice from "../TypeQuestions/Choice";
+// import Text from "../TypeQuestions/Text";
 import styles from "./styles.js";
 
 const useStyles = styles;
@@ -64,6 +65,9 @@ export default function FloatingActionButtonZoom() {
 
   return (
     <div className={classes.root}>
+      <Typography variant="h5" gutterBottom="true" align="center">
+        Crie suas questões.
+      </Typography>
       <AppBar position="static" color="default">
         <Tabs
           value={value}
@@ -73,9 +77,9 @@ export default function FloatingActionButtonZoom() {
           variant="fullWidth"
           aria-label="action tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="Multipla Escolha" {...a11yProps(0)} />
+          <Tab label="Escolha Unica" {...a11yProps(1)} />
+          <Tab label="Textual" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -84,37 +88,41 @@ export default function FloatingActionButtonZoom() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Choice />
+          CheckBox
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Checkbox />
+          <Choice />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Text />
+          Text
         </TabPanel>
       </SwipeableViews>
 
-      <div className={classes.ButtonsContainer}>
-        <Tooltip
-          title="Criar Questão"
-          placement="top-start"
-          aria-label="Add"
-          arrow
-        >
-          <Fab className={classes.fabGreen} aria-label="add">
-            <AddIcon />
-          </Fab>
-        </Tooltip>
-        <Tooltip
-          title="Deletar Questão"
-          placement="top-start"
-          aria-label="Delete"
-          arrow
-        >
-          <Fab className={classes.fabRed} aria-label="">
-            <ClearIcon />
-          </Fab>
-        </Tooltip>
+      <div className={classes.cardActions}>
+        <Button disableRipple disableTouchRipple>
+          <Tooltip
+            title="Criar Questão"
+            placement="top-start"
+            aria-label="Add"
+            arrow
+          >
+            <Fab className={classes.fabGreen} aria-label="add">
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        </Button>
+        <Button disableRipple disableTouchRipple>
+          <Tooltip
+            title="Deletar Questão"
+            placement="top-start"
+            aria-label="Delete"
+            arrow
+          >
+            <Fab className={classes.fabRed} aria-label="">
+              <ClearIcon />
+            </Fab>
+          </Tooltip>
+        </Button>
       </div>
     </div>
   );
