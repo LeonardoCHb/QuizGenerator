@@ -17,7 +17,7 @@ export default function RadioButtonsGroup() {
     root: {
       "& > *": {
         margin: theme.spacing(1),
-        width: "33rem",
+        width: "48rem",
       },
     },
   }));

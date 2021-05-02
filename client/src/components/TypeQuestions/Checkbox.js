@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "33rem",
+      width: "48rem",
     },
   },
 }));
@@ -38,8 +38,10 @@ export default function CheckboxLabels() {
           variant="outlined"
           multiline="true"
         />
+        <FormLabel component="legend">
+          Obs: Marque as questões gabarito
+        </FormLabel>
       </FormLabel>
-      <FormLabel component="legend">Obs: Marque as questões gabarito</FormLabel>
       <RadioGroup>
         <FormControlLabel
           control={
@@ -53,6 +55,7 @@ export default function CheckboxLabels() {
             <TextField
               className={classes.root}
               id="1"
+              fullWidth
               label="Descrição da opção"
               variant="filled"
               multiline="true"

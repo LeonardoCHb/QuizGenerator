@@ -72,19 +72,21 @@ const CreateQuiz = () => {
               <Grid item xs={12}>
                 <TextField
                   name="title"
+                  className={classes.QuizTitle}
                   required
                   fullWidth
-                  label="Titulo Do Meu Questionario"
+                  label="Titulo do meu Quiz"
                   value={quizData.title}
                   onChange={(e) =>
                     setQuizData({ ...quizData, title: e.target.value })
                   }
-                />
+                ></TextField>
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   name="description"
                   fullWidth
+                  size="small"
                   multiline="true"
                   label="Descricao"
                   value={quizData.description}

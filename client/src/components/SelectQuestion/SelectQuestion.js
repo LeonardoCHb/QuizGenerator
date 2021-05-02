@@ -13,9 +13,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import SwipeableViews from "react-swipeable-views";
 
-// import Checkbox from "../TypeQuestions/Checkbox";
-import Choice from "../TypeQuestions/Choice";
-// import Text from "../TypeQuestions/Text";
+import Checkbox from "../TypeQuestions/Checkbox";
+import Choice from "../TypeQuestions/choice";
+import Text from "../TypeQuestions/Text";
 import styles from "./styles.js";
 
 const useStyles = styles;
@@ -88,13 +88,13 @@ export default function FloatingActionButtonZoom() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          CheckBox
+          <Checkbox />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Choice />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Text
+          <Text />
         </TabPanel>
       </SwipeableViews>
 

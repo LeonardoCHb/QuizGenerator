@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "34rem",
+      width: "48rem",
     },
   },
 }));
@@ -25,8 +25,8 @@ export default function TextLabels() {
           variant="outlined"
           multiline="true"
         />
+        <FormLabel component="legend"> Obs: Escreva a resposta.</FormLabel>
       </FormLabel>
-      <FormLabel component="legend"> Obs: Escreva a resposta.</FormLabel>
       <RadioGroup>
         <TextField
           className={classes.root}
