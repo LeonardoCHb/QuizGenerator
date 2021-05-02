@@ -3,6 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
+import Fade from "@material-ui/core/Fade";
 import { useTheme } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -13,9 +14,9 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 
-// import Checkbox from "../TypeQuestions/Checkbox";
+import Checkbox from "../TypeQuestions/Checkbox";
 import Choice from "../TypeQuestions/Choice";
-// import Text from "../TypeQuestions/Text";
+import Text from "../TypeQuestions/Text";
 import styles from "./styles.js";
 
 const useStyles = styles;
@@ -58,10 +59,11 @@ export default function FloatingActionButtonZoom({
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [question, setQuestion] = useState({ ...initialQuestion });
-
+  const [checked, setChecked] = React.useState(false);
   const handleChange = (event, newValue) => {
     setQuestion({ ...question, typeQuestion: newValue + 1 });
     setValue(newValue);
+    setChecked((prev) => !prev);
   };
 
   const handleChangeIndex = (index) => {
@@ -77,9 +79,8 @@ export default function FloatingActionButtonZoom({
     newQuestion.hasResponse = hasResponse;
     newQuestion.question.options = options;
     newQuestion.question.wording = wording;
-    if (hasResponse) newQuestion.response = response;
+    if (hasResponse !== false) newQuestion.question.response = response;
     setQuestion({ ...newQuestion });
-    console.log(question);
   };
 
   return (
@@ -107,13 +108,15 @@ export default function FloatingActionButtonZoom({
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          CheckBox
+          <Checkbox questionCheckbox={questionChange} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Choice questionChoice={questionChange} />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Text
+          <Fade in={checked}>
+            <Text />
+          </Fade>
         </TabPanel>
       </SwipeableViews>
 

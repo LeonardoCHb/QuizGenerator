@@ -1,4 +1,13 @@
-import { TextField, Typography, Paper, Switch } from "@material-ui/core";
+import {
+  TextField,
+  Typography,
+  Paper,
+  Switch,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 
@@ -28,18 +37,29 @@ export default function RadioButtonsGroup({ questionChoice }) {
   const classes = useStyles();
   const [options, setOptions] = useState(["", "", "", "", ""]);
   const [wording, setWording] = useState(null);
-  const [hasResponse, setHasResponse] = useState(false);
-  // const [response, setResponse] = useState(null);
   const [finalOptions, setFinalOptions] = useState([]);
-  const handleSubmit = () => {};
+  const [hasResponse, setHasResponse] = useState(false);
+  const [response, setResponse] = useState(null);
+  const [finalResponse, setFinalResponse] = useState(null);
+
+  const handleChange = (event) => {
+    const index = event.target.value;
+    if (hasResponse === false) {
+      setResponse(null);
+      setFinalResponse(null);
+      return;
+    }
+    setResponse(index);
+    setFinalResponse(finalOptions.indexOf(options[parseInt(index)]));
+  };
 
   const hasText = (option) => {
     return option.length;
   };
 
   useEffect(() => {
-    questionChoice(wording, finalOptions, hasResponse, null);
-  }, [wording, finalOptions, hasResponse]);
+    questionChoice(wording, finalOptions, hasResponse, finalResponse);
+  }, [wording, finalOptions, hasResponse, finalResponse]);
 
   const handleWording = (newWording) => {
     setWording(newWording);
@@ -52,6 +72,8 @@ export default function RadioButtonsGroup({ questionChoice }) {
 
   const handleHasResponse = () => {
     setHasResponse(!hasResponse);
+    setResponse(null);
+    setFinalResponse(null);
   };
 
   return (
@@ -60,7 +82,6 @@ export default function RadioButtonsGroup({ questionChoice }) {
         autoComplete="off"
         noValidate
         className={`${classes.root} ${classes.form}`}
-        onSubmit={handleSubmit}
       >
         <Typography variant="h6" className={classes.text}>
           Nesse tipo de questão pode ser selecionado apenas uma resposta.
@@ -76,12 +97,9 @@ export default function RadioButtonsGroup({ questionChoice }) {
             handleWording(newWording);
           }}
         />
-        <Typography variant="text" className={classes.text}>
-          Preencha apenas a quantidade de opções que você queira.
-        </Typography>
         <TextField
           name="1"
-          variant="outlined"
+          variant="filled"
           label="Opção 1"
           fullWidth
           multiline
@@ -93,7 +111,7 @@ export default function RadioButtonsGroup({ questionChoice }) {
         />
         <TextField
           name="2"
-          variant="outlined"
+          variant="filled"
           label="Opção 2"
           fullWidth
           multiline
@@ -105,7 +123,7 @@ export default function RadioButtonsGroup({ questionChoice }) {
         />
         <TextField
           name="3"
-          variant="outlined"
+          variant="filled"
           label="Opção 3"
           fullWidth
           multiline
@@ -117,7 +135,7 @@ export default function RadioButtonsGroup({ questionChoice }) {
         />
         <TextField
           name="4"
-          variant="outlined"
+          variant="filled"
           label="Opção 4"
           fullWidth
           multiline
@@ -129,7 +147,7 @@ export default function RadioButtonsGroup({ questionChoice }) {
         />
         <TextField
           name="5"
-          variant="outlined"
+          variant="filled"
           label="Opção 5"
           fullWidth
           multiline
@@ -145,9 +163,52 @@ export default function RadioButtonsGroup({ questionChoice }) {
           name="hasResponse"
           inputProps={{ "aria-label": "secondary checkbox" }}
         />
-        {hasResponse
-          ? "Qual a resposta correta?"
-          : "Marque aqui caso a questão tenha resposta"}
+        {hasResponse ? (
+          <FormControl component="fieldset">
+            <RadioGroup
+              row
+              aria-label="options"
+              name="options"
+              value={response}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value={options[0].length ? "0" : "disabled"}
+                disabled={!options[0].length}
+                control={<Radio color="primary" />}
+                label="Opção 1"
+              />
+              <FormControlLabel
+                value={options[1].length ? "1" : "disabled"}
+                disabled={!options[1].length}
+                control={<Radio color="primary" />}
+                label="Opção 2"
+              />
+              <FormControlLabel
+                value={options[2].length ? "2" : "disabled"}
+                disabled={!options[2].length}
+                control={<Radio color="primary" />}
+                label="Opção 3"
+              />
+              <FormControlLabel
+                value={options[3].length ? "3" : "disabled"}
+                disabled={!options[3].length}
+                control={<Radio color="primary" />}
+                label="Opção 4"
+              />
+              <FormControlLabel
+                value={options[4].length ? "4" : "disabled"}
+                disabled={!options[4].length}
+                control={<Radio color="primary" />}
+                label="Opção 5"
+              />
+            </RadioGroup>
+          </FormControl>
+        ) : (
+          <div>
+            <p>Tem Gabarito?</p>
+          </div>
+        )}
       </form>
     </Paper>
   );

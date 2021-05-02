@@ -76,6 +76,11 @@ const CreateQuiz = () => {
               <Grid item xs={12}>
                 <TextField
                   name="title"
+                  InputProps={{
+                    classes: {
+                      input: classes.resize,
+                    },
+                  }}
                   required
                   fullWidth
                   label="Titulo Do Meu Questionario"
