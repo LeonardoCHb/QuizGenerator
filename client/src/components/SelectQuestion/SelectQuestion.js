@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 
 // import Checkbox from "../TypeQuestions/Checkbox";
@@ -50,17 +50,36 @@ function a11yProps(index) {
   };
 }
 
-export default function FloatingActionButtonZoom() {
+export default function FloatingActionButtonZoom({
+  handleQuestion,
+  initialQuestion,
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const [question, setQuestion] = useState({ ...initialQuestion });
 
   const handleChange = (event, newValue) => {
+    setQuestion({ ...question, typeQuestion: newValue + 1 });
     setValue(newValue);
   };
 
   const handleChangeIndex = (index) => {
     setValue(index);
+  };
+
+  const handleSubmit = () => {
+    console.log(question);
+  };
+
+  const questionChange = (wording, options, hasResponse, response) => {
+    const newQuestion = { ...question };
+    newQuestion.hasResponse = hasResponse;
+    newQuestion.question.options = options;
+    newQuestion.question.wording = wording;
+    if (hasResponse) newQuestion.response = response;
+    setQuestion({ ...newQuestion });
+    console.log(question);
   };
 
   return (
@@ -91,7 +110,7 @@ export default function FloatingActionButtonZoom() {
           CheckBox
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Choice />
+          <Choice questionChoice={questionChange} />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           Text
@@ -99,7 +118,7 @@ export default function FloatingActionButtonZoom() {
       </SwipeableViews>
 
       <div className={classes.cardActions}>
-        <Button disableRipple disableTouchRipple>
+        <Button disableRipple disableTouchRipple onClick={handleSubmit}>
           <Tooltip
             title="Criar Questão"
             placement="top-start"

@@ -22,21 +22,19 @@ const initialQuiz = {
   public: false,
   questions: [],
 };
-/*
-const initialQuestion = {
+
+const questionModel = {
   typeQuestion: null,
-  hasResponse: null,
+  hasResponse: false,
   question: {
-    title: null,
     wording: null,
     options: null,
     response: null,
   },
-}; */
+};
 
 const CreateQuiz = () => {
   const [quizData, setQuizData] = useState(initialQuiz);
-  // const [question, setQuestion] = useState(initialQuestion);
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -48,11 +46,17 @@ const CreateQuiz = () => {
     dispatch(createQuiz({ ...quizData, name: user?.result?.name }));
   };
 
+  const handleQuestion = (question) => {
+    const copyQuestions = quizData.questions;
+
+    setQuizData({ ...quizData, questions: [copyQuestions, question] });
+  };
+
   if (!user?.result?.name) {
     return (
       <Paper className={classes.paper}>
         <Typography variant="h6" align="center">
-          Voce precisa estar logado para criar uma conta.
+          Voce precisa estar logado para criar um questionario.
         </Typography>
       </Paper>
     );
@@ -95,7 +99,10 @@ const CreateQuiz = () => {
               </Grid>
               <Grid item xs={12}>
                 <Box>
-                  <SelectTypeQuestion />
+                  <SelectTypeQuestion
+                    handleQuestion={handleQuestion}
+                    initialQuestion={questionModel}
+                  />
                 </Box>
               </Grid>
               <Grid item xs={12}>
