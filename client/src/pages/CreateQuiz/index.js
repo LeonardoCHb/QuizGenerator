@@ -44,11 +44,13 @@ const CreateQuiz = () => {
     console.log(quizData);
     console.log(user?.result?.name);
     dispatch(createQuiz({ ...quizData, name: user?.result?.name }));
+    setQuizData({ ...initialQuiz });
   };
 
   const handleQuestion = (question) => {
     const copyQuestions = quizData.questions;
-    copyQuestions.push(question);
+    const quest = question;
+    copyQuestions.push(quest);
     setQuizData({ ...quizData, questions: copyQuestions });
   };
 
