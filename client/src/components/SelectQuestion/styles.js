@@ -23,5 +23,7 @@ export default makeStyles((theme) => ({
   },
   root: {
     marginTop: theme.spacing(2),
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
   },
 }));

@@ -2,7 +2,7 @@ import {
   TextField,
   Typography,
   Paper,
-  Switch,
+  Checkbox,
   Radio,
   RadioGroup,
   FormControlLabel,
@@ -68,6 +68,8 @@ export default function RadioButtonsGroup({ questionChoice }) {
   const handleOptions = (newOptions) => {
     setOptions(newOptions);
     setFinalOptions(options.filter(hasText));
+    setResponse(null);
+    setFinalResponse(null);
   };
 
   const handleHasResponse = () => {
@@ -96,6 +98,7 @@ export default function RadioButtonsGroup({ questionChoice }) {
             const newWording = e.target.value;
             handleWording(newWording);
           }}
+          autoFocus
         />
         <TextField
           name="1"
@@ -157,11 +160,18 @@ export default function RadioButtonsGroup({ questionChoice }) {
             handleOptions(copyOptions);
           }}
         />
-        <Switch
-          checked={hasResponse}
-          onChange={handleHasResponse}
-          name="hasResponse"
-          inputProps={{ "aria-label": "secondary checkbox" }}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={hasResponse}
+              onChange={handleHasResponse}
+              name="hasResponse"
+              color="primary"
+              inputProps={{ "aria-label": "secondary checkbox" }}
+            />
+          }
+          label={hasResponse ? "" : "Clique aqui para adicionar resposta."}
+          labelPlacement="end"
         />
         {hasResponse ? (
           <FormControl component="fieldset">
@@ -205,9 +215,7 @@ export default function RadioButtonsGroup({ questionChoice }) {
             </RadioGroup>
           </FormControl>
         ) : (
-          <div>
-            <p>Tem Gabarito?</p>
-          </div>
+          ""
         )}
       </form>
     </Paper>

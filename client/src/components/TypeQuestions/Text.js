@@ -1,40 +1,100 @@
-import { RadioGroup } from "@material-ui/core";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormLabel from "@material-ui/core/FormLabel";
+import {
+  Checkbox,
+  Paper,
+  TextField,
+  Typography,
+  FormControlLabel,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: "50rem",
     },
   },
+  paper: {
+    padding: theme.spacing(2),
+  },
+  text: {
+    marginLeft: "0.5rem",
+  },
 }));
-export default function TextLabels() {
+
+export default ({ questionText }) => {
+  const [wording, setWording] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [hasResponse, setHasResponse] = useState(false);
   const classes = useStyles();
+
+  useEffect(() => {
+    questionText(wording, null, hasResponse, response);
+  }, [wording, response, hasResponse]);
+
+  const switchMode = () => {
+    setHasResponse(!hasResponse);
+    setResponse(null);
+  };
+
+  const handleWording = (e) => {
+    setWording(e.target.value);
+  };
+
+  const handleResponse = (e) => {
+    setResponse(e.target.value);
+  };
+
   return (
-    <FormGroup row>
-      <FormLabel component="legend">
+    <Paper className={classes.paper} elevation={3}>
+      <form
+        autoComplete="off"
+        noValidate
+        className={`${classes.root} ${classes.form}`}
+      >
+        <Typography variant="h6" className={classes.text}>
+          Nesse tipo de questão as respostas são em formato de texto.
+        </Typography>
         <TextField
-          className={classes.root}
           name="wording"
-          id="text"
-          label="Descreva a Questão"
+          onChange={handleWording}
           variant="outlined"
-          multiline="true"
+          required
+          fullWidth
+          label="Enunciado"
+          autoFocus
         />
-        <FormLabel component="legend"> Obs: Escreva a resposta.</FormLabel>
-      </FormLabel>
-      <RadioGroup>
-        <TextField
-          className={classes.root}
-          id="1"
-          label="Resposta"
-          multiline="true"
+        {hasResponse ? (
+          <TextField
+            name="response"
+            onChange={handleResponse}
+            variant="outlined"
+            required
+            fullWidth
+            label="Resposta"
+            autoFocus
+          />
+        ) : (
+          ""
+        )}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={hasResponse}
+              onChange={switchMode}
+              name="hasResponse"
+              color="primary"
+              inputProps={{ "aria-label": "secondary checkbox" }}
+            />
+          }
+          label={
+            hasResponse
+              ? "Escreva sua resposta."
+              : "Clique aqui para adicionar resposta."
+          }
+          labelPlacement="end"
         />
-      </RadioGroup>
-    </FormGroup>
+      </form>
+    </Paper>
   );
-}
+};

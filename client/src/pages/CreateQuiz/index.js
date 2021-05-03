@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { createQuiz } from "../../actions/quiz";
-import SelectTypeQuestion from "../../components/SelectQuestion/SelectQuestion";
+import SwipeQuestions from "../../components/SelectQuestion/SwipeQuestions.js";
 import styles from "./styles.js";
 
 const useStyles = styles;
@@ -24,7 +24,7 @@ const initialQuiz = {
 };
 
 const questionModel = {
-  typeQuestion: null,
+  typeQuestion: 1,
   hasResponse: false,
   question: {
     wording: null,
@@ -48,8 +48,8 @@ const CreateQuiz = () => {
 
   const handleQuestion = (question) => {
     const copyQuestions = quizData.questions;
-
-    setQuizData({ ...quizData, questions: [copyQuestions, question] });
+    copyQuestions.push(question);
+    setQuizData({ ...quizData, questions: copyQuestions });
   };
 
   if (!user?.result?.name) {
@@ -104,7 +104,7 @@ const CreateQuiz = () => {
               </Grid>
               <Grid item xs={12}>
                 <Box>
-                  <SelectTypeQuestion
+                  <SwipeQuestions
                     handleQuestion={handleQuestion}
                     initialQuestion={questionModel}
                   />

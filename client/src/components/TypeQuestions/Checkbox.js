@@ -2,13 +2,11 @@ import {
   TextField,
   Typography,
   Paper,
-  Switch,
   Checkbox,
-  RadioGroup,
+  FormGroup,
   FormControlLabel,
   FormControl,
 } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 
@@ -32,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
   text: {
     marginLeft: "0.5rem",
   },
-  SwitchGreen: {
-    color: theme.palette.common.white,
-    backgroundColor: green.A400,
-  },
 }));
 
 export default function CheckboxLabels({ questionCheckbox }) {
@@ -44,38 +38,21 @@ export default function CheckboxLabels({ questionCheckbox }) {
   const [wording, setWording] = useState(null);
   const [finalOptions, setFinalOptions] = useState([]);
   const [hasResponse, setHasResponse] = useState(false);
-  const [response, setResponse] = useState({
-    0: null,
-    1: null,
-    2: null,
-    3: null,
-    4: null,
+  const [responses, setResponses] = useState({
+    box0: null,
+    box1: null,
+    box2: null,
+    box3: null,
+    box4: null,
   });
-  const [finalResponse, setFinalResponse] = useState({
-    0: null,
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-  });
-
-  const handleChange = (responses) => {
-    if (hasResponse === false) {
-      setResponse({ 0: null, 1: null, 2: null, 3: null, 4: null });
-      setFinalResponse({ 0: null, 1: null, 2: null, 3: null, 4: null });
-      return;
-    }
-    setResponse(responses);
-    setFinalResponse(responses);
-  };
 
   const hasText = (option) => {
     return option.length;
   };
 
   useEffect(() => {
-    questionCheckbox(wording, finalOptions, hasResponse, finalResponse);
-  }, [wording, finalOptions, hasResponse, finalResponse]);
+    questionCheckbox(wording, finalOptions, hasResponse, responses);
+  }, [wording, finalOptions, hasResponse, responses]);
 
   const handleWording = (newWording) => {
     setWording(newWording);
@@ -84,12 +61,27 @@ export default function CheckboxLabels({ questionCheckbox }) {
   const handleOptions = (newOptions) => {
     setOptions(newOptions);
     setFinalOptions(options.filter(hasText));
+
+    const auxResponses = { ...responses };
+    options.forEach((option, index) => {
+      if (hasText(option)) auxResponses[`box${index}`] = false;
+      else auxResponses[`box${index}`] = null;
+    });
+    setResponses({ ...auxResponses });
   };
 
   const handleHasResponse = () => {
     setHasResponse(!hasResponse);
-    setResponse({ 0: null, 1: null, 2: null, 3: null, 4: null });
-    setFinalResponse({ 0: null, 1: null, 2: null, 3: null, 4: null });
+    const auxResponses = { ...responses };
+    options.forEach((option, index) => {
+      if (hasText(option)) auxResponses[`box${index}`] = false;
+      else auxResponses[`box${index}`] = null;
+    });
+    setResponses({ ...auxResponses });
+  };
+
+  const handleResponses = (e) => {
+    setResponses({ ...responses, [e.target.name]: e.target.checked });
   };
 
   return (
@@ -112,6 +104,7 @@ export default function CheckboxLabels({ questionCheckbox }) {
             const newWording = e.target.value;
             handleWording(newWording);
           }}
+          autoFocus
         />
         <TextField
           name="1"
@@ -173,58 +166,91 @@ export default function CheckboxLabels({ questionCheckbox }) {
             handleOptions(copyOptions);
           }}
         />
-        <Switch
-          checked={hasResponse}
-          onChange={handleHasResponse}
-          name="hasResponse"
-          className={classes.SwitchGreen}
-          inputProps={{ "aria-label": "secondary checkbox" }}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={hasResponse}
+              onChange={handleHasResponse}
+              name="hasResponse"
+              color="primary"
+              inputProps={{ "aria-label": "secondary checkbox" }}
+            />
+          }
+          label={hasResponse ? "" : "Clique aqui para adicionar resposta."}
+          labelPlacement="end"
         />
         {hasResponse ? (
           <FormControl component="fieldset">
-            <RadioGroup
-              row
-              aria-label="options"
-              name="options"
-              value={response}
-              onChange={handleChange}
-            >
+            <FormGroup row>
               <FormControlLabel
                 value={options[0].length ? "0" : "disabled"}
                 disabled={!options[0].length}
-                control={<Checkbox name="0" color="primary" />}
+                control={
+                  <Checkbox
+                    checked={responses.box0}
+                    name="box0"
+                    color="primary"
+                    onChange={handleResponses}
+                  />
+                }
                 label="Opção 1"
               />
               <FormControlLabel
                 value={options[1].length ? "1" : "disabled"}
                 disabled={!options[1].length}
-                control={<Checkbox name="1" color="primary" />}
+                control={
+                  <Checkbox
+                    checked={responses.box1}
+                    name="box1"
+                    color="primary"
+                    onChange={handleResponses}
+                  />
+                }
                 label="Opção 2"
               />
               <FormControlLabel
                 value={options[2].length ? "2" : "disabled"}
                 disabled={!options[2].length}
-                control={<Checkbox name="2" color="primary" />}
+                control={
+                  <Checkbox
+                    checked={responses.box2}
+                    name="box2"
+                    color="primary"
+                    onChange={handleResponses}
+                  />
+                }
                 label="Opção 3"
               />
               <FormControlLabel
-                value={options[3].length ? "3" : "disabled"}
                 disabled={!options[3].length}
-                control={<Checkbox name="3" color="primary" />}
+                value={options[3].length ? "3" : "disabled"}
+                control={
+                  <Checkbox
+                    checked={responses.box3}
+                    name="box3"
+                    color="primary"
+                    onChange={handleResponses}
+                  />
+                }
                 label="Opção 4"
               />
               <FormControlLabel
                 value={options[4].length ? "4" : "disabled"}
                 disabled={!options[4].length}
-                control={<Checkbox name="4" color="primary" />}
+                control={
+                  <Checkbox
+                    checked={responses.box4}
+                    name="box4"
+                    color="primary"
+                    onChange={handleResponses}
+                  />
+                }
                 label="Opção 5"
               />
-            </RadioGroup>
+            </FormGroup>
           </FormControl>
         ) : (
-          <div>
-            <p>Tem Gabarito?</p>
-          </div>
+          ""
         )}
       </form>
     </Paper>
