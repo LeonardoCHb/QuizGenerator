@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 import Checkbox from "../TypeQuestions/Checkbox.js";
-import Choice from "../TypeQuestions/choice.js";
+import Choice from "../TypeQuestions/Choice.js";
 import Text from "../TypeQuestions/Text.js";
 import styles from "./styles.js";
 
@@ -72,14 +72,14 @@ const initialQuestion = {
   typeQuestion: null,
 };
 
-export default function NavTabs({ handleQuestion }) {
+export default function ({ handleQuestion }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [question, setQuestion] = useState({ ...initialQuestion });
   const [list, setList] = useState({});
+  const [erase, eraseQuestionForm] = useState(false);
 
   const handleChange = (event, newValue) => {
-    setQuestion({ ...question, typeQuestion: newValue + 1 });
     setValue(newValue);
   };
 
@@ -100,14 +100,23 @@ export default function NavTabs({ handleQuestion }) {
     const objetoVazio = {};
     objetoVazio[`question${key}`] = { ...newQuestion };
     setList({ ...list, ...objetoVazio });
+    setQuestion({ ...initialQuestion });
+    eraseQuestionForm(true);
   };
 
-  const questionChange = (wording, options, hasResponse, response) => {
+  const questionChange = (
+    wording,
+    options,
+    hasResponse,
+    response,
+    typeQuestion
+  ) => {
     const newQuestion = { ...question };
     newQuestion.hasResponse = hasResponse;
     newQuestion.options = options;
     newQuestion.wording = wording;
     newQuestion.response = response;
+    newQuestion.typeQuestion = typeQuestion;
     setQuestion({ ...newQuestion });
   };
 
@@ -120,23 +129,31 @@ export default function NavTabs({ handleQuestion }) {
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab
-            label="Multipla Escolha"
-            href="/checkbox"
-            {...a11yProps(0)}
-          />
-          <LinkTab label="Escolha Unica" href="/choice" {...a11yProps(1)} />
-          <LinkTab label="Textual" href="/text" {...a11yProps(2)} />
+          <LinkTab label="Multipla Escolha" {...a11yProps(0)} />
+          <LinkTab label="Escolha Unica" {...a11yProps(1)} />
+          <LinkTab label="Textual" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Checkbox questionCheckbox={questionChange} />
+        <Checkbox
+          questionCheckbox={questionChange}
+          erase={erase}
+          eraseQuestionForm={eraseQuestionForm}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Choice questionChoice={questionChange} />
+        <Choice
+          questionChoice={questionChange}
+          erase={erase}
+          eraseQuestionForm={eraseQuestionForm}
+        />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Text questionText={questionChange} />
+        <Text
+          questionText={questionChange}
+          erase={erase}
+          eraseQuestionForm={eraseQuestionForm}
+        />
       </TabPanel>
       <div className={classes.cardActions}>
         <Button disableRipple disableTouchRipple onClick={handleSubmit}>

@@ -38,10 +38,8 @@ const CreateQuiz = () => {
   };
 
   const handleQuestion = (currentQuestions) => {
-    console.log(currentQuestions);
     setQuizData({ ...quizData, questions: currentQuestions });
   };
-  console.log(quizData);
 
   if (!user?.result?.name) {
     return (
@@ -54,78 +52,71 @@ const CreateQuiz = () => {
   }
 
   return (
-    <Container component="main" maxWidth="md">
-      <Paper>
-        <div className={classes.paper}>
-          <form
-            autoComplete="off"
-            className={classes.form}
-            noValidate
-            onSubmit={handleSubmit}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  name="title"
-                  InputProps={{
-                    classes: {
-                      input: classes.resize,
-                    },
-                  }}
-                  required
-                  fullWidth
-                  label="Titulo Do Meu Questionario"
-                  value={quizData.title}
-                  onChange={(e) =>
-                    setQuizData({ ...quizData, title: e.target.value })
-                  }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="description"
-                  fullWidth
-                  multiline="true"
-                  label="Descricao"
-                  value={quizData.description}
-                  onChange={(e) =>
-                    setQuizData({ ...quizData, description: e.target.value })
-                  }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Box>
-                  <SwipeQuestions handleQuestion={handleQuestion} />
-                </Box>
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="public"
-                      onChange={(e) =>
-                        setQuizData({ ...quizData, public: e.target.checked })
-                      }
-                      color="primary"
-                    />
-                  }
-                  label="Quero que este questionário seja visível para pessoas anonimas(que não possuem conta neste site)."
-                />
-              </Grid>
+    <form onSubmit={handleSubmit}>
+      <Container component="main" maxWidth="md">
+        <Paper className={`${classes.paper} ${classes.form}`}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                name="title"
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
+                required
+                fullWidth
+                label="Titulo do meu questionario"
+                value={quizData.title}
+                onChange={(e) =>
+                  setQuizData({ ...quizData, title: e.target.value })
+                }
+              />
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              CRIAR
-            </Button>
-          </form>
-        </div>
-      </Paper>
-    </Container>
+            <Grid item xs={12}>
+              <TextField
+                name="description"
+                fullWidth
+                required
+                label="Descricao"
+                value={quizData.description}
+                onChange={(e) =>
+                  setQuizData({ ...quizData, description: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Box>
+                <SwipeQuestions handleQuestion={handleQuestion} />
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="public"
+                    onChange={(e) =>
+                      setQuizData({ ...quizData, public: e.target.checked })
+                    }
+                    color="primary"
+                  />
+                }
+                label="Quero que este questionário seja visível para pessoas anonimas(que não possuem conta neste site)."
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            CRIAR
+          </Button>
+        </Paper>
+      </Container>
+    </form>
   );
 };
 

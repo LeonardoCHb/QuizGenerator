@@ -22,19 +22,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ questionText }) => {
-  const [wording, setWording] = useState(null);
-  const [response, setResponse] = useState(null);
+export default ({ questionText, erase, eraseQuestionForm }) => {
+  const [wording, setWording] = useState("");
+  const [response, setResponse] = useState("");
   const [hasResponse, setHasResponse] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
-    questionText(wording, null, hasResponse, response);
+    questionText(wording, null, hasResponse, response, 3);
   }, [wording, response, hasResponse]);
+
+  useEffect(() => {
+    if (erase) {
+      setWording("");
+      setHasResponse(false);
+      setResponse("");
+      eraseQuestionForm(false);
+    }
+  }, [erase]);
 
   const switchMode = () => {
     setHasResponse(!hasResponse);
-    setResponse(null);
+    setResponse("");
   };
 
   const handleWording = (e) => {
@@ -46,55 +55,52 @@ export default ({ questionText }) => {
   };
 
   return (
-    <Paper className={classes.paper} elevation={3}>
-      <form
-        autoComplete="off"
-        noValidate
-        className={`${classes.root} ${classes.form}`}
-      >
-        <Typography variant="h6" className={classes.text}>
-          Nesse tipo de questão as respostas são em formato de texto.
-        </Typography>
+    <Paper
+      className={`${classes.paper} ${classes.root} ${classes.form}`}
+      elevation={3}
+    >
+      <Typography variant="h6" className={classes.text}>
+        Nesse tipo de questão as respostas são em formato de texto.
+      </Typography>
+      <TextField
+        value={wording}
+        name="wording"
+        onChange={handleWording}
+        variant="outlined"
+        fullWidth
+        label="Enunciado"
+        autoFocus
+      />
+      {hasResponse ? (
         <TextField
-          name="wording"
-          onChange={handleWording}
-          variant="outlined"
-          required
+          value={response}
+          name="response"
+          onChange={handleResponse}
+          variant="filled"
           fullWidth
-          label="Enunciado"
+          label="Resposta"
           autoFocus
         />
-        {hasResponse ? (
-          <TextField
-            name="response"
-            onChange={handleResponse}
-            variant="outlined"
-            required
-            fullWidth
-            label="Resposta"
-            autoFocus
+      ) : (
+        ""
+      )}
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={hasResponse}
+            onChange={switchMode}
+            name="hasResponse"
+            color="primary"
+            inputProps={{ "aria-label": "secondary checkbox" }}
           />
-        ) : (
-          ""
-        )}
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={hasResponse}
-              onChange={switchMode}
-              name="hasResponse"
-              color="primary"
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-          }
-          label={
-            hasResponse
-              ? "Escreva sua resposta."
-              : "Clique aqui para adicionar resposta."
-          }
-          labelPlacement="end"
-        />
-      </form>
+        }
+        label={
+          hasResponse
+            ? "Escreva sua resposta."
+            : "Clique aqui para adicionar resposta."
+        }
+        labelPlacement="end"
+      />
     </Paper>
   );
 };
