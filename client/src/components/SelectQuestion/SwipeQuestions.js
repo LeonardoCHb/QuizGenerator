@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -9,10 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Checkbox from "../TypeQuestions/Checkbox.js";
-import Choice from "../TypeQuestions/Choice.js";
+import Choice from "../TypeQuestions/choice.js";
 import Text from "../TypeQuestions/Text.js";
 import styles from "./styles.js";
 
@@ -63,28 +64,50 @@ function LinkTab(props) {
 
 const useStyles = styles;
 
-export default function NavTabs({ handleQuestion, initialQuestion }) {
+const initialQuestion = {
+  hasResponse: null,
+  options: null,
+  wording: null,
+  response: null,
+  typeQuestion: null,
+};
+
+export default function NavTabs({ handleQuestion }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [question, setQuestion] = useState({ ...initialQuestion });
+  const [list, setList] = useState({});
 
   const handleChange = (event, newValue) => {
     setQuestion({ ...question, typeQuestion: newValue + 1 });
     setValue(newValue);
   };
 
-  const [question, setQuestion] = useState({ ...initialQuestion });
+  const sendQuestions = async () => {
+    await handleQuestion(list);
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleQuestion(question);
+  useEffect(sendQuestions, [list]);
+
+  const handleSubmit = () => {
+    const newQuestion = {};
+    const key = Object.keys(list).length;
+    newQuestion.hasResponse = question.hasResponse;
+    newQuestion.options = question.options;
+    newQuestion.wording = question.wording;
+    newQuestion.response = question.response;
+    newQuestion.typeQuestion = question.typeQuestion;
+    const objetoVazio = {};
+    objetoVazio[`question${key}`] = { ...newQuestion };
+    setList({ ...list, ...objetoVazio });
   };
 
   const questionChange = (wording, options, hasResponse, response) => {
     const newQuestion = { ...question };
     newQuestion.hasResponse = hasResponse;
-    newQuestion.question.options = options;
-    newQuestion.question.wording = wording;
-    newQuestion.question.response = response;
+    newQuestion.options = options;
+    newQuestion.wording = wording;
+    newQuestion.response = response;
     setQuestion({ ...newQuestion });
   };
 

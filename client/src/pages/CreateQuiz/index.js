@@ -20,17 +20,7 @@ const initialQuiz = {
   title: "",
   description: "",
   public: false,
-  questions: [],
-};
-
-const questionModel = {
-  typeQuestion: 1,
-  hasResponse: false,
-  question: {
-    wording: null,
-    options: null,
-    response: null,
-  },
+  questions: {},
 };
 
 const CreateQuiz = () => {
@@ -47,12 +37,11 @@ const CreateQuiz = () => {
     setQuizData({ ...initialQuiz });
   };
 
-  const handleQuestion = (question) => {
-    const copyQuestions = quizData.questions;
-    const quest = question;
-    copyQuestions.push(quest);
-    setQuizData({ ...quizData, questions: copyQuestions });
+  const handleQuestion = (currentQuestions) => {
+    console.log(currentQuestions);
+    setQuizData({ ...quizData, questions: currentQuestions });
   };
+  console.log(quizData);
 
   if (!user?.result?.name) {
     return (
@@ -106,10 +95,7 @@ const CreateQuiz = () => {
               </Grid>
               <Grid item xs={12}>
                 <Box>
-                  <SwipeQuestions
-                    handleQuestion={handleQuestion}
-                    initialQuestion={questionModel}
-                  />
+                  <SwipeQuestions handleQuestion={handleQuestion} />
                 </Box>
               </Grid>
               <Grid item xs={12}>
