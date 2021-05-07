@@ -27,7 +27,7 @@ export default function PrimarySearchAppBar() {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
-    history.push("/");
+    history.go(0);
     setUser(null);
   };
 

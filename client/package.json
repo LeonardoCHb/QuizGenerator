@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.1",
     "pagarme": "^4.16.0",
     "prettier": "^2.2.1",
     "react": "^17.0.2",

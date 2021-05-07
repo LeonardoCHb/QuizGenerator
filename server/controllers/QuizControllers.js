@@ -1,25 +1,40 @@
 // import  mongoose  from "mongoose"
 import quizModel from "../models/quizModels.js"
+import ResponseModel from "../models/responseModels.js"
 
-// Acha um usuario
 export const findQuiz = async (req, res) => {
-    const {creator} = req.body
-    console.log({ creator })
+    const { id } = req.params;
+    console.log({ id })
 
     try {
-        const userQuizzes = await quizModel.find({creator}).exec()
-        console.log(userQuizzes)
-        res.status(200).json(userQuizzes)
+        const quiz = await quizModel.find({ _id: id}).exec()
+        console.log(quiz)
+        res.status(200).json(quiz)
     } catch(error) {
-        res.status(404).json({ERRO: 'Esse usuario nao existe!'})
+        res.status(404).json({ERRO: 'Esse questionario nao existe.'})
     }
 
 }
-export const getQuiz = async (req, res) => {
+
+export const replyQuiz = async (req, res) => {
+    const ResponseData = req.body
+   
+    const newResponse = new ResponseModel({...ResponseData, createdAt: new Date().toISOString() })
+    console.log(newResponse)
+
     try {
-        const Quizs = await quizModel.find().exec()
-        console.log(Quizs)
-        res.status(200).json(Quizs)
+        await newResponse.save()
+        res.status(201).json(newResponse)
+    } catch (error) {
+        res.status(409).json({message: error.message})
+    }
+}
+
+export const findAllQuizzes = async (req, res) => {
+    try {
+        const Quizzes = await quizModel.find().exec()
+        console.log(Quizzes)
+        res.status(200).json(Quizzes)
     } catch(error) {
         res.status(404).json({ERRO: 'Esse usuario nao existe!'})
     }
