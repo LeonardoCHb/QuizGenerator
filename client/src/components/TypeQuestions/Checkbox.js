@@ -32,7 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ questionCheckbox, erase, eraseQuestionForm }) {
+export default function ({
+  questionCheckbox,
+  erase,
+  eraseQuestionForm,
+  editing,
+}) {
   const classes = useStyles();
   const [options, setOptions] = useState(["", "", "", "", ""]);
   const [wording, setWording] = useState("");
@@ -45,15 +50,35 @@ export default function ({ questionCheckbox, erase, eraseQuestionForm }) {
     box3: null,
     box4: null,
   });
+  const [finalResponses, setFinalResponses] = useState(null);
 
+  // array com as respostas finais
+  const handleFinalResponses = () => {
+    const auxResponses = [];
+    for (const response in responses) {
+      if (responses[response] !== null) {
+        auxResponses.push(responses[response]);
+      }
+    }
+    setFinalResponses(auxResponses);
+  };
+  // editar questao do tipo 1
+  useEffect(() => {
+    if (editing === true) {
+      console.log("no");
+    }
+  }, [editing]);
+  // resposta final
+  useEffect(handleFinalResponses, [responses]);
+  // verifica se há texto na caixa
   const hasText = (option) => {
     return option.length;
   };
-
+  // envia a questão com formato checkbox para a questão
   useEffect(() => {
-    questionCheckbox(wording, finalOptions, hasResponse, responses, 1);
-  }, [wording, finalOptions, hasResponse, responses]);
-
+    questionCheckbox(wording, finalOptions, hasResponse, finalResponses, 1);
+  }, [wording, finalOptions, hasResponse, finalResponses]);
+  // apaga os campos do formulario de questão apos ser enviada
   useEffect(() => {
     if (erase) {
       setWording("");
@@ -67,14 +92,14 @@ export default function ({ questionCheckbox, erase, eraseQuestionForm }) {
         box3: null,
         box4: null,
       });
-      eraseQuestionForm(false);
+      eraseQuestionForm();
     }
   }, [erase]);
-
+  // titulo
   const handleWording = (newWording) => {
     setWording(newWording);
   };
-
+  // opcoes
   const handleOptions = (newOptions) => {
     setOptions(newOptions);
     setFinalOptions(options.filter(hasText));
@@ -86,7 +111,7 @@ export default function ({ questionCheckbox, erase, eraseQuestionForm }) {
     });
     setResponses({ ...auxResponses });
   };
-
+  // se tem resposta
   const handleHasResponse = () => {
     setHasResponse(!hasResponse);
     const auxResponses = { ...responses };
@@ -96,7 +121,7 @@ export default function ({ questionCheckbox, erase, eraseQuestionForm }) {
     });
     setResponses({ ...auxResponses });
   };
-
+  // respostas
   const handleResponses = (e) => {
     setResponses({ ...responses, [e.target.name]: e.target.checked });
   };

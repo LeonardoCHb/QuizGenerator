@@ -22,7 +22,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ questionText, erase, eraseQuestionForm }) => {
+export default ({
+  questionText,
+  erase,
+  eraseQuestionForm,
+  editingTextQuestion,
+  editing,
+}) => {
   const [wording, setWording] = useState("");
   const [response, setResponse] = useState("");
   const [hasResponse, setHasResponse] = useState(false);
@@ -37,7 +43,7 @@ export default ({ questionText, erase, eraseQuestionForm }) => {
       setWording("");
       setHasResponse(false);
       setResponse("");
-      eraseQuestionForm(false);
+      eraseQuestionForm();
     }
   }, [erase]);
 

@@ -33,7 +33,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ questionChoice, erase, eraseQuestionForm }) {
+export default function ({
+  questionChoice,
+  erase,
+  eraseQuestionForm,
+  editingChoiceQuestion,
+  editing,
+}) {
   const classes = useStyles();
   const [options, setOptions] = useState(["", "", "", "", ""]);
   const [wording, setWording] = useState("");
@@ -69,7 +75,7 @@ export default function ({ questionChoice, erase, eraseQuestionForm }) {
       setHasResponse(false);
       setResponse(null);
       setFinalResponse(null);
-      eraseQuestionForm(false);
+      eraseQuestionForm();
     }
   }, [erase]);
   const handleWording = (newWording) => {

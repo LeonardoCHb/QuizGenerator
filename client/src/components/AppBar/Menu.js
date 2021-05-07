@@ -9,10 +9,11 @@ import Popper from "@material-ui/core/Popper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   userName: {
-    color: "white",
+    color: "Black",
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuListComposition({ user, Logout }) {
+export default function MenuListComposition({ user, Logout, Profile }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -127,7 +128,11 @@ export default function MenuListComposition({ user, Logout }) {
                     id="menu-list-grow"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem className={classes.menu} onClick={handleClose}>
+                    <MenuItem
+                      className={classes.menu}
+                      component={Link}
+                      to="/profile"
+                    >
                       Perfil
                     </MenuItem>
                     <MenuItem

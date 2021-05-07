@@ -85,6 +85,8 @@ export default makeStyles((theme) => ({
       margin: 0,
       padding: 5,
       border: 0,
+      background: "transparent",
+      boxShadow: "none",
     },
   },
 }));

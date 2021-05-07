@@ -9,6 +9,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
+import Pagination from "@material-ui/lab/Pagination";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
@@ -77,18 +78,25 @@ export default function ({ handleQuestion }) {
   const [value, setValue] = React.useState(0);
   const [question, setQuestion] = useState({ ...initialQuestion });
   const [list, setList] = useState({});
-  const [erase, eraseQuestionForm] = useState(false);
+  const [erase, setErase] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [questionToEdit, setQuestionToEdit] = useState(null);
 
+  // Tipo de questão atual sendo feita
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  // Envia questões para o quiz sendo criado
   const sendQuestions = async () => {
     await handleQuestion(list);
   };
-
+  // Chama a função de enviar questões para o componente quiz a cada modificação
   useEffect(sendQuestions, [list]);
-
+  // Apaga formulario de questão após enviada para a lista de questões
+  const eraseQuestionForm = () => {
+    setErase(!erase);
+  };
+  // Envia questão para a lista de questões
   const handleSubmit = () => {
     const newQuestion = {};
     const key = Object.keys(list).length;
@@ -97,13 +105,13 @@ export default function ({ handleQuestion }) {
     newQuestion.wording = question.wording;
     newQuestion.response = question.response;
     newQuestion.typeQuestion = question.typeQuestion;
-    const objetoVazio = {};
-    objetoVazio[`question${key}`] = { ...newQuestion };
-    setList({ ...list, ...objetoVazio });
+    const newQuestionObject = {};
+    newQuestionObject[`question${key}`] = { ...newQuestion };
+    setList({ ...list, ...newQuestionObject });
     setQuestion({ ...initialQuestion });
-    eraseQuestionForm(true);
+    eraseQuestionForm();
   };
-
+  // Questão atual que está sendo preenchida
   const questionChange = (
     wording,
     options,
@@ -118,6 +126,30 @@ export default function ({ handleQuestion }) {
     newQuestion.response = response;
     newQuestion.typeQuestion = typeQuestion;
     setQuestion({ ...newQuestion });
+  };
+  // Ativa modo de edição da questão
+  const editingQuestion = (questionToEdit) => {
+    setEditing(!editing);
+    setQuestionToEdit(questionToEdit);
+  };
+  // Aba que recebe a questão que vai ser editada
+  const currentQuestion = (event, index) => {
+    const questionToEdit = { ...list[`question${index - 1}`] };
+    switch (questionToEdit.typeQuestion) {
+      case 1:
+        setValue(0);
+        break;
+      case 2:
+        setValue(1);
+        break;
+      case 3:
+        setValue(2);
+        break;
+      default:
+        console.log("não é a questão 1, 2 ou 3.");
+        break;
+    }
+    editingQuestion(questionToEdit);
   };
 
   return (
@@ -139,6 +171,7 @@ export default function ({ handleQuestion }) {
           questionCheckbox={questionChange}
           erase={erase}
           eraseQuestionForm={eraseQuestionForm}
+          editing={editing}
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -146,6 +179,7 @@ export default function ({ handleQuestion }) {
           questionChoice={questionChange}
           erase={erase}
           eraseQuestionForm={eraseQuestionForm}
+          editing={editing}
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
@@ -153,6 +187,7 @@ export default function ({ handleQuestion }) {
           questionText={questionChange}
           erase={erase}
           eraseQuestionForm={eraseQuestionForm}
+          editing={editing}
         />
       </TabPanel>
       <div className={classes.cardActions}>
@@ -168,6 +203,12 @@ export default function ({ handleQuestion }) {
             </Fab>
           </Tooltip>
         </Button>
+        <Pagination
+          count={Object.keys(list).length}
+          hidePrevButton
+          hideNextButton
+          onChange={currentQuestion}
+        />
         <Button disableRipple disableTouchRipple>
           <Tooltip
             title="Deletar Questão"

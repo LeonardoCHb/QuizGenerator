@@ -45,7 +45,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" className={classes.root}>
+      <AppBar color="transparent" position="static" className={classes.root}>
         <Toolbar>
           <Typography
             component={Link}

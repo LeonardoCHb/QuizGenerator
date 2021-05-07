@@ -12,6 +12,7 @@ API.interceptors.request.use((req) => {
 });
 
 export const createQuiz = (newQuiz) => API.post("/quiz/create", newQuiz);
+export const findAllQuiz = () => API.get("/quiz/findAll");
 
 export const signIn = (formData) => API.post("/auth/signin", formData);
 export const signUp = (formData) => API.post("/auth/signup", formData);

@@ -1,36 +1,35 @@
-//import  mongoose  from "mongoose"
+// import  mongoose  from "mongoose"
 import quizModel from "../models/quizModels.js"
 
 // Acha um usuario
-/* export const findQuiz = async (req, res) => {
-    const loginData = req.body
-    const email = loginData.email
-    console.log(email)
+export const findQuiz = async (req, res) => {
+    const {creator} = req.body
+    console.log({ creator })
 
     try {
-        const quizModel = await quizModel.findOne({email}).exec()
-        res.status(200).json(quizModel)
+        const userQuizzes = await quizModel.find({creator}).exec()
+        console.log(userQuizzes)
+        res.status(200).json(userQuizzes)
+    } catch(error) {
+        res.status(404).json({ERRO: 'Esse usuario nao existe!'})
+    }
+
+}
+export const getQuiz = async (req, res) => {
+    try {
+        const Quizs = await quizModel.find().exec()
+        console.log(Quizs)
+        res.status(200).json(Quizs)
     } catch(error) {
         res.status(404).json({ERRO: 'Esse usuario nao existe!'})
     }
 
 }
 
-export const getQuizs = async (req, res) => {
-    try {
-        const quizModel = await quizModel.find()
-        //console.log(quizModel)
-        res.status(200).json(quizModel)
-    } catch(error) {
-        res.status(404).json({ERRO: 'Esse usuario nao existe!'})
-    }
-
-} */
-
 export const createQuiz = async (req, res) => {
     const QuizData = req.body
    
-    const newQuiz = new quizModel({...QuizData, creator: req.userId, createdAt: new Date().toISOString() })
+    const newQuiz = new quizModel({...QuizData, name: req.userId, createdAt: new Date().toISOString() })
     console.log(newQuiz)
     try {
         await newQuiz.save()
@@ -45,7 +44,7 @@ export const createQuiz = async (req, res) => {
 /* export const updateQuiz = async (req, res) => {
     const {id} = req.params
 
-    const { Quizname, email, password} = req.body
+    const { Quizname, name, password} = req.body
     
     if(!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).send(`Nao ha nenhum usuario com esse id`)
@@ -54,8 +53,8 @@ export const createQuiz = async (req, res) => {
     let updatedData = {}
     if(Quizname != null)
         updatedData['Quizname'] = Quizname
-    if(email != null)
-        updatedData['email'] = email
+    if(name != null)
+        updatedData['name'] = name
     if(password != null)
         updatedData['password'] = password
 

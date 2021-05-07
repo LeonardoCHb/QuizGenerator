@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AppBar from "./components/AppBar/AppBar";
 import CreateQuiz from "./pages/CreateQuiz/index";
 import Home from "./pages/Home/index";
+import Profile from "./pages/Profile/index";
 import Auth from "./pages/SignIn/index";
 
 import "./styles/global.css";
@@ -16,6 +17,7 @@ const App = () => (
         <Route path="/" exact component={Home} />
         <Route path="/auth" exact component={Auth} />
         <Route path="/quiz/create" exact component={CreateQuiz} />
+        <Route path="/profile" exact component={Profile} />
       </Switch>
     </div>
   </BrowserRouter>
