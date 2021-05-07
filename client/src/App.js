@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import AppBar from "./components/AppBar/AppBar";
-import CreateQuiz from "./pages/CreateQuiz/index";
-import Home from "./pages/Home/index";
-import Profile from "./pages/Profile/index";
+import AppBar from "./components/AppBar/AppBar.js";
+import CreateQuiz from "./pages/CreateQuiz/CreateQuiz.js";
+import Home from "./pages/Home/Home.js";
+import Profile from "./pages/Profile/Profile.js";
 import Auth from "./pages/SignIn/index";
 
 import "./styles/global.css";

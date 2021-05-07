@@ -5,9 +5,9 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
-import Quiz from "./quiz.js";
+import Quiz from "../../components/CreatorQuizzes/CreatorQuizzes.js";
 import styles from "./styles.js";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -38,6 +38,10 @@ TabPanel.propTypes = {
 const useStyles = styles;
 const Profile = () => {
   const classes = useStyles();
+  const [user] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  console.log(user.result);
+
   function a11yProps(index) {
     return {
       id: `nav-tab-${index}`,
@@ -63,7 +67,8 @@ const Profile = () => {
   return (
     <>
       <Paper className={classes.paper}>
-        <Typography variant="h5">Nome: jonisvaldo</Typography>
+        <Typography variant="h5">Nome: {user.result.name}</Typography>
+        <Typography variant="h5">email: {user.result.email}</Typography>
         <Typography variant="h6">
           Nº de questionarios criados: 9999999
         </Typography>

@@ -17,11 +17,11 @@ export default makeStyles((theme) => ({
   CreateButton: {
     flex: 1,
     justifyContent: "center",
+    marginTop: 30,
     alignItems: "center",
   },
   BottomButton: {
     color: green.A400,
     flex: 1,
   },
-  ContainerHolder: {},
 }));
