@@ -37,10 +37,12 @@ export default function ({
   erase,
   eraseQuestionForm,
   editing,
+  questionToEdit,
+  questionEditedChange,
 }) {
   const classes = useStyles();
-  const [options, setOptions] = useState(["", "", "", "", ""]);
   const [wording, setWording] = useState("");
+  const [options, setOptions] = useState(["", "", "", "", ""]);
   const [finalOptions, setFinalOptions] = useState([]);
   const [hasResponse, setHasResponse] = useState(false);
   const [responses, setResponses] = useState({
@@ -50,7 +52,7 @@ export default function ({
     box3: null,
     box4: null,
   });
-  const [finalResponses, setFinalResponses] = useState(null);
+  const [finalResponses, setFinalResponses] = useState([]);
 
   // array com as respostas finais
   const handleFinalResponses = () => {
@@ -62,22 +64,55 @@ export default function ({
     }
     setFinalResponses(auxResponses);
   };
+
   // editar questao do tipo 1
   useEffect(() => {
     if (editing === true) {
-      console.log("no");
+      const optionsToEdit = ["", "", "", "", ""];
+      const responsesToEdit = {
+        box0: null,
+        box1: null,
+        box2: null,
+        box3: null,
+        box4: null,
+      };
+      handleWording(questionToEdit.wording);
+      questionToEdit.options.forEach((option, index) => {
+        optionsToEdit[index] = option;
+      });
+      handleOptions(optionsToEdit);
+      questionToEdit.response.forEach((response, index) => {
+        responsesToEdit[`box${index}`] = response;
+      });
+      setHasResponse(questionToEdit.hasResponse);
+      setResponses({ ...responsesToEdit });
     }
   }, [editing]);
+
   // resposta final
   useEffect(handleFinalResponses, [responses]);
+
   // verifica se há texto na caixa
   const hasText = (option) => {
     return option.length;
   };
   // envia a questão com formato checkbox para a questão
   useEffect(() => {
-    questionCheckbox(wording, finalOptions, hasResponse, finalResponses, 1);
+    if (editing === false) {
+      questionCheckbox(wording, finalOptions, hasResponse, finalResponses, 1);
+    } else {
+      const name = questionToEdit.name;
+      questionEditedChange(
+        name,
+        wording,
+        finalOptions,
+        hasResponse,
+        finalResponses,
+        1
+      );
+    }
   }, [wording, finalOptions, hasResponse, finalResponses]);
+
   // apaga os campos do formulario de questão apos ser enviada
   useEffect(() => {
     if (erase) {
@@ -102,8 +137,7 @@ export default function ({
   // opcoes
   const handleOptions = (newOptions) => {
     setOptions(newOptions);
-    setFinalOptions(options.filter(hasText));
-
+    setFinalOptions(newOptions.filter(hasText));
     const auxResponses = { ...responses };
     options.forEach((option, index) => {
       if (hasText(option)) auxResponses[`box${index}`] = false;
@@ -121,6 +155,7 @@ export default function ({
     });
     setResponses({ ...auxResponses });
   };
+
   // respostas
   const handleResponses = (e) => {
     setResponses({ ...responses, [e.target.name]: e.target.checked });

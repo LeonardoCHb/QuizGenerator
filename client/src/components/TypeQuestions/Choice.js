@@ -37,8 +37,9 @@ export default function ({
   questionChoice,
   erase,
   eraseQuestionForm,
-  editingChoiceQuestion,
   editing,
+  questionToEdit,
+  questionEditedChange,
 }) {
   const classes = useStyles();
   const [options, setOptions] = useState(["", "", "", "", ""]);
@@ -47,6 +48,21 @@ export default function ({
   const [hasResponse, setHasResponse] = useState(false);
   const [response, setResponse] = useState(null);
   const [finalResponse, setFinalResponse] = useState(null);
+
+  useEffect(() => {
+    if (editing === true) {
+      const optionsToEdit = ["", "", "", "", ""];
+      handleWording(questionToEdit.wording);
+      questionToEdit.options.forEach((option, index) => {
+        optionsToEdit[index] = option;
+      });
+      setHasResponse(questionToEdit.hasResponse);
+      setOptions(optionsToEdit);
+      setResponse(questionToEdit.response);
+      setFinalOptions(questionToEdit.options);
+      setFinalResponse(questionToEdit.response);
+    }
+  }, [editing]);
 
   const handleChange = (event) => {
     const index = event.target.value;
@@ -64,7 +80,19 @@ export default function ({
   };
 
   useEffect(() => {
-    questionChoice(wording, finalOptions, hasResponse, finalResponse, 2);
+    if (editing === false) {
+      questionChoice(wording, finalOptions, hasResponse, finalResponse, 2);
+    } else {
+      const name = questionToEdit.name;
+      questionEditedChange(
+        name,
+        wording,
+        finalOptions,
+        hasResponse,
+        finalResponse,
+        2
+      );
+    }
   }, [wording, finalOptions, hasResponse, finalResponse]);
 
   useEffect(() => {
@@ -78,6 +106,7 @@ export default function ({
       eraseQuestionForm();
     }
   }, [erase]);
+
   const handleWording = (newWording) => {
     setWording(newWording);
   };
@@ -191,7 +220,7 @@ export default function ({
             row
             aria-label="options"
             name="options"
-            value={response}
+            value={`${response}`}
             onChange={handleChange}
           >
             <FormControlLabel

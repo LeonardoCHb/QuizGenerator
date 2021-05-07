@@ -26,8 +26,9 @@ export default ({
   questionText,
   erase,
   eraseQuestionForm,
-  editingTextQuestion,
   editing,
+  questionToEdit,
+  questionEditedChange,
 }) => {
   const [wording, setWording] = useState("");
   const [response, setResponse] = useState("");
@@ -35,7 +36,20 @@ export default ({
   const classes = useStyles();
 
   useEffect(() => {
-    questionText(wording, null, hasResponse, response, 3);
+    if (editing === true) {
+      setWording(questionToEdit.wording);
+      setResponse(questionToEdit.response);
+      setHasResponse(questionToEdit.hasResponse);
+    }
+  }, [editing]);
+
+  useEffect(() => {
+    if (editing === false) {
+      questionText(wording, null, hasResponse, response, 3);
+    } else {
+      const name = questionToEdit.name;
+      questionEditedChange(name, wording, null, hasResponse, response, 3);
+    }
   }, [wording, response, hasResponse]);
 
   useEffect(() => {
