@@ -30,6 +30,18 @@ export const replyQuiz = async (req, res) => {
     }
 }
 
+export const findAllCreatorQuizzes = async (req, res) => {
+    const { creator } = req.body;
+    console.log({ creator })
+    try {
+        const Quizzes = await quizModel.find({creator}).exec()
+        res.status(200).json(Quizzes)
+    } catch(error) {
+        res.status(404).json({ERRO: 'Esse usuario nao existe!'})
+    }
+
+}
+
 export const findAllQuizzes = async (req, res) => {
     try {
         const Quizzes = await quizModel.find().exec()
@@ -43,9 +55,8 @@ export const findAllQuizzes = async (req, res) => {
 
 export const createQuiz = async (req, res) => {
     const QuizData = req.body
-   
-    const newQuiz = new quizModel({...QuizData, name: req.userId, createdAt: new Date().toISOString() })
-    console.log(newQuiz)
+    const newQuiz = new quizModel({...QuizData, creator: req.userId, createdAt: new Date().toISOString() })
+    console.log(QuizData, req.userId);
     try {
         await newQuiz.save()
 

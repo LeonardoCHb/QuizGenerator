@@ -67,50 +67,55 @@ const Profile = () => {
   };
   return (
     <>
-      <Container component="main" maxWidth="xs">
-        <Paper className={classes.paper}>
-          <CardActions className={classes.containerProfile}>
-            <Avatar
-              className={classes.avatar}
-              alt={user?.result.name ? user?.result.name : "My robohash"}
-              src={
-                user?.result.imageUrl
-                  ? user?.result.imageUrl
-                  : `https://robohash.org/${user?.result._id}`
-              }
-            />
-            <Typography variant="h5">Nome: {user.result.name}</Typography>
-            <Typography variant="h5">email: {user.result.email}</Typography>
-          </CardActions>
-        </Paper>
-      </Container>
-      <Container component="main" maxWidth="md">
-        <Paper className={classes.quizzes}>
-          <Tabs
-            // variant="fullWidth"
-            value={value}
-            onChange={handleChange}
-            aria-label="nav tabs example"
-          >
-            <LinkTab label="Questionarios Criados" {...a11yProps(0)} />
-            <LinkTab label="Questionarios Respondidos" {...a11yProps(1)} />
-          </Tabs>
-          <TabPanel value={value} index={0}>
-            <Grid container item xs={13} spacing={3}>
-              <Typography variant="h5" align="justify">
-                Nº de questionarios criados: 9999999
-              </Typography>
-              <Quiz />
-            </Grid>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <Grid container item xs={13} spacing={3}>
-              <Typography variant="h5" align="justify">
-                Nº de questionarios respondidos: 666
-              </Typography>
-            </Grid>
-          </TabPanel>
-        </Paper>
+      <Container className={classes.ProfileContainer}>
+        {/* Container do Avatar */}
+        <Container className={classes.AvatarContainer}>
+          <Paper className={classes.AvatarPaper}>
+            <CardActions className={classes.AvatarContainerInfo}>
+              <Avatar
+                className={classes.AvatarImage}
+                alt={user?.result.name ? user?.result.name : "My robohash"}
+                variant="circular"
+                src={
+                  user?.result.imageUrl
+                    ? user?.result.imageUrl
+                    : `https://robohash.org/${user?.result._id}`
+                }
+              />
+              <Typography variant="h5">{user.result.name}</Typography>
+              <Typography variant="p">{user.result.email}</Typography>
+            </CardActions>
+          </Paper>
+        </Container>
+        {/* Container dos Quiz Criados/Respondidos */}
+        <Container className={classes.QuizContainer}>
+          <Paper className={classes.QuizPaper}>
+            <Tabs
+              centered
+              value={value}
+              onChange={handleChange}
+              aria-label="nav tabs example"
+            >
+              <LinkTab label="Questionarios Criados" {...a11yProps(0)} />
+              <LinkTab label="Questionarios Respondidos" {...a11yProps(1)} />
+            </Tabs>
+            <TabPanel value={value} index={0}>
+              <Grid container item xs={13} spacing={3}>
+                <Typography variant="h5" align="justify">
+                  Questionarios criados: 9999999
+                </Typography>
+                <Quiz />
+              </Grid>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <Grid container item xs={13} spacing={3}>
+                <Typography variant="h5" align="justify">
+                  Nº de questionarios respondidos: 666
+                </Typography>
+              </Grid>
+            </TabPanel>
+          </Paper>
+        </Container>
       </Container>
     </>
   );
