@@ -26,9 +26,9 @@
         "warn",
         { "extensions": [".jsx", "js"] }
       ],
-      "import/namespace": ["error", { "allowComputed": true }],
+      "import/namespace": ["warn", { "allowComputed": true }],
       "import-helpers/order-imports": [
-        "error",
+        "warn",
         {
           "newlinesBetween": "always",
           "groups": ["module", "/^~/", ["parent", "sibling", "index"]],
@@ -43,7 +43,7 @@
           "allow": ["UNSAFE_componentWillMount"]
         }
       ],
-      "prettier/prettier": ["error", {
+      "prettier/prettier": ["warn", {
        "endOfLine":"auto"
      }]
     },

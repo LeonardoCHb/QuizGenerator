@@ -1,16 +1,30 @@
 import Container from "@material-ui/core/Container";
-import React from "react";
+import Toolbar from "@material-ui/core/Toolbar";
+import React, { useState } from "react";
 
 import ButtonCreateQuiz from "../../components/ButtonCreateQuiz/ButtonCreateQuiz";
 import QuizList from "../../components/QuizList/QuizList";
+import SearchBox from "../../components/SearchBox/SearchBox";
+import styles from "./styles.js";
 
-const Home = () => (
-  <>
-    <ButtonCreateQuiz />
-    <Container>
-      <QuizList />
-    </Container>
-  </>
-);
+const useStyles = styles;
+
+const Home = () => {
+  const [filter, setFilter] = useState("");
+  const classes = useStyles();
+
+  return (
+    <>
+      <Toolbar className={`${classes.paper}`}>
+        <SearchBox searchChange={setFilter} />
+        <div className={`${classes.grow} ${classes.cardActions}`} />
+        <ButtonCreateQuiz />
+      </Toolbar>
+      <Container>
+        <QuizList filter={filter} />
+      </Container>
+    </>
+  );
+};
 
 export default Home;

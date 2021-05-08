@@ -1,10 +1,8 @@
 // estilização
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import InputBase from "@material-ui/core/InputBase";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import SearchIcon from "@material-ui/icons/Search";
 import decode from "jwt-decode";
 // react
 import React, { useState, useEffect } from "react";
@@ -55,19 +53,6 @@ export default function PrimarySearchAppBar() {
           >
             Quiz Generator
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
           <div className={classes.grow} />
           {user ? (
             <DropMenu user={user} Logout={logout} />

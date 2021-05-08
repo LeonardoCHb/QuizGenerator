@@ -8,11 +8,8 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   CreateButton: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 30,
-    marginBottom: 0,
+    marginRight: "1rem",
+    color: "#e5e5e5",
   },
 }));
 
@@ -20,7 +17,7 @@ export default function ButtonCreateQuiz() {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.CreateButton} container item xs={13} spacing={20}>
+    <Grid className={classes.CreateButton}>
       <Tooltip
         title="Criar Questionario"
         placement="top-start"
@@ -28,12 +25,11 @@ export default function ButtonCreateQuiz() {
         arrow
       >
         <Fab
-          color="primary"
           component={Link}
           to={localStorage.getItem("profile") ? "/quiz/create" : "/auth"}
           aria-label="add"
         >
-          <AddIcon />
+          <AddIcon color="primary" />
         </Fab>
       </Tooltip>
     </Grid>

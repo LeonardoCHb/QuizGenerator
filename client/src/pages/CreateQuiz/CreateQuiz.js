@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { createQuiz } from "../../actions/quiz";
+import Alert from "../../components/Alert/Alert";
 import SwipeQuestions from "../../components/SelectQuestion/SwipeQuestions.js";
 import styles from "./styles.js";
 
@@ -20,21 +21,39 @@ const initialQuiz = {
   title: "",
   description: "",
   public: false,
-  questions: {},
+  questions: [],
 };
 
 const CreateQuiz = () => {
   const [quizData, setQuizData] = useState(initialQuiz);
+  const [wasSend, setWasSend] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const [error, setError] = useState(false);
+
+  const handleError = () => {
+    setError(!error);
+  };
+
+  const handleWasSend = () => {
+    setWasSend(!wasSend);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      quizData.title.length === 0 ||
+      quizData.description.length === 0 ||
+      quizData.questions.length === 0
+    ) {
+      handleError();
+      return;
+    }
     console.log(quizData);
-    console.log(user?.result?.name);
     dispatch(createQuiz({ ...quizData, name: user?.result?.name }));
     setQuizData({ ...initialQuiz });
+    handleWasSend();
   };
 
   const handleQuestion = (currentQuestions) => {
@@ -56,70 +75,79 @@ const CreateQuiz = () => {
   }
 
   return (
-    <Container component="main" maxWidth="md">
-      <Paper className={`${classes.paper} ${classes.form}`}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              name="title"
-              InputProps={{
-                classes: {
-                  input: classes.resize,
-                },
-              }}
-              required
-              fullWidth
-              label="Titulo do meu questionario"
-              value={quizData.title}
-              onChange={(e) =>
-                setQuizData({ ...quizData, title: e.target.value })
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="description"
-              fullWidth
-              required
-              label="Descricao"
-              value={quizData.description}
-              onChange={(e) =>
-                setQuizData({ ...quizData, description: e.target.value })
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Box>
-              <SwipeQuestions handleQuestion={handleQuestion} />
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  name="public"
-                  onChange={(e) =>
-                    setQuizData({ ...quizData, public: e.target.checked })
-                  }
-                  color="primary"
+    <form onSubmit={handleSubmit}>
+      <Alert
+        text="Título ou descrição não preenchidos. O questionário deve conter pelo menos uma questão."
+        error={error}
+        handleError={handleError}
+      />
+      <Container component="main" maxWidth="md">
+        <Paper className={`${classes.paper} ${classes.form}`}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                name="title"
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
+                fullWidth
+                label="Titulo do meu questionario"
+                value={quizData.title}
+                onChange={(e) =>
+                  setQuizData({ ...quizData, title: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                name="description"
+                fullWidth
+                label="Descricao"
+                value={quizData.description}
+                onChange={(e) =>
+                  setQuizData({ ...quizData, description: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Box>
+                <SwipeQuestions
+                  handleQuestion={handleQuestion}
+                  wasSend={wasSend}
+                  handleWasSend={handleWasSend}
                 />
-              }
-              label="Quero que este questionário seja visível para pessoas anonimas(que não possuem conta neste site)."
-            />
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={quizData.public}
+                    name="public"
+                    onChange={(e) =>
+                      setQuizData({ ...quizData, public: e.target.checked })
+                    }
+                    color="primary"
+                  />
+                }
+                label="Quero que este questionário seja visível para pessoas anonimas(que não possuem conta neste site)."
+              />
+            </Grid>
           </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={handleSubmit}
-        >
-          CRIAR
-        </Button>
-      </Paper>
-    </Container>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            CRIAR
+          </Button>
+        </Paper>
+      </Container>
+    </form>
   );
 };
 

@@ -8,6 +8,7 @@ import App from "./App";
 import { reducers } from "./reducers";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
+console.log();
 
 ReactDOM.render(
   <React.StrictMode>

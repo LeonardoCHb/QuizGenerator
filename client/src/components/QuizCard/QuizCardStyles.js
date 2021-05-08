@@ -9,9 +9,12 @@ export default makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     height: 170,
+    background: "#edf2f4",
+    /* opacity: 0.95, */
   },
   text: {
     height: "80%",
+    // color: "white",
     // overflow: "auto",
   },
   CreateButton: {

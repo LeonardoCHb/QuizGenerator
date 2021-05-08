@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -14,6 +13,7 @@ import Pagination from "@material-ui/lab/Pagination";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
+import Alert from "../Alert/Alert";
 import Checkbox from "../TypeQuestions/Checkbox";
 import Choice from "../TypeQuestions/Choice.js";
 import Text from "../TypeQuestions/Text.js";
@@ -74,7 +74,7 @@ const initialQuestion = {
   typeQuestion: null,
 };
 
-export default function ({ handleQuestion }) {
+export default function ({ handleQuestion, wasSend, handleWasSend }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [question, setQuestion] = useState({ ...initialQuestion });
@@ -83,6 +83,19 @@ export default function ({ handleQuestion }) {
   const [editing, setEditing] = useState(false);
   const [questionToEdit, setQuestionToEdit] = useState(null);
   const [page, setPage] = useState(0);
+  const [error, setError] = useState(false);
+
+  const handleError = () => {
+    setError(!error);
+  };
+
+  useEffect(() => {
+    if (wasSend === true) {
+      setValue(0);
+      setList({});
+      handleWasSend();
+    }
+  }, [wasSend]);
 
   // Tipo de questão atual sendo feita
   const handleChange = (event, newValue) => {
@@ -109,7 +122,6 @@ export default function ({ handleQuestion }) {
     if (editing && size > 0) {
       const auxList = { ...list };
       const newList = {};
-      console.log(auxList);
       delete auxList[questionToEdit.name];
       let index = 0;
       for (const question in auxList) {
@@ -124,6 +136,18 @@ export default function ({ handleQuestion }) {
 
   // Envia questão editada para a lista de questões e sai do modo de edição
   const handleSubmitEdit = () => {
+    let toTest = {};
+    for (const verify in question) toTest = question[verify];
+    if (toTest.wording.length === 0) {
+      handleError();
+      return;
+    }
+    if (toTest.typeQuestion !== 3) {
+      if (toTest.options.length === 0) {
+        handleError();
+        return;
+      }
+    }
     setEditing(!editing);
     setList({ ...list, ...question });
     eraseQuestionForm();
@@ -131,6 +155,16 @@ export default function ({ handleQuestion }) {
 
   // Envia questão para a lista de questões
   const handleSubmitAdd = () => {
+    if (question.wording.length === 0) {
+      handleError();
+      return;
+    }
+    if (question.typeQuestion !== 3) {
+      if (question.options.length === 0) {
+        handleError();
+        return;
+      }
+    }
     const size = Object.keys(list).length;
     if (size < 10) {
       const newQuestion = {};
@@ -219,6 +253,11 @@ export default function ({ handleQuestion }) {
 
   return (
     <div className={classes.root}>
+      <Alert
+        text="Preencha o título e pelo menos uma opção em questões que contenham opções."
+        error={error}
+        handleError={handleError}
+      />
       <AppBar position="static">
         <Tabs
           variant="fullWidth"
@@ -263,31 +302,36 @@ export default function ({ handleQuestion }) {
       </TabPanel>
       <div className={classes.cardActions}>
         {editing ? (
-          <Button disableRipple disableTouchRipple onClick={handleSubmitEdit}>
-            <Tooltip
-              title="Editar Questão"
-              placement="top-start"
-              aria-label="Edit"
-              arrow
+          <Tooltip
+            title="Editar Questão"
+            placement="top-start"
+            aria-label="Edit"
+            arrow
+          >
+            <Fab
+              className={classes.fabGreen}
+              onClick={handleSubmitEdit}
+              aria-label="edit"
             >
-              <Fab className={classes.fabGreen} aria-label="edit">
-                <EditIcon />
-              </Fab>
-            </Tooltip>
-          </Button>
+              <EditIcon />
+            </Fab>
+          </Tooltip>
         ) : (
-          <Button disableRipple disableTouchRipple onClick={handleSubmitAdd}>
-            <Tooltip
-              title="Criar Questão"
-              placement="top-start"
-              aria-label="Add"
-              arrow
+          <Tooltip
+            title="Criar Questão"
+            placement="top-start"
+            aria-label="Add"
+            disabled={!(Object.keys(list).length < 10)}
+            arrow
+          >
+            <Fab
+              className={classes.fabGreen}
+              onClick={handleSubmitAdd}
+              aria-label="add"
             >
-              <Fab className={classes.fabGreen} aria-label="add">
-                <AddIcon />
-              </Fab>
-            </Tooltip>
-          </Button>
+              <AddIcon />
+            </Fab>
+          </Tooltip>
         )}
         <Pagination
           size="large"
@@ -300,18 +344,21 @@ export default function ({ handleQuestion }) {
           onChange={currentQuestion}
           siblingCount={5}
         />
-        <Button disableRipple disableTouchRipple onClick={handleSubmitDelete}>
-          <Tooltip
-            title="Deletar Questão"
-            placement="top-start"
-            aria-label="Delete"
-            arrow
+        <Tooltip
+          title="Deletar Questão"
+          placement="top-start"
+          aria-label="Delete"
+          arrow
+          disabled={!editing}
+        >
+          <Fab
+            className={classes.fabRed}
+            onClick={handleSubmitDelete}
+            aria-label=""
           >
-            <Fab className={classes.fabRed} aria-label="">
-              <ClearIcon />
-            </Fab>
-          </Tooltip>
-        </Button>
+            <ClearIcon />
+          </Fab>
+        </Tooltip>
       </div>
     </div>
   );

@@ -1,18 +1,19 @@
 import { Paper } from "@material-ui/core";
-// import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-// import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
 import "moment/locale/pt-br";
-import React, { /* useState, */ useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { findOne } from "../../actions/quiz";
+import CheckboxQuestion from "../../components/TypeQuestionsToResponses/Checkbox";
+import RadioQuestion from "../../components/TypeQuestionsToResponses/Choice";
+import TextQuestion from "../../components/TypeQuestionsToResponses/Text";
 import styles from "./styles.js";
 
 const useStyles = styles;
@@ -22,9 +23,8 @@ const ReplyQuiz = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   const { id } = useParams();
-  const quiz = useSelector((state) => state.quiz)[0];
+  const quiz = useSelector((state) => state.quiz[0]);
 
-  console.log(quiz);
   useEffect(() => {
     dispatch(findOne(id));
   }, []);
@@ -70,7 +70,36 @@ const ReplyQuiz = () => {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              Mama
+              {quiz.questions.map((question, index) => {
+                switch (question.typeQuestion) {
+                  case 1:
+                    return (
+                      <CheckboxQuestion
+                        key={index}
+                        id={index}
+                        question={question}
+                      />
+                    );
+                  case 2:
+                    return (
+                      <RadioQuestion
+                        key={index}
+                        id={index}
+                        question={question}
+                      />
+                    );
+                  case 3:
+                    return (
+                      <TextQuestion
+                        key={index}
+                        id={index}
+                        question={question}
+                      />
+                    );
+                  default:
+                    return "";
+                }
+              })}
             </Grid>
           </Grid>
           <Button

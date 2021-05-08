@@ -1,8 +1,8 @@
 import { Button, Grid } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Paper from "@material-ui/core/Paper";
+import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 // react
 
@@ -23,45 +23,39 @@ export default function QuizCard({ quiz }) {
             <p>{quiz.description}</p>
           </div>
           <CardActions className={classes.CotainerBottomButton}>
-            <Button
+            <CopyToClipboard
+              render={({ copy }) => (
+                <Button
+                  className={classes.BottomButton}
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                  onClick={() =>
+                    copy(`http://localhost:3000/quiz/reply/${quiz._id}`)
+                  }
+                >
+                  Compartilhar
+                </Button>
+              )}
+            />
+            <a
               className={classes.BottomButton}
-              size="small"
-              color="primary"
+              href={`/quiz/reply/${quiz._id}`}
             >
-              COMPARTILHAR
-            </Button>
-            <Button
-              className={classes.BottomButton}
-              size="small"
-              to={`/quiz/reply/${quiz._id}`}
-              component={Link}
-              color="primary"
-            >
-              RESPONDER
-            </Button>
+              <Button
+                className={classes.BottomButton}
+                size="small"
+                color="primary"
+                variant="outlined"
+              >
+                RESPONDER
+              </Button>
+            </a>
           </CardActions>
         </Paper>
       </Grid>
     </React.Fragment>
   ) : (
-    <React.Fragment>
-      <div></div>
-      {/* <Grid item xs={4}>
-        <Paper className={classes.paper}>
-          <div className={classes.text}>
-            <h2>Cadastre-se para ter acesso a esse quiz!</h2>
-            <Button
-              to="/auth"
-              component={Link}
-              className={classes.CreateButton}
-              variant="contained"
-              color="primary"
-            >
-              Cadastrar!
-            </Button>
-          </div>
-        </Paper>
-      </Grid> */}
-    </React.Fragment>
+    <React.Fragment></React.Fragment>
   );
 }

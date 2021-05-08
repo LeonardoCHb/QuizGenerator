@@ -25,7 +25,7 @@ export const findAllQuizzes = () => async (dispatch) => {
   }
 };
 
-export const findAllCreatorQuizzes = (creator) => async (dispatch) => {
+export const findAllCreatorQuizzes = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchCreatorQuizzes();
     dispatch({ type: FETCH_ALL, payload: data });
