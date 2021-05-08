@@ -13,6 +13,8 @@ API.interceptors.request.use((req) => {
 
 export const createQuiz = (newQuiz) => API.post("/quiz/create", newQuiz);
 export const fetchQuizzes = () => API.get("/quiz/findAll");
+export const fetchCreatorQuizzes = (creator) =>
+  API.get("/quiz/findAllCreatorQuizzes");
 
 export const fetchQuiz = (id) => API.get(`/quiz/findOne/${id}`);
 

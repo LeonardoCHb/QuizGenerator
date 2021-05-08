@@ -2,7 +2,7 @@ import { Button, Grid } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Paper from "@material-ui/core/Paper";
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // react
 
@@ -33,6 +33,8 @@ export default function QuizCard({ quiz }) {
             <Button
               className={classes.BottomButton}
               size="small"
+              to={`/quiz/reply/${quiz._id}`}
+              component={Link}
               color="primary"
             >
               RESPONDER

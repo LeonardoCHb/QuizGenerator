@@ -24,6 +24,18 @@ export default makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    // display: inline-block,
+    // border-radius: 4px,
+    // background-color: #f4511e,
+    // border: none,
+    // color: #FFFFFF,
+    // text-align: center,
+    // font-size: 28px,
+    // padding: 20px,
+    // width: 200px,
+    // transition: all 0.5s,
+    // cursor: pointer,
+    // margin: 5px,
   },
   // style for font size
   resize: {

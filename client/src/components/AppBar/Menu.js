@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   userName: {
-    color: "Black",
+    color: "white",
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",

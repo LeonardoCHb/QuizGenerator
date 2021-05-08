@@ -25,6 +25,15 @@ export const findAllQuizzes = () => async (dispatch) => {
   }
 };
 
+export const findAllCreatorQuizzes = (creator) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchCreatorQuizzes();
+    dispatch({ type: FETCH_ALL, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const findOne = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchQuiz(id);

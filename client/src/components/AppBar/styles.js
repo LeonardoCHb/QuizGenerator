@@ -84,9 +84,9 @@ export default makeStyles((theme) => ({
       display: "flex",
       margin: 0,
       padding: 5,
-      border: 0,
+      borderbottom: "1px",
       background: "transparent",
-      boxShadow: "none",
+      boxShadow: 0,
     },
   },
 }));
