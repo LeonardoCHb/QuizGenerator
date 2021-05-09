@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useToasts } from "react-toast-notifications";
 
 import { createQuiz } from "../../actions/quiz";
 import Alert from "../../components/Alert/Alert";
@@ -31,6 +32,7 @@ const CreateQuiz = () => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
   const [error, setError] = useState(false);
+  const { addToast } = useToasts();
 
   const handleError = () => {
     setError(!error);
@@ -142,6 +144,14 @@ const CreateQuiz = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => {
+              if (!user?.result?.name) {
+                addToast("COPIADO", {
+                  appearance: "info",
+                  autoDismiss: true,
+                });
+              }
+            }}
           >
             CRIAR
           </Button>

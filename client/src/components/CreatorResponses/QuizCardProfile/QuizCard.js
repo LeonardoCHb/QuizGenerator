@@ -6,22 +6,44 @@ import CardContent from "@material-ui/core/CardContent";
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
 import moment from "moment";
 import "moment/locale/pt-br";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-// react
-
+import { findOne } from "../../../actions/quiz";
+import ShowResponse from "../ResponsesAllData/ResponsesAlldata";
 import styles from "./QuizCardStyles";
 
 const useStyles = styles;
 
 export default function QuizCard({ response }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const quiz = useSelector((state) => state.quiz[0]);
+  const [open, setOpen] = useState(false);
 
-  return response ? (
+  useEffect(() => {
+    dispatch(findOne(response.quiz));
+  }, []);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return response && quiz ? (
     <Grid item xs={12} sm={12} md={6}>
       <Card className={classes.details}>
         <CardActionArea>
-          <CardContent>
+          <ShowResponse
+            open={open}
+            response={response}
+            quiz={quiz}
+            handleClose={handleClose}
+          />
+          <CardContent onClick={handleClickOpen}>
             <Typography
               gutterBottom
               variant="h6"

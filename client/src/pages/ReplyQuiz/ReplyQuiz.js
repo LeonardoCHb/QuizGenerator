@@ -86,12 +86,12 @@ const ReplyQuiz = () => {
         <Paper className={`${classes.paper} ${classes.form}`}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography gutterBottom variant="h3" align="center">
+              <Typography gutterBottom variant="h2" align="center">
                 {quiz.title}
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography gutterBottom variant="h4" align="left">
+              <Typography gutterBottom="true" variant="h5" align="center">
                 {quiz.description}
               </Typography>
               <Typography gutterBottom variant="h6" align="left">

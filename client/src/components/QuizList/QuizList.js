@@ -1,3 +1,4 @@
+import { Container } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 // import Skeleton from "@material-ui/lab/Skeleton";
@@ -6,8 +7,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { findAllQuizzes } from "../../actions/quiz";
-import QuizCard from "../QuizCard/QuizCard";
-import styles from "./QuizListStyles";
+import ButtonCreateQuiz from "../ButtonCreateQuiz/ButtonCreateQuiz.js";
+import QuizCard from "./QuizCard/QuizCard.js";
+import styles from "./QuizListStyles.js";
 
 const useStyles = styles;
 
@@ -16,8 +18,6 @@ export default function QuizList({ filter }) {
   const classes = useStyles();
   const quizzes = useSelector((state) => state.quiz);
   const [AllQuizzes, setAllQuizzes] = React.useState([]);
-
-  console.log(AllQuizzes);
 
   useEffect(() => {
     dispatch(findAllQuizzes());
@@ -33,12 +33,15 @@ export default function QuizList({ filter }) {
   return !AllQuizzes.length ? (
     <CircularProgress />
   ) : (
-    <div className={classes.root}>
-      <Grid container alignItems="stretch" spacing={3}>
+    <Container className={classes.root}>
+      <Container className={classes.CreateContainer}>
+        <ButtonCreateQuiz />
+      </Container>
+      <Grid container alignItems="stretch" spacing={4}>
         {AllQuizzes.map((quiz) => (
           <QuizCard key={quiz._id} quiz={quiz} />
         ))}
       </Grid>
-    </div>
+    </Container>
   );
 }

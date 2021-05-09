@@ -14,7 +14,7 @@ import {
   findAllCreatorQuizzes,
   findAllUserResponses,
 } from "../../actions/quiz";
-import Quiz from "../../components/CreatorQuizzes/CreatorQuizzes.js";
+import CreatedQuizzes from "../../components/CreatorQuizzes/CreatorQuizzes.js";
 import Responses from "../../components/CreatorResponses/CreatorResponses.js";
 import styles from "./styles.js";
 
@@ -121,7 +121,7 @@ const Profile = () => {
               <Typography variant="h5" align="justify">
                 Questionarios criados: {quizzes ? quizzes.length : 0}
               </Typography>
-              <Quiz quizzes={quizzes} />
+              <CreatedQuizzes quizzes={quizzes} />
             </TabPanel>
             <TabPanel value={value} index={1}>
               <Typography variant="h5" align="justify">

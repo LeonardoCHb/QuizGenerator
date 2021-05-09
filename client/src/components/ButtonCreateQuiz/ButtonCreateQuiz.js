@@ -8,8 +8,14 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   CreateButton: {
-    marginRight: "3rem",
     color: "#e5e5e5",
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(4),
+    justifyContent: "center",
+  },
+  AddIcon: {
+    boxShadow:
+      "rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px",
   },
 }));
 
@@ -25,6 +31,8 @@ export default function ButtonCreateQuiz() {
         arrow
       >
         <Fab
+          size="large"
+          className={classes.AddIcon}
           component={Link}
           to={localStorage.getItem("profile") ? "/quiz/create" : "/auth"}
           aria-label="add"

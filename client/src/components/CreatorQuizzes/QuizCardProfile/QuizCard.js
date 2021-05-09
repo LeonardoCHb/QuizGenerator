@@ -7,7 +7,6 @@ import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
 import React from "react";
 
 // react
-
 import styles from "./QuizCardStyles";
 
 const useStyles = styles;
