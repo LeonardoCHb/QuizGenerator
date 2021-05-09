@@ -4,6 +4,7 @@ import {
   FETCH_ALL,
   FETCH_ONE,
   RESPONSE,
+  FETCH_ALL_RESPONSES,
 } from "../constants/actionTypes";
 
 export const createQuiz = (quiz) => async (dispatch) => {
@@ -25,7 +26,16 @@ export const findAllQuizzes = () => async (dispatch) => {
   }
 };
 
-export const findAllCreatorQuizzes = (id) => async (dispatch) => {
+export const findAllUserResponses = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchUserResponses();
+    dispatch({ type: FETCH_ALL_RESPONSES, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const findAllCreatorQuizzes = () => async (dispatch) => {
   try {
     const { data } = await api.fetchCreatorQuizzes();
     dispatch({ type: FETCH_ALL, payload: data });

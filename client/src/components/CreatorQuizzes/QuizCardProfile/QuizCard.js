@@ -4,7 +4,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
-import React, { useState } from "react";
+import React from "react";
 
 // react
 
@@ -14,12 +14,11 @@ const useStyles = styles;
 
 export default function QuizCard({ quiz }) {
   const classes = useStyles();
-  const [user] = useState(JSON.parse(localStorage.getItem("profile")));
 
-  return user || quiz.public === true ? (
-    <Grid item xs={6} sm={4} md={4}>
-      <Card className={classes.root}>
-        <CardActionArea href={`/quiz/reply/${quiz._id}`}>
+  return quiz ? (
+    <Grid item xs={12} sm={12} md={6}>
+      <Card className={classes.details}>
+        <CardActionArea>
           <CardContent>
             <Typography
               gutterBottom
@@ -28,9 +27,9 @@ export default function QuizCard({ quiz }) {
               className={classes.title}
               align="center"
             >
-              {quiz.title.length < 24
+              {quiz.title.length < 37
                 ? quiz.title
-                : `${quiz.title.substring(0, 24)}...`}
+                : `${quiz.title.substring(0, 37)}...`}
             </Typography>
             <Typography
               gutterBottom
@@ -39,9 +38,9 @@ export default function QuizCard({ quiz }) {
               className={classes.title}
               align="center"
             >
-              {quiz.description.length < 30
+              {quiz.description.length < 50
                 ? quiz.description
-                : `${quiz.description.substring(0, 30)}...`}
+                : `${quiz.description.substring(0, 50)}...`}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -59,8 +58,11 @@ export default function QuizCard({ quiz }) {
               </Button>
             )}
           />
-          <Button size="small" color="primary" href={`/quiz/reply/${quiz._id}`}>
-            RESPONDER
+          <Button size="small" color="primary">
+            Download
+          </Button>
+          <Button size="small" color="primary">
+            Deletar
           </Button>
         </CardActions>
       </Card>

@@ -91,7 +91,7 @@ export default function ({ handleQuestion, wasSend, handleWasSend }) {
 
   useEffect(() => {
     if (wasSend === true) {
-      setValue(0);
+      eraseQuestionForm();
       setList({});
       handleWasSend();
     }
@@ -105,6 +105,7 @@ export default function ({ handleQuestion, wasSend, handleWasSend }) {
 
   // Envia questões para o quiz sendo criado
   const sendQuestions = async () => {
+    if (editing === true) setEditing(!editing);
     await handleQuestion(list);
   };
 

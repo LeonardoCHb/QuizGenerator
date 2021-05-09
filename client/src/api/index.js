@@ -13,13 +13,14 @@ API.interceptors.request.use((req) => {
 
 export const createQuiz = (newQuiz) => API.post("/quiz/create", newQuiz);
 export const fetchQuizzes = () => API.get("/quiz/findAll");
-export const fetchCreatorQuizzes = (creator) =>
-  API.get("/quiz/findAllCreatorQuizzes");
+export const fetchCreatorQuizzes = () => API.get("/quiz/findAllCreatorQuizzes");
 
 export const fetchQuiz = (id) => API.get(`/quiz/findOne/${id}`);
 
+export const fetchUserResponses = () => API.get("/quiz/findAllUserResponses");
+
 export const responseQuiz = (newResponse) =>
-  API.get("/quiz/reply", newResponse);
+  API.post("/quiz/reply", newResponse);
 
 export const signIn = (formData) => API.post("/auth/signin", formData);
 export const signUp = (formData) => API.post("/auth/signup", formData);

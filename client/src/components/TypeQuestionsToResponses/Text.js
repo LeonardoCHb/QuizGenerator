@@ -1,6 +1,6 @@
 import { Paper, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,9 +16,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ question }) => {
+export default ({ question, id, myResponses }) => {
   const [response, setResponse] = useState("");
   const classes = useStyles();
+
+  useEffect(() => {
+    myResponses(response, id);
+  }, [response]);
 
   const handleResponse = (e) => {
     setResponse(e.target.value);

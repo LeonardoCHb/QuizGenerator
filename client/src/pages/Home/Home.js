@@ -1,5 +1,4 @@
 import Container from "@material-ui/core/Container";
-import Toolbar from "@material-ui/core/Toolbar";
 import React, { useState } from "react";
 
 import ButtonCreateQuiz from "../../components/ButtonCreateQuiz/ButtonCreateQuiz";
@@ -15,12 +14,15 @@ const Home = () => {
 
   return (
     <>
-      <Toolbar className={`${classes.paper}`}>
-        <SearchBox searchChange={setFilter} />
-        <div className={`${classes.grow} ${classes.cardActions}`} />
+      <Container maxWidth="md" className={`${classes.paper}`}>
+        <SearchBox
+          className={`${classes.cardActions}`}
+          searchChange={setFilter}
+        />
+        <div className={`${classes.grow}`} />
         <ButtonCreateQuiz />
-      </Toolbar>
-      <Container>
+      </Container>
+      <Container maxWidth="md">
         <QuizList filter={filter} />
       </Container>
     </>

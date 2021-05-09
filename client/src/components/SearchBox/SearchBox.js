@@ -4,7 +4,7 @@ import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    marginLeft: "1rem",
+    marginLeft: "3rem",
     backgroundColor: "white",
     borderRadius: "5px",
   },

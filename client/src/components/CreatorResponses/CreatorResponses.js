@@ -3,22 +3,21 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 // react
 import React from "react";
 
-import styles from "./CreatorQuizzesStyles.js";
+import styles from "./CreatorResponsesStyles.js";
 import QuizCard from "./QuizCardProfile/QuizCard";
 
 const useStyles = styles;
 
-export default function QuizList({ quizzes }) {
+export default function ResponseList({ responses }) {
   const classes = useStyles();
+  console.log(responses);
 
-  console.log(quizzes);
-
-  return !quizzes.length ? (
+  return !responses.length ? (
     <CircularProgress />
   ) : (
     <Container maxWidth="md" className={classes.paper}>
-      {quizzes.map((quiz) => (
-        <QuizCard key={quiz._id} quiz={quiz} />
+      {responses.map((response) => (
+        <QuizCard key={response._id} response={response} />
       ))}
     </Container>
   );

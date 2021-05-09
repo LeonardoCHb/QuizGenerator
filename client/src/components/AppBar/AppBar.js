@@ -25,6 +25,7 @@ export default function PrimarySearchAppBar() {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
+    history.push("/");
     history.go(0);
     setUser(null);
   };
@@ -42,16 +43,16 @@ export default function PrimarySearchAppBar() {
   }, [location]);
 
   return (
-    <div className={classes.grow}>
+    <div>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
           <Typography
-            component={Link}
-            to="/"
-            className={classes.heading + " " + classes.userName}
+            className={`${classes.heading} ${classes.userName}`}
             variant="h6"
           >
-            Quiz Generator
+            <a className={classes.heading} href="/">
+              <Typography variant="h5">Quiz Generator</Typography>
+            </a>
           </Typography>
           <div className={classes.grow} />
           {user ? (

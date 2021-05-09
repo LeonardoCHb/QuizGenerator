@@ -7,7 +7,7 @@ import {
   FormControl,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,14 +31,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ question }) {
+export default function ({ question, id, myResponses }) {
   const classes = useStyles();
   const [response, setResponse] = useState(null);
 
+  useEffect(() => {
+    myResponses(response, id);
+  }, [response]);
+
   const handleChange = (event) => {
     const index = event.target.value;
-    if (index === response) setResponse(null);
-    else setResponse(index);
+    setResponse(index);
   };
 
   return (

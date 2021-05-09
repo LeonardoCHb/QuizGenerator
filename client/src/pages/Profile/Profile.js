@@ -3,15 +3,22 @@ import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import CardActions from "@material-ui/core/CardActions";
 import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import {
+  findAllCreatorQuizzes,
+  findAllUserResponses,
+} from "../../actions/quiz";
 import Quiz from "../../components/CreatorQuizzes/CreatorQuizzes.js";
+import Responses from "../../components/CreatorResponses/CreatorResponses.js";
 import styles from "./styles.js";
+
+// INICIO DAS FUNCOES PARA FUNCIONAMENTO DO COMPONENTE
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -38,33 +45,44 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
+function a11yProps(index) {
+  return {
+    id: `nav-tab-${index}`,
+    "aria-controls": `nav-tabpanel-${index}`,
+  };
+}
+function LinkTab(props) {
+  return (
+    <Tab
+      component="a"
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+      {...props}
+    />
+  );
+}
+// FIM DAS FUNCOES AUXILIARES
+
 const useStyles = styles;
+
+// INICIO DO COMPONENTE
 const Profile = () => {
   const classes = useStyles();
   const [user] = useState(JSON.parse(localStorage.getItem("profile")));
-
-  function a11yProps(index) {
-    return {
-      id: `nav-tab-${index}`,
-      "aria-controls": `nav-tabpanel-${index}`,
-    };
-  }
-  function LinkTab(props) {
-    return (
-      <Tab
-        component="a"
-        onClick={(event) => {
-          event.preventDefault();
-        }}
-        {...props}
-      />
-    );
-  }
   const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => setValue(newValue);
+  const dispatch = useDispatch();
+  const quizzes = useSelector((state) => state.quiz);
+  const responses = useSelector((state) => state.response);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  console.log(responses);
+
+  useEffect(() => {
+    dispatch(findAllCreatorQuizzes());
+    dispatch(findAllUserResponses());
+  }, []);
+
   return (
     <>
       <Container className={classes.ProfileContainer}>
@@ -100,19 +118,17 @@ const Profile = () => {
               <LinkTab label="Questionarios Respondidos" {...a11yProps(1)} />
             </Tabs>
             <TabPanel value={value} index={0}>
-              <Grid container item xs={13} spacing={3}>
-                <Typography variant="h5" align="justify">
-                  Questionarios criados: 9999999
-                </Typography>
-                <Quiz />
-              </Grid>
+              <Typography variant="h5" align="justify">
+                Questionarios criados: {quizzes ? quizzes.length : 0}
+              </Typography>
+              <Quiz quizzes={quizzes} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Grid container item xs={13} spacing={3}>
-                <Typography variant="h5" align="justify">
-                  Nº de questionarios respondidos: 666
-                </Typography>
-              </Grid>
+              <Typography variant="h5" align="justify">
+                Nº de questionarios respondidos:{" "}
+                {responses ? responses.length : 0}
+              </Typography>
+              <Responses responses={responses} />
             </TabPanel>
           </Paper>
         </Container>

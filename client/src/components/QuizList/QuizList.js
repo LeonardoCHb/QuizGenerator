@@ -34,12 +34,10 @@ export default function QuizList({ filter }) {
     <CircularProgress />
   ) : (
     <div className={classes.root}>
-      <Grid container spacing={4}>
-        <Grid container item xs={13} spacing={3}>
-          {AllQuizzes.map((quiz) => (
-            <QuizCard key={quiz._id} quiz={quiz} />
-          ))}
-        </Grid>
+      <Grid container alignItems="stretch" spacing={3}>
+        {AllQuizzes.map((quiz) => (
+          <QuizCard key={quiz._id} quiz={quiz} />
+        ))}
       </Grid>
     </div>
   );

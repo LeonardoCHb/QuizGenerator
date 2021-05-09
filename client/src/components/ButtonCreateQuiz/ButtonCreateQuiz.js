@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   CreateButton: {
-    marginRight: "1rem",
+    marginRight: "3rem",
     color: "#e5e5e5",
   },
 }));

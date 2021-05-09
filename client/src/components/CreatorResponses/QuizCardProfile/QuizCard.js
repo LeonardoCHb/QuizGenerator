@@ -4,7 +4,9 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
-import React, { useState } from "react";
+import moment from "moment";
+import "moment/locale/pt-br";
+import React from "react";
 
 // react
 
@@ -12,14 +14,13 @@ import styles from "./QuizCardStyles";
 
 const useStyles = styles;
 
-export default function QuizCard({ quiz }) {
+export default function QuizCard({ response }) {
   const classes = useStyles();
-  const [user] = useState(JSON.parse(localStorage.getItem("profile")));
 
-  return user || quiz.public === true ? (
-    <Grid item xs={6} sm={4} md={4}>
-      <Card className={classes.root}>
-        <CardActionArea href={`/quiz/reply/${quiz._id}`}>
+  return response ? (
+    <Grid item xs={12} sm={12} md={6}>
+      <Card className={classes.details}>
+        <CardActionArea>
           <CardContent>
             <Typography
               gutterBottom
@@ -28,9 +29,7 @@ export default function QuizCard({ quiz }) {
               className={classes.title}
               align="center"
             >
-              {quiz.title.length < 24
-                ? quiz.title
-                : `${quiz.title.substring(0, 24)}...`}
+              {response.quiz}
             </Typography>
             <Typography
               gutterBottom
@@ -39,9 +38,7 @@ export default function QuizCard({ quiz }) {
               className={classes.title}
               align="center"
             >
-              {quiz.description.length < 30
-                ? quiz.description
-                : `${quiz.description.substring(0, 30)}...`}
+              Respondido {moment(response.answeredAt).fromNow()}.
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -52,15 +49,15 @@ export default function QuizCard({ quiz }) {
                 size="small"
                 color="primary"
                 onClick={() =>
-                  copy(`http://localhost:3000/quiz/reply/${quiz._id}`)
+                  copy(`http://localhost:3000/quiz/reply/${response.quiz}`)
                 }
               >
                 Compartilhar
               </Button>
             )}
           />
-          <Button size="small" color="primary" href={`/quiz/reply/${quiz._id}`}>
-            RESPONDER
+          <Button size="small" color="primary">
+            Ver questionario
           </Button>
         </CardActions>
       </Card>

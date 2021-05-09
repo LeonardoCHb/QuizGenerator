@@ -6,14 +6,14 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
 import "moment/locale/pt-br";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { findOne } from "../../actions/quiz";
+import { responseToQuiz, findOne } from "../../actions/quiz";
 import CheckboxQuestion from "../../components/TypeQuestionsToResponses/Checkbox";
 import RadioQuestion from "../../components/TypeQuestionsToResponses/Choice";
-import TextQuestion from "../../components/TypeQuestionsToResponses/Text";
+import TextQuestion from "../../components/TypeQuestionsToResponses/Text.js";
 import styles from "./styles.js";
 
 const useStyles = styles;
@@ -24,10 +24,47 @@ const ReplyQuiz = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const quiz = useSelector((state) => state.quiz[0]);
+  // eslint-disable-next-line no-unused-vars
+  const [finalResponse, setFinalResponse] = useState({});
+  const [responses, setResponses] = useState([]);
+
+  console.log(finalResponse);
 
   useEffect(() => {
     dispatch(findOne(id));
   }, []);
+
+  useEffect(() => {
+    if (quiz) {
+      const responsesArr = Array(quiz.questions.length).fill(null);
+      setResponses(responsesArr);
+    }
+  }, [quiz]);
+
+  useEffect(() => {
+    const newResponse = {};
+    newResponse.quiz = quiz?._id;
+    newResponse.creator = quiz?.creator;
+    if (user) {
+      const isCustomAuth = user?.token.length < 500;
+      if (isCustomAuth) newResponse.answeredBy = user?.result?._id;
+      else newResponse.answeredBy = user?.result?.googleId;
+    } else {
+      newResponse.answeredBy = "undefined";
+    }
+    setFinalResponse({ ...newResponse });
+  }, [quiz]);
+
+  const handleResponse = (response, index) => {
+    const newResponses = responses;
+    newResponses[parseInt(index)] = response;
+    setResponses(newResponses);
+    setFinalResponse({ ...finalResponse, responses: responses });
+  };
+
+  const handleSubmit = async (e) => {
+    dispatch(responseToQuiz({ ...finalResponse }));
+  };
 
   if (quiz?.public === false) {
     if (!user?.result?.name) {
@@ -44,7 +81,7 @@ const ReplyQuiz = () => {
   return !quiz ? (
     <CircularProgress />
   ) : (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Container component="main" maxWidth="md">
         <Paper className={`${classes.paper} ${classes.form}`}>
           <Grid container spacing={2}>
@@ -78,6 +115,7 @@ const ReplyQuiz = () => {
                         key={index}
                         id={index}
                         question={question}
+                        myResponses={handleResponse}
                       />
                     );
                   case 2:
@@ -86,6 +124,7 @@ const ReplyQuiz = () => {
                         key={index}
                         id={index}
                         question={question}
+                        myResponses={handleResponse}
                       />
                     );
                   case 3:
@@ -94,6 +133,7 @@ const ReplyQuiz = () => {
                         key={index}
                         id={index}
                         question={question}
+                        myResponses={handleResponse}
                       />
                     );
                   default:

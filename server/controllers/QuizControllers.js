@@ -4,7 +4,6 @@ import ResponseModel from "../models/responseModels.js"
 
 export const findQuiz = async (req, res) => {
     const { id } = req.params;
-    console.log({ id })
 
     try {
         const quiz = await quizModel.find({ _id: id}).exec()
@@ -20,7 +19,6 @@ export const replyQuiz = async (req, res) => {
     const ResponseData = req.body
    
     const newResponse = new ResponseModel({...ResponseData, createdAt: new Date().toISOString() })
-    console.log(newResponse)
 
     try {
         await newResponse.save()
@@ -30,14 +28,25 @@ export const replyQuiz = async (req, res) => {
     }
 }
 
-export const findAllCreatorQuizzes = async (req, res) => {
-    const { creator } = req.body;
-    console.log({ creator })
+export const findAllUserResponses = async (req, res) => {
+    const id = req.userId
+
     try {
-        const Quizzes = await quizModel.find({creator}).exec()
+        const answers = await ResponseModel.find({answeredBy: id}).exec()
+        res.status(200).json(answers)
+    } catch (error) {
+        res.status(404).json({ERRO: 'Nao ha respostas!'})
+    }
+}
+
+export const findAllCreatorQuizzes = async (req, res) => {
+    const id = req.userId
+
+    try {
+        const Quizzes = await quizModel.find({creator: id}).exec()
         res.status(200).json(Quizzes)
     } catch(error) {
-        res.status(404).json({ERRO: 'Esse usuario nao existe!'})
+        res.status(404).json({ERRO: 'Nao ha questionarios!'})
     }
 
 }
@@ -45,10 +54,10 @@ export const findAllCreatorQuizzes = async (req, res) => {
 export const findAllQuizzes = async (req, res) => {
     try {
         const Quizzes = await quizModel.find().exec()
-        console.log(Quizzes)
+
         res.status(200).json(Quizzes)
     } catch(error) {
-        res.status(404).json({ERRO: 'Esse usuario nao existe!'})
+        res.status(404).json({ERRO: 'Nao ha questionarios!'})
     }
 
 }
@@ -56,7 +65,7 @@ export const findAllQuizzes = async (req, res) => {
 export const createQuiz = async (req, res) => {
     const QuizData = req.body
     const newQuiz = new quizModel({...QuizData, creator: req.userId, createdAt: new Date().toISOString() })
-    console.log(QuizData, req.userId);
+
     try {
         await newQuiz.save()
 

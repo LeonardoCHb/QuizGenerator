@@ -30,11 +30,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ question }) {
+export default function ({ question, id, myResponses }) {
   const classes = useStyles();
   const [responses, setResponses] = useState({});
   // eslint-disable-next-line no-unused-vars
   const [finalResponse, setFinalResponse] = useState([]);
+
+  useEffect(() => {
+    myResponses(finalResponse, id);
+  }, [finalResponse]);
 
   const handleFinalResponse = () => {
     const auxResponses = [];
