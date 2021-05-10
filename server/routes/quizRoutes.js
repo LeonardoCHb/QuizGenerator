@@ -5,6 +5,7 @@ findAllQuizzes,
 replyQuiz,
 findAllCreatorQuizzes,
 findAllUserResponses,
+findAllQuizResponses,
 createQuiz} from '../controllers/QuizControllers.js'
 import auth from "../middleware/auth.js"
 
@@ -15,6 +16,7 @@ router.get('/findAll', findAllQuizzes)
 router.get('/findAllCreatorQuizzes', auth, findAllCreatorQuizzes)
 // router.patch('/quiz/:id', updateQuiz)
 // router.delete('/quiz/:id', deleteQuiz)
+router.get('/findAllQuizResponses/:id', auth, findAllQuizResponses)
 router.get('/findAllUserResponses', auth, findAllUserResponses)
 router.post('/create', auth, createQuiz)
 router.post('/reply', replyQuiz)

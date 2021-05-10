@@ -4,21 +4,43 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-// react
-
+import { quizResponses } from "../../../actions/quiz.js";
 import styles from "./QuizCardStyles";
+import ShowQuiz from "./ShowQuiz/ShowQuiz.js";
 
 const useStyles = styles;
 
 export default function QuizCard({ quiz }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const responses = useSelector((state) => state.quizzesResponse[quiz?._id]);
+  const [open, setOpen] = useState(false);
 
-  return quiz ? (
+  useEffect(() => {
+    dispatch(quizResponses(quiz._id));
+  }, [quiz]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return responses && quiz ? (
     <Grid item xs={12} sm={12} md={6}>
       <Card className={classes.details}>
-        <CardActionArea>
+        <ShowQuiz
+          handleClose={handleClose}
+          open={open}
+          quiz={quiz}
+          responses={responses[0]}
+        />
+        <CardActionArea onClick={handleClickOpen}>
           <CardContent>
             <Typography
               gutterBottom

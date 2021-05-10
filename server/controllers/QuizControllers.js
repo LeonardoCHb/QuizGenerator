@@ -28,6 +28,17 @@ export const replyQuiz = async (req, res) => {
     }
 }
 
+export const findAllQuizResponses = async (req, res) => {
+    const { id } = req.params
+    console.log({quiz: id});
+    try {
+        const answers = await ResponseModel.find({quiz: id}).exec()
+        res.status(200).json(answers)
+    } catch (error) {
+        res.status(404).json({ERRO: 'Nao ha respostas!'})
+    }
+};
+
 export const findAllUserResponses = async (req, res) => {
     const id = req.userId
 

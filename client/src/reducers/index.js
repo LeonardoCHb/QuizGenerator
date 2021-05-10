@@ -1,7 +1,19 @@
 import { combineReducers } from "redux";
 
 import auth from "./auth";
-import quiz from "./quiz";
-import response from "./response";
+import {
+  quizzes,
+  responses,
+  quizzesUser,
+  quizzesResponse,
+  quizToView,
+} from "./quiz";
 
-export const reducers = combineReducers({ auth, quiz, response });
+export const reducers = combineReducers({
+  auth,
+  quiz: quizzes,
+  response: responses,
+  quizzesUser,
+  quizzesResponse,
+  quizToView,
+});
