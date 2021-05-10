@@ -76,7 +76,7 @@ const Profile = () => {
   const quizzes = useSelector((state) => state.quiz);
   const responses = useSelector((state) => state.response);
 
-  console.log(responses);
+  // console.log(responses);
 
   useEffect(() => {
     dispatch(findAllCreatorQuizzes());

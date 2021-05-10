@@ -9,7 +9,7 @@ import "moment/locale/pt-br";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { findOne } from "../../../actions/quiz";
+import { findOne } from "../../../actions/profile";
 import ShowResponse from "../ResponsesAllData/ResponsesAlldata";
 import styles from "./QuizCardStyles";
 
@@ -18,12 +18,12 @@ const useStyles = styles;
 export default function QuizCard({ response }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const quiz = useSelector((state) => state.quiz[0]);
+  const quiz = useSelector((state) => state.profile)[0];
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     dispatch(findOne(response.quiz));
-  }, []);
+  }, [response]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,14 +36,14 @@ export default function QuizCard({ response }) {
   return response && quiz ? (
     <Grid item xs={12} sm={12} md={6}>
       <Card className={classes.details}>
-        <CardActionArea>
+        <CardActionArea onClick={handleClickOpen}>
           <ShowResponse
-            open={open}
-            response={response}
-            quiz={quiz}
             handleClose={handleClose}
+            open={open}
+            quiz={quiz}
+            response={response}
           />
-          <CardContent onClick={handleClickOpen}>
+          <CardContent>
             <Typography
               gutterBottom
               variant="h6"

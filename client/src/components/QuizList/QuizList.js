@@ -37,7 +37,7 @@ export default function QuizList({ filter }) {
       <Container className={classes.CreateContainer}>
         <ButtonCreateQuiz />
       </Container>
-      <Grid container alignItems="stretch" spacing={4}>
+      <Grid container alignItems="stretch" spacing={6}>
         {AllQuizzes.map((quiz) => (
           <QuizCard key={quiz._id} quiz={quiz} />
         ))}

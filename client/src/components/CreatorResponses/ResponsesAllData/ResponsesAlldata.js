@@ -51,7 +51,7 @@ export default function FullScreenDialog({
 }) {
   const classes = useStyles();
 
-  console.log(quiz.questions[2]);
+  console.log(quiz._id, response.quiz);
 
   return (
     <div>
@@ -72,7 +72,7 @@ export default function FullScreenDialog({
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Minha resposta
+              Minha resposta {`${quiz._id} ${response.quiz}`}
             </Typography>
           </Toolbar>
         </AppBar>
