@@ -14,10 +14,10 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 import Alert from "../Alert/Alert";
-import Checkbox from "../TypeQuestions/Checkbox";
-import Choice from "../TypeQuestions/Choice.js";
-import Text from "../TypeQuestions/Text.js";
 import styles from "./styles.js";
+import Checkbox from "./TypeQuestions/Checkbox";
+import Choice from "./TypeQuestions/Choice.js";
+import Text from "./TypeQuestions/Text.js";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

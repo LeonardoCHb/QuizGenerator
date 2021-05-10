@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { findAllQuizzes } from "../../actions/quiz";
-import QuizCard from "../QuizCard/QuizCard";
+import QuizCard from "./QuizCard/QuizCard.js";
 import styles from "./QuizListStyles";
 
 const useStyles = styles;
