@@ -10,7 +10,6 @@ const useStyles = styles;
 
 export default function ResponseList({ responses }) {
   const classes = useStyles();
-  console.log(responses);
 
   return !responses.length ? (
     <CircularProgress />

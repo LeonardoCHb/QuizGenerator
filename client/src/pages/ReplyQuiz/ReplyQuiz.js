@@ -24,11 +24,8 @@ const ReplyQuiz = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const quiz = useSelector((state) => state.quiz[0]);
-  // eslint-disable-next-line no-unused-vars
   const [finalResponse, setFinalResponse] = useState({});
   const [responses, setResponses] = useState([]);
-
-  console.log(finalResponse);
 
   useEffect(() => {
     dispatch(findOne(id));

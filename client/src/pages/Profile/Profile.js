@@ -10,10 +10,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  findAllCreatorQuizzes,
-  findAllUserResponses,
-} from "../../actions/quiz";
+import { findAllUserQuizzes, findAllUserResponses } from "../../actions/quiz";
 import Quiz from "../../components/CreatorQuizzes/CreatorQuizzes.js";
 import Responses from "../../components/CreatorResponses/CreatorResponses.js";
 import styles from "./styles.js";
@@ -73,13 +70,11 @@ const Profile = () => {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => setValue(newValue);
   const dispatch = useDispatch();
-  const quizzes = useSelector((state) => state.quiz);
+  const quizzes = useSelector((state) => state.quizzesUser);
   const responses = useSelector((state) => state.response);
 
-  console.log(responses);
-
   useEffect(() => {
-    dispatch(findAllCreatorQuizzes());
+    dispatch(findAllUserQuizzes());
     dispatch(findAllUserResponses());
   }, []);
 

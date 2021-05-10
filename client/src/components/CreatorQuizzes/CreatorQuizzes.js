@@ -11,8 +11,6 @@ const useStyles = styles;
 export default function QuizList({ quizzes }) {
   const classes = useStyles();
 
-  console.log(quizzes);
-
   return !quizzes.length ? (
     <CircularProgress />
   ) : (

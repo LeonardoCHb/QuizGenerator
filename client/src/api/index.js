@@ -17,6 +17,8 @@ export const fetchCreatorQuizzes = () => API.get("/quiz/findAllCreatorQuizzes");
 
 export const fetchQuiz = (id) => API.get(`/quiz/findOne/${id}`);
 
+export const fetchQuizResponses = (id) =>
+  API.get(`/quiz/findAllQuizResponses/${id}`);
 export const fetchUserResponses = () => API.get("/quiz/findAllUserResponses");
 
 export const responseQuiz = (newResponse) =>
