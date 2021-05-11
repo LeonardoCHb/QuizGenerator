@@ -1,4 +1,4 @@
-// import  mongoose  from "mongoose"
+import  mongoose  from "mongoose"
 import quizModel from "../models/quizModels.js"
 import ResponseModel from "../models/responseModels.js"
 
@@ -87,6 +87,25 @@ export const createQuiz = async (req, res) => {
 
 }
 
+export const deleteQuiz = async (req, res) => {
+    const {id} = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id))
+        return res.status(404).send(`Nao ha nenhum quiz com esse id`)
+    
+    console.log("ID DO QUIZ A SER REMOVIDO", id)
+
+    try {
+        await ResponseModel.deleteMany({ quiz: id})
+
+        await quizModel.deleteOne({_id: id})
+        res.json({message: `O quiz com id ${id} foi deleteado`})
+    } catch(error) {
+        console.log({message: error})
+    }
+
+}
+
 /* export const updateQuiz = async (req, res) => {
     const {id} = req.params
 
@@ -112,16 +131,4 @@ export const createQuiz = async (req, res) => {
     res.json(updatedData)
     console.log('USUARIO ATUALIZADO')
 }
-
-export const deleteQuiz = async (req, res) => {
-    const {id} = req.params
-
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).send(`Nao ha nenhum usuario com esse id`)
-    }
-    
-    await quizModel.findByIdAndRemove(id)
-
-    res.json({message: `O usuario com id ${id} foi deleteado`})
-
-} */
+*/

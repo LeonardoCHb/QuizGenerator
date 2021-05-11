@@ -7,7 +7,7 @@ import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { quizResponses } from "../../../actions/quiz.js";
+import { quizResponses, deleteQuiz } from "../../../actions/quiz.js";
 import styles from "./QuizCardStyles";
 import ShowQuiz from "./ShowQuiz/ShowQuiz.js";
 
@@ -20,7 +20,7 @@ export default function QuizCard({ quiz }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(quizResponses(quiz._id));
+    dispatch(quizResponses(quiz?._id));
   }, [quiz]);
 
   const handleClickOpen = () => {
@@ -29,6 +29,10 @@ export default function QuizCard({ quiz }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteQuiz(quiz?._id));
   };
 
   return responses && quiz ? (
@@ -83,7 +87,7 @@ export default function QuizCard({ quiz }) {
           <Button size="small" color="primary">
             Download
           </Button>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={handleDelete}>
             Deletar
           </Button>
         </CardActions>

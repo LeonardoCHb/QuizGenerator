@@ -21,6 +21,8 @@ export const fetchQuizResponses = (id) =>
   API.get(`/quiz/findAllQuizResponses/${id}`);
 export const fetchUserResponses = () => API.get("/quiz/findAllUserResponses");
 
+export const deleteQuiz = (id) => API.delete(`/quiz/deleteQuiz/${id}`);
+
 export const responseQuiz = (newResponse) =>
   API.post("/quiz/reply", newResponse);
 

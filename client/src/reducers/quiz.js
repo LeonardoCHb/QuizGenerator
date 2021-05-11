@@ -7,10 +7,17 @@ import {
   FETCH_ALL_USER_QUIZZES,
   FETCH_ALL_QUIZZES_RESPONSE,
   FETCH_ONE_QUIZ_TO_VIEW,
+  DELETE_QUIZ,
 } from "../constants/actionTypes";
 
 const quizzes = (quizzes = [], action) => {
   switch (action.type) {
+    case DELETE_QUIZ: {
+      const newQuizzes = quizzes.filter((quiz) => {
+        return quiz._id !== action.payload;
+      });
+      return newQuizzes;
+    }
     case FETCH_ALL:
       return action.payload;
     case FETCH_ONE_QUIZ_TO_RESPONSE:
@@ -35,6 +42,12 @@ const responses = (responses = [], action) => {
 
 const quizzesUser = (quizzesUser = [], action) => {
   switch (action.type) {
+    case DELETE_QUIZ: {
+      const newQuizzes = quizzesUser.filter((quiz) => {
+        return quiz._id !== action.payload;
+      });
+      return newQuizzes;
+    }
     case FETCH_ALL_USER_QUIZZES:
       return action.payload;
     default:

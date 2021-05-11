@@ -78,6 +78,10 @@ const Profile = () => {
     dispatch(findAllUserResponses());
   }, []);
 
+  useEffect(() => {
+    dispatch(findAllUserResponses());
+  }, [quizzes]);
+
   return (
     <>
       <Container className={classes.ProfileContainer}>

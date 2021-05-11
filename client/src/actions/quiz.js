@@ -8,6 +8,7 @@ import {
   FETCH_ALL_USER_QUIZZES,
   FETCH_ALL_QUIZZES_RESPONSE,
   FETCH_ONE_QUIZ_TO_VIEW,
+  DELETE_QUIZ,
 } from "../constants/actionTypes";
 
 // CREATE QUIZ
@@ -82,6 +83,16 @@ export const findOneToView = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchQuiz(id);
     dispatch({ type: FETCH_ONE_QUIZ_TO_VIEW, payload: { data, id } });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteQuiz = (id) => async (dispatch) => {
+  try {
+    await api.deleteQuiz(id);
+
+    dispatch({ type: DELETE_QUIZ, payload: id });
   } catch (error) {
     console.log(error);
   }
