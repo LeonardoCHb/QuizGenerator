@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useToasts } from "react-toast-notifications";
 
 import { quizResponses, deleteQuiz } from "../../../actions/quiz.js";
 import styles from "./QuizCardStyles";
@@ -14,6 +15,7 @@ import ShowQuiz from "./ShowQuiz/ShowQuiz.js";
 const useStyles = styles;
 
 export default function QuizCard({ quiz }) {
+  const { addToast } = useToasts();
   const classes = useStyles();
   const dispatch = useDispatch();
   const responses = useSelector((state) => state.quizzesResponse[quiz?._id]);
@@ -76,9 +78,14 @@ export default function QuizCard({ quiz }) {
               <Button
                 size="small"
                 color="primary"
-                onClick={() =>
-                  copy(`http://localhost:3000/quiz/reply/${quiz._id}`)
-                }
+                onClick={() => {
+                  copy(`http://localhost:3000/quiz/reply/${quiz._id}`);
+                  addToast("LINK COPIADO.", {
+                    appearance: "info",
+                    autoDismiss: true,
+                    autoDismissTimeout: 2000,
+                  });
+                }}
               >
                 Compartilhar
               </Button>

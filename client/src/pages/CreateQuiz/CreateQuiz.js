@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useToasts } from "react-toast-notifications";
 
 import { createQuiz } from "../../actions/quiz";
 import Alert from "../../components/Alert/Alert";
@@ -25,6 +26,7 @@ const initialQuiz = {
 };
 
 const CreateQuiz = () => {
+  const { addToast } = useToasts();
   const [quizData, setQuizData] = useState(initialQuiz);
   const [wasSend, setWasSend] = useState(false);
   const classes = useStyles();
@@ -54,6 +56,10 @@ const CreateQuiz = () => {
     dispatch(createQuiz({ ...quizData, name: user?.result?.name }));
     setQuizData({ ...initialQuiz });
     handleWasSend();
+    addToast("Questionário criado.", {
+      appearance: "success",
+      autoDismiss: true,
+    });
   };
 
   const handleQuestion = (currentQuestions) => {

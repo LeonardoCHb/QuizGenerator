@@ -8,6 +8,7 @@ import {
   FETCH_ALL_QUIZZES_RESPONSE,
   FETCH_ONE_QUIZ_TO_VIEW,
   DELETE_QUIZ,
+  FETCH_ONE_USER_RESPONSE,
 } from "../constants/actionTypes";
 
 const quizzes = (quizzes = [], action) => {
@@ -20,12 +21,19 @@ const quizzes = (quizzes = [], action) => {
     }
     case FETCH_ALL:
       return action.payload;
-    case FETCH_ONE_QUIZ_TO_RESPONSE:
-      return action.payload;
     case CREATE:
       return [...quizzes, action.payload];
     default:
       return quizzes;
+  }
+};
+
+const quizToResponse = (quiz = [], action) => {
+  switch (action.type) {
+    case FETCH_ONE_QUIZ_TO_RESPONSE:
+      return action.payload;
+    default:
+      return quiz;
   }
 };
 
@@ -81,4 +89,21 @@ const quizToView = (quizToView = {}, action) => {
   }
 };
 
-export { quizzes, responses, quizzesUser, quizzesResponse, quizToView };
+const quizResponse = (response = {}, action) => {
+  switch (action.type) {
+    case FETCH_ONE_USER_RESPONSE:
+      return action.payload;
+    default:
+      return response;
+  }
+};
+
+export {
+  quizzes,
+  responses,
+  quizzesUser,
+  quizzesResponse,
+  quizToView,
+  quizResponse,
+  quizToResponse,
+};

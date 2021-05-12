@@ -5,6 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
 import React, { useState } from "react";
+import { useToasts } from "react-toast-notifications";
 
 // react
 
@@ -13,6 +14,7 @@ import styles from "./QuizCardStyles";
 const useStyles = styles;
 
 export default function QuizCard({ quiz }) {
+  const { addToast } = useToasts();
   const classes = useStyles();
   const [user] = useState(JSON.parse(localStorage.getItem("profile")));
 
@@ -51,9 +53,14 @@ export default function QuizCard({ quiz }) {
               <Button
                 size="small"
                 color="primary"
-                onClick={() =>
-                  copy(`http://localhost:3000/quiz/reply/${quiz._id}`)
-                }
+                onClick={() => {
+                  copy(`http://localhost:3000/quiz/reply/${quiz._id}`);
+                  addToast("LINK COPIADO.", {
+                    appearance: "info",
+                    autoDismiss: true,
+                    autoDismissTimeout: 2000,
+                  });
+                }}
               >
                 Compartilhar
               </Button>

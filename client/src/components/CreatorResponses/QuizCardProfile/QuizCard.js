@@ -8,6 +8,7 @@ import moment from "moment";
 import "moment/locale/pt-br";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useToasts } from "react-toast-notifications";
 
 import { findOneToView } from "../../../actions/quiz.js";
 import styles from "./QuizCardStyles";
@@ -16,6 +17,7 @@ import ShowResponse from "./ShowResponse/ShowResponse.js";
 const useStyles = styles;
 
 export default function QuizCard({ response }) {
+  const { addToast } = useToasts();
   const classes = useStyles();
   const dispatch = useDispatch();
   const quiz = useSelector((state) => state.quizToView[response?.quiz]);
@@ -70,16 +72,25 @@ export default function QuizCard({ response }) {
               <Button
                 size="small"
                 color="primary"
-                onClick={() =>
-                  copy(`http://localhost:3000/quiz/reply/${response.quiz}`)
-                }
+                onClick={() => {
+                  copy(`http://localhost:3000/quiz/reply/${response.quiz}`);
+                  addToast("LINK COPIADO.", {
+                    appearance: "info",
+                    autoDismiss: true,
+                    autoDismissTimeout: 2000,
+                  });
+                }}
               >
                 Compartilhar
               </Button>
             )}
           />
-          <Button size="small" color="primary">
-            Ver questionario
+          <Button
+            size="small"
+            color="primary"
+            href={response.sent ? false : `/quiz/reply/${response.quiz}`}
+          >
+            {response.sent ? "Enviado" : "Ver questionário"}
           </Button>
         </CardActions>
       </Card>

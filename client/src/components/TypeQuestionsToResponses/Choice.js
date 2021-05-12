@@ -31,9 +31,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ question, id, myResponses }) {
+export default function ({ question, id, myResponses, responseC }) {
   const classes = useStyles();
   const [response, setResponse] = useState(null);
+
+  useEffect(() => {
+    if (responseC) {
+      setResponse(responseC);
+    }
+  }, [responseC]);
 
   useEffect(() => {
     myResponses(response, id);

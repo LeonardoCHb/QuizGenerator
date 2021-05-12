@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ question, id, myResponses }) {
+export default function ({ question, id, myResponses, response }) {
   const classes = useStyles();
-  const [responses, setResponses] = useState({});
+  const [responses, setResponses] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [finalResponse, setFinalResponse] = useState([]);
 
@@ -49,6 +49,16 @@ export default function ({ question, id, myResponses }) {
   };
 
   useEffect(handleFinalResponse, [responses]);
+
+  useEffect(() => {
+    if (response && responses) {
+      const obj = {};
+      question.options.forEach((option, index) => {
+        obj[`option${index}`] = response[index];
+      });
+      setResponses(obj);
+    }
+  }, [response]);
 
   useEffect(() => {
     const obj = {};
@@ -72,7 +82,7 @@ export default function ({ question, id, myResponses }) {
               key={index}
               control={
                 <Checkbox
-                  checked={responses[`option${index}`]}
+                  checked={responses ? responses[`option${index}`] : null}
                   color="primary"
                   onChange={handleChange}
                   name={`option${index}`}

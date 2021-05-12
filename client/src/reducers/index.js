@@ -7,6 +7,8 @@ import {
   quizzesUser,
   quizzesResponse,
   quizToView,
+  quizResponse,
+  quizToResponse,
 } from "./quiz";
 
 export const reducers = combineReducers({
@@ -16,4 +18,6 @@ export const reducers = combineReducers({
   quizzesUser,
   quizzesResponse,
   quizToView,
+  quizResponse,
+  quizToResponse,
 });

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { ToastProvider } from "react-toast-notifications";
 
 import AppBar from "./components/AppBar/AppBar.js";
 import CreateQuiz from "./pages/CreateQuiz/CreateQuiz.js";
@@ -14,13 +15,15 @@ const App = () => (
   <BrowserRouter>
     <div>
       <AppBar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/auth" exact component={Auth} />
-        <Route path="/quiz/create" exact component={CreateQuiz} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/quiz/reply/:id" exact component={ReplyQuiz} />
-      </Switch>
+      <ToastProvider placement="bottom-right">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/auth" exact component={Auth} />
+          <Route path="/quiz/create" exact component={CreateQuiz} />
+          <Route path="/profile" exact component={Profile} />
+          <Route path="/quiz/reply/:id" exact component={ReplyQuiz} />
+        </Switch>
+      </ToastProvider>
     </div>
   </BrowserRouter>
 );

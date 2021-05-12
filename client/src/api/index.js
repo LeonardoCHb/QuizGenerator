@@ -12,14 +12,19 @@ API.interceptors.request.use((req) => {
 });
 
 export const createQuiz = (newQuiz) => API.post("/quiz/create", newQuiz);
+
 export const fetchQuizzes = () => API.get("/quiz/findAll");
+
 export const fetchCreatorQuizzes = () => API.get("/quiz/findAllCreatorQuizzes");
 
 export const fetchQuiz = (id) => API.get(`/quiz/findOne/${id}`);
 
 export const fetchQuizResponses = (id) =>
   API.get(`/quiz/findAllQuizResponses/${id}`);
+
 export const fetchUserResponses = () => API.get("/quiz/findAllUserResponses");
+
+export const fetchOneResponse = (id) => API.get(`/quiz/findOneResponse/${id}`);
 
 export const deleteQuiz = (id) => API.delete(`/quiz/deleteQuiz/${id}`);
 
@@ -27,4 +32,5 @@ export const responseQuiz = (newResponse) =>
   API.post("/quiz/reply", newResponse);
 
 export const signIn = (formData) => API.post("/auth/signin", formData);
+
 export const signUp = (formData) => API.post("/auth/signup", formData);

@@ -2,12 +2,24 @@ import  mongoose  from "mongoose"
 import quizModel from "../models/quizModels.js"
 import ResponseModel from "../models/responseModels.js"
 
+
+export const findOneResponse = async (req, res) => {
+    const id_user = req.userId;
+    const { id } = {...req.params };
+
+    try {
+        const response = await ResponseModel.find({ answeredBy: id_user, quiz: id })
+        res.status(200).json(response)
+    } catch (error) {
+        res.status(404).json({ERROR: 'Nao ha resposta.'})
+    }
+}
+
 export const findQuiz = async (req, res) => {
     const { id } = req.params;
 
     try {
         const quiz = await quizModel.find({ _id: id}).exec()
-        console.log(quiz)
         res.status(200).json(quiz)
     } catch(error) {
         res.status(404).json({ERRO: 'Esse questionario nao existe.'})
@@ -17,11 +29,14 @@ export const findQuiz = async (req, res) => {
 
 export const replyQuiz = async (req, res) => {
     const ResponseData = req.body
+    console.log(ResponseData)
    
     const newResponse = new ResponseModel({...ResponseData, createdAt: new Date().toISOString() })
 
     try {
-        await newResponse.save()
+        if(ResponseData._id)
+            await ResponseModel.updateOne({_id: ResponseData._id}, newResponse);
+        else await newResponse.save()
         res.status(201).json(newResponse)
     } catch (error) {
         res.status(409).json({message: error.message})

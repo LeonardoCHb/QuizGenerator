@@ -16,9 +16,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ question, id, myResponses }) => {
+export default ({ question, id, myResponses, responseT }) => {
   const [response, setResponse] = useState("");
   const classes = useStyles();
+
+  useEffect(() => {
+    if (responseT?.length !== 0) {
+      setResponse(responseT);
+    }
+  }, [responseT]);
 
   useEffect(() => {
     myResponses(response, id);

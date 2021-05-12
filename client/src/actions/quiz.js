@@ -9,7 +9,19 @@ import {
   FETCH_ALL_QUIZZES_RESPONSE,
   FETCH_ONE_QUIZ_TO_VIEW,
   DELETE_QUIZ,
+  FETCH_ONE_USER_RESPONSE,
 } from "../constants/actionTypes";
+
+// PEGA UMA RESPOSTA DO USUARIO DO RESPECTIVO QUIZ
+export const findOneResponse = (quiz) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchOneResponse(quiz);
+
+    dispatch({ type: FETCH_ONE_USER_RESPONSE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // CREATE QUIZ
 export const createQuiz = (quiz) => async (dispatch) => {
