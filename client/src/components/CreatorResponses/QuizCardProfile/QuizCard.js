@@ -53,7 +53,7 @@ export default function QuizCard({ response }) {
               className={classes.title}
               align="center"
             >
-              {response.quiz}
+              {response.quizTitle}
             </Typography>
             <Typography
               gutterBottom

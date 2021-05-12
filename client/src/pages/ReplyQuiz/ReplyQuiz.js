@@ -9,6 +9,7 @@ import "moment/locale/pt-br";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 import { responseToQuiz, findOne, findOneResponse } from "../../actions/quiz";
 import CheckboxQuestion from "../../components/TypeQuestionsToResponses/Checkbox";
@@ -19,6 +20,7 @@ import styles from "./styles.js";
 const useStyles = styles;
 
 const ReplyQuiz = () => {
+  const { addToast } = useToasts();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
   const history = useHistory();
@@ -57,6 +59,7 @@ const ReplyQuiz = () => {
     const newResponse = {};
     newResponse.quiz = quiz?._id;
     newResponse.creator = quiz?.creator;
+    newResponse.quizTitle = quiz?.title;
     newResponse.sent = false;
     if (user) {
       const isCustomAuth = user?.token.length < 500;
@@ -78,11 +81,19 @@ const ReplyQuiz = () => {
 
   const handlePartialSave = async (e) => {
     dispatch(responseToQuiz({ ...finalResponse }));
+    addToast("Resposta salva.", {
+      appearance: "success",
+      autoDismiss: true,
+    });
   };
 
   const handleSubmit = async (e) => {
     dispatch(responseToQuiz({ ...finalResponse, sent: true }));
     history.push("/");
+    addToast("Resposta enviada.", {
+      appearance: "success",
+      autoDismiss: true,
+    });
   };
 
   if (quiz?.public === false) {

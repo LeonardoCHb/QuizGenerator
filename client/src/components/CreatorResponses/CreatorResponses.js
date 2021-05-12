@@ -1,5 +1,4 @@
-import { Container } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Container, Typography } from "@material-ui/core";
 // react
 import React from "react";
 
@@ -12,7 +11,7 @@ export default function ResponseList({ responses }) {
   const classes = useStyles();
 
   return !responses.length ? (
-    <CircularProgress />
+    <Typography variant="p">:(</Typography>
   ) : (
     <Container maxWidth="md" className={classes.paper}>
       {responses.map((response) => (
