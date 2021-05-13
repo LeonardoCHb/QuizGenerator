@@ -4,6 +4,9 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
+import { Parser } from "json2csv";
+import moment from "moment";
+import "moment/locale/pt-br";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
@@ -20,6 +23,42 @@ export default function QuizCard({ quiz }) {
   const dispatch = useDispatch();
   const responses = useSelector((state) => state.quizzesResponse[quiz?._id]);
   const [open, setOpen] = useState(false);
+  const [resToDownload, setResToDownload] = useState([]);
+  const [fields, setFields] = useState([]);
+  const json2csvParser = new Parser({ fields });
+  const csv = json2csvParser.parse(resToDownload);
+  // eslint-disable-next-line no-undef
+  const dataToDownload = new Blob([csv], { type: "text/csv" });
+  const csvURL = window.URL.createObjectURL(dataToDownload);
+  const downloadlink = document.createElement("a");
+  downloadlink.href = csvURL;
+  downloadlink.setAttribute("download", "responses.csv");
+
+  useEffect(() => {
+    let res;
+    const newObject = {};
+    const field = ["name", "answeredAt"];
+    const questions = quiz?.questions.map((e) => {
+      return e.wording;
+    });
+    if (responses?.length > 0) {
+      res = responses[0].map((e) => {
+        e.responses.forEach((response, index) => {
+          newObject[questions[index]] = response;
+        });
+        return {
+          name: e.name,
+          answeredAt: moment(e.answeredAt).format("DD/MM/YYYY HH:mm:ss"),
+          ...newObject,
+        };
+      });
+    }
+    if (res && questions) {
+      const csvHeader = field.concat(questions);
+      setFields(csvHeader);
+      setResToDownload(res);
+    }
+  }, [responses, quiz]);
 
   useEffect(() => {
     dispatch(quizResponses(quiz?._id));
@@ -91,10 +130,32 @@ export default function QuizCard({ quiz }) {
               </Button>
             )}
           />
-          <Button size="small" color="primary">
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              downloadlink.click();
+              addToast("BAIXANDO.", {
+                appearance: "info",
+                autoDismiss: true,
+                autoDismissTimeout: 2000,
+              });
+            }}
+          >
             Download
           </Button>
-          <Button size="small" color="primary" onClick={handleDelete}>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              handleDelete();
+              addToast("DELETANDO.", {
+                appearance: "info",
+                autoDismiss: true,
+                autoDismissTimeout: 2000,
+              });
+            }}
+          >
             Deletar
           </Button>
         </CardActions>

@@ -4,6 +4,7 @@ const responseSchema = mongoose.Schema({
     sent: { type: Boolean, required: true},
     quiz: { type: String, required: true },
     quizTitle: { type: String, required: true},
+    name: { type: String, required: true},
     answeredBy: { type: String, required: true},
     creator: { type: String, required: true },
     responses: {

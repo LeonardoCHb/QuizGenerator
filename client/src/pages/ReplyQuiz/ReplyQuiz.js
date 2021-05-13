@@ -66,8 +66,10 @@ const ReplyQuiz = () => {
       if (isCustomAuth) newResponse.answeredBy = user?.result?._id;
       else newResponse.answeredBy = user?.result?.googleId;
       if (quiz) dispatch(findOneResponse(quiz?._id));
+      newResponse.name = user?.result?.name;
     } else {
       newResponse.answeredBy = "undefined";
+      newResponse.name = "anonimo";
     }
     setFinalResponse({ ...newResponse });
   }, [quiz]);
