@@ -16,7 +16,7 @@ app.use("/auth", register)
 app.use("/adm", adm)
 app.use("/quiz", quiz)
 
-const CONNECTION_URL = 'mongodb+srv://quizgenerator:6o9NtFHHmJoRrpu6@cluster0.ed9lk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const CONNECTION_URL = 'mongodb://quizgenerator:6o9NtFHHmJoRrpu6@cluster0-shard-00-00.ed9lk.mongodb.net:27017,cluster0-shard-00-01.ed9lk.mongodb.net:27017,cluster0-shard-00-02.ed9lk.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-k438xc-shard-0&authSource=admin&retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000
 
 mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
