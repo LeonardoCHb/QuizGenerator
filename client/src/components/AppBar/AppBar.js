@@ -7,9 +7,9 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
 // componentes e actions
-import SearchBox from "../../components/SearchBox/SearchBox";
 import { QUIZ_SEARCH } from "../../constants/actionTypes.js";
-import DropMenu from "./Menu";
+import DropMenu from "./Menu/Menu";
+import SearchBox from "./SearchBox/SearchBox";
 // estilos internos
 import styles from "./styles.js";
 

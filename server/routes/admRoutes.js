@@ -1,6 +1,7 @@
 import express from 'express'
 
-import { findUser, getUsers, deleteUser, updateUser } from '../controllers/UserControllers.js'
+import auth from "../middleware/auth.js"
+import { findUser, getUsers, deleteUser, updateUser, setAdm, findAdm } from '../controllers/AdmControllers.js'
 
 const router = express.Router()
 
@@ -9,5 +10,7 @@ router.get('/findAll', getUsers)
 router.patch('/:id', updateUser)
 router.delete('/:id', deleteUser)
 
+router.post('/setAdm', setAdm)
+router.get('/findAdm',auth, findAdm)
 
 export default router
