@@ -1,4 +1,3 @@
-import { green, red } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
@@ -25,18 +24,6 @@ export default makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    // display: inline-block,
-    // border-radius: 4px,
-    // background-color: #f4511e,
-    // border: none,
-    // color: #FFFFFF,
-    // text-align: center,
-    // font-size: 28px,
-    // padding: 20px,
-    // width: 200px,
-    // transition: all 0.5s,
-    // cursor: pointer,
-    // margin: 5px,
   },
   // style for font size
   resize: {
@@ -46,19 +33,5 @@ export default makeStyles((theme) => ({
     padding: "0 16px 8px 16px",
     display: "flex",
     justifyContent: "space-between",
-  },
-  fabGreen: {
-    color: theme.palette.common.white,
-    backgroundColor: green.A400,
-    "&:hover": {
-      backgroundColor: green.A400,
-    },
-  },
-  fabRed: {
-    color: theme.palette.common.white,
-    backgroundColor: red.A700,
-    "&:hover": {
-      backgroundColor: red.A700,
-    },
   },
 }));

@@ -24,10 +24,4 @@ export default makeStyles((theme) => ({
     },
     width: "100%",
   },
-  link: {
-    color: "inherit",
-    textDecoration: "none",
-    marginRight: 0,
-    marginLeft: 0,
-  },
 }));

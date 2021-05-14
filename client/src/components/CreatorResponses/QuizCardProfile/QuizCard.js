@@ -1,15 +1,23 @@
-import { Button, Grid, Typography } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
+// estilização
+import {
+  Button,
+  Grid,
+  Typography,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+} from "@material-ui/core";
+// bibliotecas
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
 import moment from "moment";
 import "moment/locale/pt-br";
+// react e redux
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 
+// constantes e componentes
 import { findOneToView } from "../../../actions/quiz.js";
 import styles from "./QuizCardStyles";
 import ShowResponse from "./ShowResponse/ShowResponse.js";

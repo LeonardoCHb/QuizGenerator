@@ -1,12 +1,19 @@
-import { Button, Grid, Typography } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
+// estilização
+import {
+  Button,
+  Grid,
+  Typography,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+} from "@material-ui/core";
+// bibliotecas
 import CopyToClipboard from "@vigosan/react-copy-to-clipboard";
 import { Parser } from "json2csv";
 import moment from "moment";
 import "moment/locale/pt-br";
+// react e redux
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
@@ -87,24 +94,12 @@ export default function QuizCard({ quiz }) {
         />
         <CardActionArea onClick={handleClickOpen}>
           <CardContent>
-            <Typography
-              gutterBottom
-              variant="h6"
-              component="h2"
-              className={classes.title}
-              align="center"
-            >
+            <Typography gutterBottom variant="h6" component="h2" align="center">
               {quiz.title.length < 37
                 ? quiz.title
                 : `${quiz.title.substring(0, 37)}...`}
             </Typography>
-            <Typography
-              gutterBottom
-              variant="p"
-              component="p"
-              className={classes.title}
-              align="center"
-            >
+            <Typography gutterBottom variant="p" component="p" align="center">
               {quiz.description.length < 50
                 ? quiz.description
                 : `${quiz.description.substring(0, 50)}...`}

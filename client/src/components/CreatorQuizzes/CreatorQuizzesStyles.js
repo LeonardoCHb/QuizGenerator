@@ -11,7 +11,4 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     flexWrap: "wrap",
   },
-  grow: {
-    flexGrow: 1,
-  },
 }));

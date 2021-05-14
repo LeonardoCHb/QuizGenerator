@@ -1,14 +1,15 @@
 import {
   FETCH_ALL,
-  FETCH_ONE_QUIZ_TO_RESPONSE,
   CREATE,
   RESPONSE,
+  FETCH_ONE_USER_RESPONSE,
   FETCH_ALL_USER_RESPONSES,
   FETCH_ALL_USER_QUIZZES,
+  DELETE_QUIZ,
+  FETCH_ONE_QUIZ_TO_RESPONSE,
   FETCH_ALL_QUIZZES_RESPONSE,
   FETCH_ONE_QUIZ_TO_VIEW,
-  DELETE_QUIZ,
-  FETCH_ONE_USER_RESPONSE,
+  QUIZ_SEARCH,
 } from "../constants/actionTypes";
 
 const quizzes = (quizzes = [], action) => {
@@ -98,6 +99,15 @@ const quizResponse = (response = {}, action) => {
   }
 };
 
+const quizSearch = (quiz = "", action) => {
+  switch (action.type) {
+    case QUIZ_SEARCH:
+      return action.payload;
+    default:
+      return quiz;
+  }
+};
+
 export {
   quizzes,
   responses,
@@ -106,4 +116,5 @@ export {
   quizToView,
   quizResponse,
   quizToResponse,
+  quizSearch,
 };

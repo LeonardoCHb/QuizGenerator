@@ -1,13 +1,17 @@
-import AppBar from "@material-ui/core/AppBar";
-import Container from "@material-ui/core/Container";
-import Dialog from "@material-ui/core/Dialog";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Slide from "@material-ui/core/Slide";
-import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+// estilização
+import {
+  AppBar,
+  Container,
+  Dialog,
+  Grid,
+  IconButton,
+  Slide,
+  makeStyles,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+// react
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({

@@ -1,15 +1,17 @@
-import { Tooltip } from "@material-ui/core";
-import Fab from "@material-ui/core/Fab";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+// estilização
+import { Tooltip, Container, Fab, makeStyles } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+// react
 import React from "react";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-  CreateButton: {
-    marginRight: "3rem",
-    color: "#e5e5e5",
+  ContainerButton: {
+    display: "flex",
+    marginTop: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 
@@ -17,7 +19,7 @@ export default function ButtonCreateQuiz() {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.CreateButton}>
+    <Container className={classes.ContainerButton}>
       <Tooltip
         title="Criar Questionario"
         placement="top-start"
@@ -32,6 +34,6 @@ export default function ButtonCreateQuiz() {
           <AddIcon color="primary" />
         </Fab>
       </Tooltip>
-    </Grid>
+    </Container>
   );
 }
