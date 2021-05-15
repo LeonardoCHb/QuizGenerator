@@ -29,7 +29,6 @@ const getUsers = (users = [], action) => {
 const getUsersResponses = (responses = [], action) => {
   switch (action.type) {
     case GET_ALL_USERS_RESPONSES: {
-      console.log(action.payload);
       return action.payload;
     }
     default:

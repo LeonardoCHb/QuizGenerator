@@ -1,5 +1,5 @@
 import { Paper, Container } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getUsers, getUsersResponses } from "../../actions/adm";
@@ -13,19 +13,37 @@ const Adm = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.getUsers);
   const usersResponses = useSelector((state) => state.getUsersResponses);
-  // const userQuizzes = useSelector((state) => state.quizAllQuestions);
+  const userQuizzes = useSelector((state) => state.quizAllQuestions);
   const classes = useStyles();
-  // const [newUsers, setNewUsers] = setState({});
-
-  console.log(users);
+  const [newUsers, setNewUsers] = useState([]);
 
   const responses = (id) => {
     return usersResponses.filter((userRes) => {
       return userRes.answeredBy === id;
     });
   };
+  // fetch all quizzes
+  const quizzes = (id) => {
+    return userQuizzes.filter((userQuiz) => {
+      return userQuiz.creator === id;
+    });
+  };
 
-  console.log(responses("608cce84d339170cd8ec9894"));
+  useEffect(() => {
+    let userTableData = [];
+    if (users) {
+      userTableData = users.map((user) => ({
+        id: user._id,
+        email: user.email,
+        nome: user.name,
+        QtdQuizzes: quizzes(user._id).length,
+        QtdResponses: responses(user._id).length,
+        quizResponses: responses(user._id),
+        quizCreated: quizzes(user._id),
+      }));
+      setNewUsers(userTableData);
+    }
+  }, [users]);
 
   useEffect(() => {
     dispatch(quizAllQuestions());
@@ -44,7 +62,7 @@ const Adm = () => {
         maxWidth="md"
       >
         <Paper>
-          <Table autoPageSize="true" users={users} />
+          <Table autoPageSize="true" users={newUsers} />
         </Paper>
       </Container>
     </form>

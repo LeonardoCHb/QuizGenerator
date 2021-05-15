@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { DataGrid } from "@material-ui/data-grid";
 import * as React from "react";
 
@@ -6,13 +7,13 @@ const columns = [
   { field: "name", headerName: "Nome", width: 150 },
   { field: "email", headerName: "Email", width: 180 },
   {
-    field: "quizzes",
+    field: "QtdQuizzes",
     headerName: "N° de Quizzes",
     type: "number",
     width: 150,
   },
   {
-    field: "responses",
+    field: "QtdResponses",
     headerName: "N° de Respondidos",
     type: "number",
     width: 180,
@@ -29,24 +30,19 @@ const columns = [
 
 export default function Table({ users }) {
   const [usersTable, setUsersTable] = React.useState([]);
-
-  React.useEffect(() => {
+  console.log(users);
+  /* React.useEffect(() => {
     if (users) {
       const testeTable = users.map((user, index) => {
         return { id: user._id, name: user.name, email: user.email };
       });
       setUsersTable(testeTable);
     }
-  }, [users]);
+  }, [users]); */
 
   return (
     <div style={{ height: 600, width: "100%" }}>
-      <DataGrid
-        rows={usersTable}
-        columns={columns}
-        pageSize={9}
-        checkboxSelection
-      />
+      <DataGrid rows={users} columns={columns} pageSize={9} checkboxSelection />
     </div>
   );
 }
