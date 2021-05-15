@@ -35,7 +35,7 @@ const Adm = () => {
       userTableData = users.map((user) => ({
         id: user._id,
         email: user.email,
-        nome: user.name,
+        name: user.name,
         QtdQuizzes: quizzes(user._id).length,
         QtdResponses: responses(user._id).length,
         quizResponses: responses(user._id),
