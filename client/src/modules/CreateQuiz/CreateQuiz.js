@@ -57,7 +57,6 @@ const CreateQuiz = () => {
       handleError();
       return;
     }
-    console.log(quizData);
     dispatch(createQuiz({ ...quizData, name: user?.result?.name }));
     setQuizData({ ...initialQuiz });
     handleWasSend();

@@ -32,11 +32,7 @@ function TabPanel(props) {
       aria-labelledby={`nav-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -105,7 +101,7 @@ const Profile = () => {
                 }
               />
               <Typography variant="h5">{user.result.name}</Typography>
-              <Typography variant="p">{user.result.email}</Typography>
+              <Typography variant="body2">{user.result.email}</Typography>
             </CardActions>
           </Paper>
         </Container>

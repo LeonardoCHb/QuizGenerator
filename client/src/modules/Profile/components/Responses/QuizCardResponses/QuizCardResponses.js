@@ -65,7 +65,7 @@ export default function QuizCard({ response }) {
             </Typography>
             <Typography
               gutterBottom
-              variant="p"
+              variant="body2"
               component="p"
               className={classes.title}
               align="center"
@@ -96,7 +96,7 @@ export default function QuizCard({ response }) {
           <Button
             size="small"
             color="primary"
-            href={response.sent ? false : `/quiz/reply/${response.quiz}`}
+            href={response.sent ? "" : `/quiz/reply/${response.quiz}`}
           >
             {response.sent ? "Enviado" : "Ver questionário"}
           </Button>

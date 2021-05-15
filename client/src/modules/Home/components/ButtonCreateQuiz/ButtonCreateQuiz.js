@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonCreateQuiz() {
+export default function () {
   const classes = useStyles();
 
   return (

@@ -18,7 +18,6 @@ export const setAdm = async (req, res) => {
 
 export const findAdm = async (req, res) => {
     const id = req.userId
-    console.log(id)
 
     try {
         const AdmModel = await admModel.findOne({id}).exec()
@@ -32,22 +31,18 @@ export const findAdm = async (req, res) => {
 // Acha um usuario
 export const findUser = async (req, res) => {
     const {email} = req.body
-    console.log({email})
 
     try {
         const UserModel = await userModel.findOne({email}).exec()
-        console.log(UserModel)
         res.status(200).json(UserModel)
     } catch(error) {
         res.status(404).json({ERRO: 'Esse usuario nao existe!'})
     }
-
 }
 
 export const getUsers = async (req, res) => {
     try {
         const UserModel = await userModel.find()
-        //console.log(UserModel)
         res.status(200).json(UserModel)
     } catch(error) {
         res.status(404).json({ERRO: 'Esse usuario nao existe!'})
@@ -89,7 +84,6 @@ export const updateUser = async (req, res) => {
     await userModel.findByIdAndUpdate(id,updatedData, {new: true})
 
     res.json(updatedData)
-    console.log('USUARIO ATUALIZADO')
 }
 
 export const deleteUser = async (req, res) => {
