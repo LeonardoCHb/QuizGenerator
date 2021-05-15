@@ -97,14 +97,6 @@ export default function MenuListComposition({ user, Logout, Profile }) {
           open={open}
           anchorEl={anchorRef.current}
           role={undefined}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
           placement="top-end"
           disablePortal={false}
           modifiers={{

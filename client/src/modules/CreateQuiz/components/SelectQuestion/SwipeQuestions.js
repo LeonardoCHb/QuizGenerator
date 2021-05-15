@@ -1,13 +1,5 @@
 // estilização
-import {
-  AppBar,
-  Box,
-  Fab,
-  Tab,
-  Tabs,
-  Tooltip,
-  Typography,
-} from "@material-ui/core";
+import { AppBar, Box, Fab, Tab, Tabs, Tooltip } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
@@ -34,11 +26,7 @@ function TabPanel(props) {
       aria-labelledby={`nav-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -307,36 +295,36 @@ export default function ({ handleQuestion, wasSend, handleWasSend }) {
       </TabPanel>
       <div className={classes.cardActions}>
         {editing ? (
-          <Tooltip
-            title="Editar Questão"
-            placement="top-start"
-            aria-label="Edit"
-            arrow
+          <Fab
+            className={classes.fabGreen}
+            onClick={handleSubmitEdit}
+            aria-label="edit"
           >
-            <Fab
-              className={classes.fabGreen}
-              onClick={handleSubmitEdit}
-              aria-label="edit"
+            <Tooltip
+              title="Editar Questão"
+              placement="top-start"
+              aria-label="Edit"
+              arrow
             >
               <EditIcon />
-            </Fab>
-          </Tooltip>
+            </Tooltip>
+          </Fab>
         ) : (
-          <Tooltip
-            title="Criar Questão"
-            placement="top-start"
-            aria-label="Add"
+          <Fab
+            className={classes.fabGreen}
+            onClick={handleSubmitAdd}
+            aria-label="add"
             disabled={!(Object.keys(list).length < 10)}
-            arrow
           >
-            <Fab
-              className={classes.fabGreen}
-              onClick={handleSubmitAdd}
-              aria-label="add"
+            <Tooltip
+              title="Criar Questão"
+              placement="top-start"
+              aria-label="Add"
+              arrow
             >
               <AddIcon />
-            </Fab>
-          </Tooltip>
+            </Tooltip>
+          </Fab>
         )}
         <Pagination
           size="large"
@@ -349,21 +337,21 @@ export default function ({ handleQuestion, wasSend, handleWasSend }) {
           onChange={currentQuestion}
           siblingCount={5}
         />
-        <Tooltip
-          title="Deletar Questão"
-          placement="top-start"
-          aria-label="Delete"
-          arrow
+        <Fab
           disabled={!editing}
+          className={classes.fabRed}
+          onClick={handleSubmitDelete}
+          aria-label=""
         >
-          <Fab
-            className={classes.fabRed}
-            onClick={handleSubmitDelete}
-            aria-label=""
+          <Tooltip
+            title="Deletar Questão"
+            placement="top-start"
+            aria-label="Delete"
+            arrow
           >
             <ClearIcon />
-          </Fab>
-        </Tooltip>
+          </Tooltip>
+        </Fab>
       </div>
     </div>
   );

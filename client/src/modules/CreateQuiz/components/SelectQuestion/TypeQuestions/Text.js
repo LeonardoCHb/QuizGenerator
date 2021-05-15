@@ -75,10 +75,7 @@ export default ({
   };
 
   return (
-    <Paper
-      className={`${classes.paper} ${classes.root} ${classes.form}`}
-      elevation={3}
-    >
+    <Paper className={`${classes.paper} ${classes.root}`} elevation={3}>
       <Typography variant="h6" className={classes.text}>
         Nesse tipo de questão as respostas são em formato de texto.
       </Typography>

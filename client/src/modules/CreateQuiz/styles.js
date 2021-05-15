@@ -9,15 +9,6 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     padding: theme.spacing(2),
   },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-    },
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
   form: {
     width: "100%",
     marginTop: theme.spacing(3),

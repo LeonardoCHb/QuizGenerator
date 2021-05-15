@@ -1,4 +1,4 @@
-import { Paper, TextField, Typography } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ question, id, myResponses, responseT }) => {
+export default ({ question, responseT }) => {
   const [response, setResponse] = useState("");
   const classes = useStyles();
 
@@ -30,25 +30,12 @@ export default ({ question, id, myResponses, responseT }) => {
     }
   }, [responseT]);
 
-  useEffect(() => {
-    myResponses(response, id);
-  }, [response]);
-
-  const handleResponse = (e) => {
-    setResponse(e.target.value);
-  };
-
   return (
     <Paper className={`${classes.paper} ${classes.root} ${classes.form}`}>
       <Typography variant="h5">{question.wording}</Typography>
-      <TextField
-        value={response}
-        name="response"
-        onChange={handleResponse}
-        variant="outlined"
-        fullWidth
-        label="Resposta"
-      />
+      <Typography variant="overline" align="center">
+        {response}
+      </Typography>
     </Paper>
   );
 };

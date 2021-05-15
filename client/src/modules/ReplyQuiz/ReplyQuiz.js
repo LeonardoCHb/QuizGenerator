@@ -34,12 +34,9 @@ const ReplyQuiz = () => {
   const { id } = useParams();
   const quiz = useSelector((state) => state.quizToResponse[0]);
   const previousRes = useSelector((state) => state.quizResponse[0]);
-  const [responseSaved, setResponseSaved] = useState(null);
+  const [responseSaved, setResponseSaved] = useState([]);
   const [finalResponse, setFinalResponse] = useState({});
   const [responses, setResponses] = useState([]);
-
-  console.log(previousRes);
-  console.log(finalResponse);
 
   useEffect(() => {
     if (previousRes) {
@@ -55,18 +52,15 @@ const ReplyQuiz = () => {
   }, []);
 
   useEffect(() => {
+    const newResponse = {};
     if (quiz) {
       const responsesArr = Array(quiz.questions.length).fill(null);
       setResponses(responsesArr);
+      newResponse.quiz = quiz?._id;
+      newResponse.creator = quiz?.creator;
+      newResponse.quizTitle = quiz?.title;
+      newResponse.sent = false;
     }
-  }, [quiz]);
-
-  useEffect(() => {
-    const newResponse = {};
-    newResponse.quiz = quiz?._id;
-    newResponse.creator = quiz?.creator;
-    newResponse.quizTitle = quiz?.title;
-    newResponse.sent = false;
     if (user) {
       const isCustomAuth = user?.token.length < 500;
       if (isCustomAuth) newResponse.answeredBy = user?.result?._id;
@@ -88,6 +82,7 @@ const ReplyQuiz = () => {
   };
 
   const handlePartialSave = async (e) => {
+    history.push("/");
     dispatch(responseToQuiz({ ...finalResponse }));
     addToast("Resposta salva.", {
       appearance: "success",

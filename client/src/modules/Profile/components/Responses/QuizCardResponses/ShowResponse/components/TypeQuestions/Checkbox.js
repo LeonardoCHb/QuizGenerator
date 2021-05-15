@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+    width: "50rem",
     boxShadow:
       "rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset",
   },
@@ -25,33 +26,20 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     flexWrap: "wrap",
   },
-  fileInput: {
-    width: "97%",
-    margin: "10px 0",
-  },
-  text: {
-    marginLeft: "0.5rem",
-  },
 }));
 
-export default function ({ question, id, response }) {
+export default function ({ question, response }) {
   const classes = useStyles();
-  const [responses, setResponses] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [finalResponse, setFinalResponse] = useState([]);
-
-  const handleFinalResponse = () => {
-    const auxResponses = [];
-    for (const response in responses) {
-      auxResponses.push(responses[response]);
-    }
-    setFinalResponse(auxResponses);
-  };
-
-  useEffect(handleFinalResponse, [responses]);
+  const [responses, setResponses] = useState({
+    option0: false,
+    option1: false,
+    option2: false,
+    option3: false,
+    option4: false,
+  });
 
   useEffect(() => {
-    if (response && responses) {
+    if (response) {
       const obj = {};
       question.options.forEach((option, index) => {
         obj[`option${index}`] = response[index];
@@ -59,18 +47,6 @@ export default function ({ question, id, response }) {
       setResponses(obj);
     }
   }, [response]);
-
-  useEffect(() => {
-    const obj = {};
-    question.options.forEach((option, index) => {
-      obj[`option${index}`] = false;
-    });
-    setResponses(obj);
-  }, [question]);
-
-  const handleChange = (event) => {
-    setResponses({ ...responses, [event.target.name]: event.target.checked });
-  };
 
   return (
     <Paper className={`${classes.paper} ${classes.root} ${classes.form}`}>
@@ -84,7 +60,6 @@ export default function ({ question, id, response }) {
                 <Checkbox
                   checked={responses ? responses[`option${index}`] : null}
                   color="primary"
-                  onChange={handleChange}
                   name={`option${index}`}
                 />
               }

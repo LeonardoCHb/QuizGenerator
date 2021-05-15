@@ -23,10 +23,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
   },
-  fileInput: {
-    width: "97%",
-    margin: "10px 0",
-  },
   text: {
     marginLeft: "0.5rem",
   },

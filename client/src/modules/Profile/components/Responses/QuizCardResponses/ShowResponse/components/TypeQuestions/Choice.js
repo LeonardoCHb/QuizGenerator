@@ -26,18 +26,11 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     flexWrap: "wrap",
   },
-  fileInput: {
-    width: "97%",
-    margin: "10px 0",
-  },
-  text: {
-    marginLeft: "0.5rem",
-  },
 }));
 
-export default function ({ question, id, myResponses, responseC }) {
+export default function ({ question, responseC }) {
   const classes = useStyles();
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState("undefined");
 
   useEffect(() => {
     if (responseC) {
@@ -45,25 +38,11 @@ export default function ({ question, id, myResponses, responseC }) {
     }
   }, [responseC]);
 
-  useEffect(() => {
-    myResponses(response, id);
-  }, [response]);
-
-  const handleChange = (event) => {
-    const index = event.target.value;
-    setResponse(index);
-  };
-
   return (
     <Paper className={`${classes.paper} ${classes.root} ${classes.form}`}>
       <Typography variant="h5">{question.wording}</Typography>
       <FormControl component="fieldset">
-        <RadioGroup
-          aria-label="options"
-          name="options"
-          value={`${response}`}
-          onClick={handleChange}
-        >
+        <RadioGroup aria-label="options" name="options" value={`${response}`}>
           {question.options.map((option, index) => {
             return (
               <FormControlLabel

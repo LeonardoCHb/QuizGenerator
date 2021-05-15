@@ -12,7 +12,7 @@ export default function ResponseList({ responses }) {
   const classes = useStyles();
 
   return !responses.length ? (
-    <Typography variant="p">:(</Typography>
+    <Typography variant="h6">:(</Typography>
   ) : (
     <Container maxWidth="md" className={classes.paper}>
       {responses.map((response) => (
