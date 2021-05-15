@@ -1,4 +1,5 @@
 import {
+  Paper,
   AppBar,
   Container,
   Dialog,
@@ -10,7 +11,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import CheckboxQuestion from "./components/TypeQuestions/Checkbox";
+import RadioQuestion from "./components/TypeQuestions/Choice";
+import TextQuestion from "./components/TypeQuestions/Text.js";
+// import { responseToQuiz, findOne, findOneResponse } from "../../actions/quiz";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -34,9 +40,18 @@ const useStyles = makeStyles((theme) => ({
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
 export default function ({ open, handleClose, response, quiz }) {
   const classes = useStyles();
+  // eslint-disable-next-line no-unused-vars
+  const user = JSON.parse(localStorage.getItem("profile"));
+  // eslint-disable-next-line no-unused-vars
+  const [responseSaved, setResponseSaved] = useState(null);
+  console.log(responseSaved);
+  useEffect(() => {
+    if (response) {
+      setResponseSaved(response.response);
+    }
+  }, [response]);
 
   return (
     <div>
@@ -62,18 +77,43 @@ export default function ({ open, handleClose, response, quiz }) {
           </Toolbar>
         </AppBar>
         <Container maxWidth="lg" style={{ display: "flex", flexWrap: "wrap" }}>
-          <Grid md={6}>
-            <Typography variant="h6" className={classes.subtitle}>
-              Questionário
-              <Typography>{`${quiz._id}`}</Typography>
-            </Typography>
-          </Grid>
-          <Grid md={6}>
-            <Typography variant="h6" className={classes.subtitle}>
-              Resposta
-              <Typography>{`${response.quiz}`}</Typography>
-            </Typography>
-          </Grid>
+          <Paper className={`${classes.paper} ${classes.form}`}>
+            <Grid item xs={12}>
+              {quiz.questions.map((question, index) => {
+                switch (question.typeQuestion) {
+                  case 1:
+                    return (
+                      <CheckboxQuestion
+                        key={index}
+                        id={index}
+                        question={question}
+                        response={responseSaved ? responseSaved[index] : null}
+                      />
+                    );
+                  case 2:
+                    return (
+                      <RadioQuestion
+                        key={index}
+                        id={index}
+                        question={question}
+                        responseC={responseSaved ? responseSaved[index] : null}
+                      />
+                    );
+                  case 3:
+                    return (
+                      <TextQuestion
+                        key={index}
+                        id={index}
+                        question={question}
+                        responseT={responseSaved ? responseSaved[index] : null}
+                      />
+                    );
+                  default:
+                    return "";
+                }
+              })}
+            </Grid>
+          </Paper>
         </Container>
       </Dialog>
     </div>
