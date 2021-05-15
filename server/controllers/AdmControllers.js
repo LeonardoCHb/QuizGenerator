@@ -1,6 +1,7 @@
 import  mongoose  from "mongoose"
 import userModel from "../models/userModels.js"
 import admModel from "../models/admModels.js"
+import responseModel from "../models/responseModels.js"
 
 export const setAdm = async (req, res) => {
     const AdmData = req.body
@@ -48,6 +49,17 @@ export const getUsers = async (req, res) => {
         const UserModel = await userModel.find()
         //console.log(UserModel)
         res.status(200).json(UserModel)
+    } catch(error) {
+        res.status(404).json({ERRO: 'Esse usuario nao existe!'})
+    }
+
+}
+
+export const getUsersResponses = async (req, res) => {
+    try {
+        const ResponseModel = await responseModel.find()
+        //console.log(UserModel)
+        res.status(200).json(ResponseModel)
     } catch(error) {
         res.status(404).json({ERRO: 'Esse usuario nao existe!'})
     }

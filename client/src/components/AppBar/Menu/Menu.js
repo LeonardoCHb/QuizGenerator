@@ -12,8 +12,11 @@ import {
   Typography,
 } from "@material-ui/core";
 // React
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { findAdm } from "../../../actions/adm";
 
 const useStyles = makeStyles((theme) => ({
   userName: {
@@ -36,10 +39,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuListComposition({ user, Logout, Profile }) {
+export default function MenuListComposition({ user, Logout, adm }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const dispatch = useDispatch();
+  const { id } = useSelector((state) => state.findAdm);
+  const [userId, setUserId] = React.useState("");
+
+  useEffect(() => {
+    dispatch(findAdm());
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      const isCustomAuth = user?.token.length < 500;
+      if (isCustomAuth) setUserId(user?.result?._id);
+      else setUserId(user?.result?.googleId);
+    }
+  }, [user]);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -139,6 +157,18 @@ export default function MenuListComposition({ user, Logout, Profile }) {
                     >
                       Perfil
                     </MenuItem>
+                    {id === userId ? (
+                      <MenuItem
+                        className={classes.menu}
+                        component={Link}
+                        to="/adm"
+                      >
+                        Adm
+                      </MenuItem>
+                    ) : (
+                      <React.Fragment></React.Fragment>
+                    )}
+
                     <MenuItem
                       className={classes.menu + " " + classes.logout}
                       onClick={Logout}

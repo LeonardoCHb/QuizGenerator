@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+import { findAdm, getUsers, getUsersResponses } from "./adm";
 import auth from "./auth";
 import {
   quizzes,
@@ -10,6 +11,7 @@ import {
   quizResponse,
   quizToResponse,
   quizSearch,
+  quizAllQuestions,
 } from "./quiz";
 
 export const reducers = combineReducers({
@@ -22,4 +24,8 @@ export const reducers = combineReducers({
   quizResponse,
   quizToResponse,
   quizSearch,
+  findAdm,
+  getUsers,
+  getUsersResponses,
+  quizAllQuestions,
 });

@@ -10,6 +10,7 @@ import {
   FETCH_ONE_QUIZ_TO_VIEW,
   DELETE_QUIZ,
   FETCH_ONE_USER_RESPONSE,
+  GET_ALL_USERS_QUIZZES,
 } from "../constants/actionTypes";
 
 // PEGA UMA RESPOSTA DO USUARIO DO RESPECTIVO QUIZ
@@ -38,6 +39,16 @@ export const findAllQuizzes = () => async (dispatch) => {
   try {
     const { data } = await api.fetchQuizzes();
     dispatch({ type: FETCH_ALL, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ALL USER QUIZZES ***********************************************************
+export const quizAllQuestions = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchQuizzes();
+    dispatch({ type: GET_ALL_USERS_QUIZZES, payload: data });
   } catch (error) {
     console.log(error);
   }

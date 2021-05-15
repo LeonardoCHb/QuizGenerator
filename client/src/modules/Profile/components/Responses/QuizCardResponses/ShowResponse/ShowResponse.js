@@ -37,6 +37,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function ({ open, handleClose, response, quiz }) {
   const classes = useStyles();
+  console.log(quiz, response);
 
   return (
     <div>

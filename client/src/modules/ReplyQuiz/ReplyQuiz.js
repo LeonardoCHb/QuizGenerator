@@ -38,9 +38,6 @@ const ReplyQuiz = () => {
   const [finalResponse, setFinalResponse] = useState({});
   const [responses, setResponses] = useState([]);
 
-  console.log(previousRes);
-  console.log(finalResponse);
-
   useEffect(() => {
     if (previousRes) {
       if (!previousRes?.sent) {

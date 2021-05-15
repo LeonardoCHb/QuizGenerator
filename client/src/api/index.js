@@ -11,6 +11,7 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+/* Metodos do quiz */
 export const createQuiz = (newQuiz) => API.post("/quiz/create", newQuiz);
 
 export const fetchQuizzes = () => API.get("/quiz/findAll");
@@ -31,6 +32,12 @@ export const deleteQuiz = (id) => API.delete(`/quiz/deleteQuiz/${id}`);
 export const responseQuiz = (newResponse) =>
   API.post("/quiz/reply", newResponse);
 
+/* Metodos do Adm */
+export const findAdm = () => API.get("/adm/findAdm");
+export const getUsers = () => API.get("/adm/findAll");
+export const getUsersResponses = () => API.get("/adm/findAllResponses");
+
+/* Metodos autenticacao */
 export const signIn = (formData) => API.post("/auth/signin", formData);
 
 export const signUp = (formData) => API.post("/auth/signup", formData);
