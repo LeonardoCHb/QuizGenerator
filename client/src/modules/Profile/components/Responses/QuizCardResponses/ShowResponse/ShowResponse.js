@@ -20,6 +20,7 @@ import TextQuestion from "./components/TypeQuestions/Text.js";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
+    background: "#014f86",
   },
   title: {
     marginLeft: theme.spacing(2),

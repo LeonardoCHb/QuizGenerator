@@ -29,7 +29,7 @@ export const findQuiz = async (req, res) => {
 
 export const replyQuiz = async (req, res) => {
     const ResponseData = req.body
-    console.log(ResponseData)
+
    
     const newResponse = new ResponseModel({...ResponseData, createdAt: new Date().toISOString() })
 
@@ -45,7 +45,7 @@ export const replyQuiz = async (req, res) => {
 
 export const findAllQuizResponses = async (req, res) => {
     const { id } = req.params
-    console.log({quiz: id});
+
     try {
         const answers = await ResponseModel.find({quiz: id}).exec()
         res.status(200).json(answers)
@@ -107,8 +107,6 @@ export const deleteQuiz = async (req, res) => {
 
     if(!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send(`Nao ha nenhum quiz com esse id`)
-    
-    console.log("ID DO QUIZ A SER REMOVIDO", id)
 
     try {
         await ResponseModel.deleteMany({ quiz: id})
