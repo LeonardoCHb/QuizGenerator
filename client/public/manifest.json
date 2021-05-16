@@ -1,0 +1,12 @@
+"icons": [
+    {
+        "src": "images/open-book.png",
+        "type": "image/png",
+        "sizes": "96x96"
+    },
+    {
+        "src": "images/open-book.png",
+        "type": "image/png",
+        "sizes": "192x192"
+    }
+],

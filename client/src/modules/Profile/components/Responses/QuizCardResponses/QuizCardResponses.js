@@ -81,7 +81,9 @@ export default function QuizCard({ response }) {
                 size="small"
                 color="primary"
                 onClick={() => {
-                  copy(`http://localhost:3000/quiz/reply/${response.quiz}`);
+                  copy(
+                    `${process.env.REACT_APP_SITE_URL}/quiz/reply/${response.quiz}`
+                  );
                   addToast("LINK COPIADO.", {
                     appearance: "info",
                     autoDismiss: true,

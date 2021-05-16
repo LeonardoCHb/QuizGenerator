@@ -23,7 +23,7 @@ export default function PrimarySearchAppBar() {
   const history = useHistory();
   const location = useLocation();
   const url = window.location.href;
-  const home = "http://localhost:3000/";
+  const home = `${process.env.REACT_APP_SITE_URL}/`;
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });

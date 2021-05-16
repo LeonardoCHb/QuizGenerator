@@ -1,11 +1,22 @@
 [ignore]
+<PROJECT_ROOT>/node_modules/.*/spec/.*
+.*/node_modules/config-chain/test/broken.json
+<PROJECT_ROOT>/build/.*
+
+[untyped]
+<PROJECT_ROOT>/lib/flowNonLSP/pkg/commons-node
+<PROJECT_ROOT>/lib/flowNonLSP/pkg/flow-base/lib/FlowHelpers.js
 
 [include]
 
 [libs]
-
-[lints]
+flow-libs
 
 [options]
+suppress_comment=.*\\$FlowFixMe.*
+suppress_comment=.*\\$FlowIssue.*
+suppress_comment=\\(.\\|\n\\)*\\$FlowDisableNextLine
 
-[strict]
+suppress_type=$FixMe
+
+experimental.lsp.code_actions=true
