@@ -22,11 +22,13 @@ export default function () {
   }, []);
 
   useEffect(() => {
-    const filteredQuizzes = quizzes.filter((quiz) => {
-      if (!user && !quiz.public) return false;
-      return quiz.title.toLowerCase().includes(filter.toLowerCase());
-    });
-    setAllQuizzes(filteredQuizzes);
+    if (quizzes) {
+      const filteredQuizzes = quizzes.filter((quiz) => {
+        if (!user && !quiz.public) return false;
+        return quiz.title.toLowerCase().includes(filter.toLowerCase());
+      });
+      setAllQuizzes(filteredQuizzes);
+    }
   }, [filter, quizzes, user]);
 
   return !AllQuizzes.length ? (

@@ -32,8 +32,12 @@ const ReplyQuiz = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const quiz = useSelector((state) => state.quizToResponse[0]);
-  const previousRes = useSelector((state) => state.quizResponse[0]);
+  const quiz = useSelector((state) =>
+    state?.quizToResponse?.length > 0 ? state.quizToResponse[0] : null
+  );
+  const previousRes = useSelector((state) =>
+    state?.quizResponse?.length > 0 ? state.quizResponse[0] : null
+  );
   const [responseSaved, setResponseSaved] = useState([]);
   const [finalResponse, setFinalResponse] = useState({});
   const [responses, setResponses] = useState([]);

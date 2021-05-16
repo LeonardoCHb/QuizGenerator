@@ -11,7 +11,7 @@ const useStyles = styles;
 export default function QuizList({ quizzes }) {
   const classes = useStyles();
 
-  return !quizzes.length ? (
+  return !quizzes?.length ? (
     <Typography variant="body1">:(</Typography>
   ) : (
     <Container maxWidth="md" className={classes.paper}>

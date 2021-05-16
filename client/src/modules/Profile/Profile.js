@@ -67,14 +67,13 @@ const useStyles = styles;
 // INICIO DO COMPONENTE
 const Profile = () => {
   const classes = useStyles();
-  const [user] = useState(JSON.parse(localStorage.getItem("profile")));
-  const [value, setValue] = React.useState(0);
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => setValue(newValue);
   const dispatch = useDispatch();
   const quizzes = useSelector((state) => state.quizzesUser);
   const responses = useSelector((state) => state.response);
 
-  console.log(responses);
   useEffect(() => {
     dispatch(findAllUserQuizzes());
     dispatch(findAllUserResponses());
@@ -84,7 +83,7 @@ const Profile = () => {
     dispatch(findAllUserResponses());
   }, [quizzes]);
 
-  return (
+  return user ? (
     <>
       <Container className={classes.ProfileContainer}>
         {/* Container do Avatar */}
@@ -126,8 +125,7 @@ const Profile = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
               <Typography variant="h5" align="justify">
-                Nº de questionarios respondidos:{" "}
-                {responses ? responses.length : 0}
+                Questionarios respondidos: {responses ? responses.length : 0}
               </Typography>
               <UserResponses responses={responses} />
             </TabPanel>
@@ -135,6 +133,8 @@ const Profile = () => {
         </Container>
       </Container>
     </>
+  ) : (
+    <React.Fragment></React.Fragment>
   );
 };
 

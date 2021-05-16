@@ -11,7 +11,7 @@ const useStyles = styles;
 export default function ResponseList({ responses }) {
   const classes = useStyles();
 
-  return !responses.length ? (
+  return !responses?.length ? (
     <Typography variant="h6">:(</Typography>
   ) : (
     <Container maxWidth="md" className={classes.paper}>
