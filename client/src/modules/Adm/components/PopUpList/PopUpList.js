@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   Button,
   Dialog,
@@ -5,14 +6,20 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Container,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 
+import QuizData from "../../components/UserData/QuizData";
+import ResponseData from "../../components/UserData/ResponseData";
+import styles from "./styles";
+
+const useStyles = styles;
+
 export default function PopUpList({ mustOpen, handleOpen, userData }) {
+  const classes = useStyles;
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
-
-  console.log(userData);
 
   useEffect(() => {
     if (mustOpen === true) {
@@ -54,15 +61,25 @@ export default function PopUpList({ mustOpen, handleOpen, userData }) {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            OS QUIZ DO MALUCO
+            <Container className={classes.DataContainerWrapper}>
+              <p>RESPOSTAS</p>
+              <Container className={classes.DataContainer}>
+                {userData.quizResponses?.map((response) => (
+                  <QuizData key={response._id} response={response} />
+                ))}
+              </Container>
+              <p>CREATED QUIZZES</p>
+              <Container className={classes.DataContainer}>
+                {userData.quizCreated?.map((quiz) => (
+                  <ResponseData key={quiz._id} quiz={quiz} />
+                ))}
+              </Container>
+            </Container>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Subscribe
+          <Button onClick={handleClose} color="red">
+            CLOSE
           </Button>
         </DialogActions>
       </Dialog>

@@ -18,15 +18,23 @@ const Adm = () => {
   const [newUsers, setNewUsers] = useState([]);
 
   const responses = (id) => {
-    return usersResponses.filter((userRes) => {
-      return userRes.answeredBy === id;
-    });
+    let filtered = [];
+    if (userQuizzes) {
+      filtered = usersResponses.filter((userRes) => {
+        return userRes.answeredBy === id;
+      });
+    }
+    return filtered;
   };
   // fetch all quizzes
   const quizzes = (id) => {
-    return userQuizzes.filter((userQuiz) => {
-      return userQuiz.creator === id;
-    });
+    let filtered = [];
+    if (userQuizzes) {
+      filtered = userQuizzes.filter((userQuiz) => {
+        return userQuiz.creator === id;
+      });
+    }
+    return filtered;
   };
 
   useEffect(() => {
@@ -43,7 +51,7 @@ const Adm = () => {
       }));
       setNewUsers(userTableData);
     }
-  }, [users]);
+  }, [users, usersResponses, userQuizzes]);
 
   useEffect(() => {
     dispatch(quizAllQuestions());
@@ -51,9 +59,6 @@ const Adm = () => {
     dispatch(getUsersResponses());
   }, []);
 
-  /*  useEffect(() => {
-  }, {});
- */
   return (
     <form>
       <Container

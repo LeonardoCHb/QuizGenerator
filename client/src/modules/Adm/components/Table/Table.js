@@ -23,8 +23,7 @@ const columns = [
 ];
 
 export default function Table({ users }) {
-  const [usersTable, setUsersTable] = React.useState([]);
-  const [userData, setUserData] = React.useState([]);
+  const [userData, setUserData] = React.useState({});
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {

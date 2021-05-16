@@ -74,6 +74,7 @@ const Profile = () => {
   const quizzes = useSelector((state) => state.quizzesUser);
   const responses = useSelector((state) => state.response);
 
+  console.log(responses);
   useEffect(() => {
     dispatch(findAllUserQuizzes());
     dispatch(findAllUserResponses());
