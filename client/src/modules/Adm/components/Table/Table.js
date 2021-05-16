@@ -42,7 +42,6 @@ export default function Table({ users }) {
         rows={users}
         columns={columns}
         pageSize={9}
-        checkboxSelection
         onRowClick={(e) => {
           handlePopUp(e.row);
         }}

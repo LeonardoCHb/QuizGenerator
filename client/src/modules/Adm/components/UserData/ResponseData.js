@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 // estilização
 import {
   Button,
-  Grid,
   Typography,
   Card,
   CardActionArea,
@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 
 import { quizResponses, deleteQuiz } from "../../../../actions/quiz";
+import ShowQuiz from "./ShowQuiz/ShowQuiz";
 import styles from "./styles";
 
 const useStyles = styles;
@@ -31,6 +32,7 @@ export default function ResponseData({ quiz }) {
   const [fields, setFields] = useState([]);
   const json2csvParser = new Parser({ fields });
   const csv = json2csvParser.parse(resToDownload);
+  const [open, setOpen] = useState(false);
   // eslint-disable-next-line no-undef
   const dataToDownload = new Blob([csv], { type: "text/csv" });
   const csvURL = window.URL.createObjectURL(dataToDownload);
@@ -68,64 +70,71 @@ export default function ResponseData({ quiz }) {
     dispatch(quizResponses(quiz?._id));
   }, [quiz]);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleDelete = () => {
     dispatch(deleteQuiz(quiz?._id));
   };
 
   return responses && quiz ? (
-    <Grid item xs={12} sm={12} md={6}>
-      <Card className={classes.details}>
-        <CardActionArea>
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="h2" align="center">
-              {quiz.title.length < 37
-                ? quiz.title
-                : `${quiz.title.substring(0, 37)}...`}
-            </Typography>
-            <Typography
-              gutterBottom
-              variant="body2"
-              component="p"
-              align="center"
-            >
-              {quiz.description.length < 50
-                ? quiz.description
-                : `${quiz.description.substring(0, 50)}...`}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions className={classes.cardActions}>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              downloadlink.click();
-              addToast("BAIXANDO.", {
-                appearance: "info",
-                autoDismiss: true,
-                autoDismissTimeout: 2000,
-              });
-            }}
-          >
-            Download
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              handleDelete();
-              addToast("DELETANDO.", {
-                appearance: "info",
-                autoDismiss: true,
-                autoDismissTimeout: 2000,
-              });
-            }}
-          >
-            Deletar
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
+    <Card className={classes.DataCard}>
+      <ShowQuiz
+        handleClose={handleClose}
+        open={open}
+        quiz={quiz}
+        responses={responses[0]}
+      />
+      <CardActionArea onClick={handleClickOpen}>
+        <CardContent>
+          <Typography gutterBottom variant="h6" component="h2" align="center">
+            {quiz.title.length < 37
+              ? quiz.title
+              : `${quiz.title.substring(0, 37)}...`}
+          </Typography>
+          <Typography gutterBottom variant="body2" component="p" align="center">
+            {quiz.description.length < 50
+              ? quiz.description
+              : `${quiz.description.substring(0, 50)}...`}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions className={classes.cardActions}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            downloadlink.click();
+            addToast("BAIXANDO.", {
+              appearance: "info",
+              autoDismiss: true,
+              autoDismissTimeout: 2000,
+            });
+          }}
+        >
+          Download
+        </Button>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            handleDelete();
+            addToast("DELETANDO.", {
+              appearance: "info",
+              autoDismiss: true,
+              autoDismissTimeout: 2000,
+            });
+          }}
+        >
+          Deletar
+        </Button>
+      </CardActions>
+    </Card>
   ) : (
     <React.Fragment></React.Fragment>
   );

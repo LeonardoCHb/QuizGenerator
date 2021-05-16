@@ -1,6 +1,5 @@
 // estilização
 import {
-  Grid,
   Typography,
   Card,
   CardActionArea,
@@ -38,38 +37,36 @@ export default function QuizData({ response }) {
   };
 
   return response && quiz ? (
-    <Grid item xs={12} sm={12} md={6}>
-      <Card className={classes.details}>
-        <ShowResponse
-          handleClose={handleClose}
-          open={open}
-          quiz={{ ...quiz }}
-          response={response}
-        />
-        <CardActionArea onClick={handleClickOpen}>
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h6"
-              component="h2"
-              className={classes.title}
-              align="center"
-            >
-              {response.quizTitle}
-            </Typography>
-            <Typography
-              gutterBottom
-              variant="body2"
-              component="p"
-              className={classes.title}
-              align="center"
-            >
-              Respondido {moment(response.answeredAt).fromNow()}.
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Grid>
+    <Card className={classes.DataCard}>
+      <ShowResponse
+        handleClose={handleClose}
+        open={open}
+        quiz={{ ...quiz }}
+        response={response}
+      />
+      <CardActionArea onClick={handleClickOpen}>
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="h2"
+            className={classes.title}
+            align="center"
+          >
+            {response.quizTitle}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="body2"
+            component="p"
+            className={classes.title}
+            align="center"
+          >
+            Respondido {moment(response.answeredAt).fromNow()}.
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   ) : (
     <React.Fragment></React.Fragment>
   );

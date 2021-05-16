@@ -6,7 +6,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Container,
+  Typography,
+  Grid,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 
@@ -61,20 +62,26 @@ export default function PopUpList({ mustOpen, handleOpen, userData }) {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            <Container className={classes.DataContainerWrapper}>
-              <p>RESPOSTAS</p>
-              <Container className={classes.DataContainer}>
-                {userData.quizResponses?.map((response) => (
-                  <QuizData key={response._id} response={response} />
-                ))}
-              </Container>
-              <p>CREATED QUIZZES</p>
-              <Container className={classes.DataContainer}>
-                {userData.quizCreated?.map((quiz) => (
-                  <ResponseData key={quiz._id} quiz={quiz} />
-                ))}
-              </Container>
-            </Container>
+            <div className={classes.root}>
+              <Grid direction="row" alignItems="stretch" spacing={0} container>
+                <Grid xs={6} className={classes.DataContainer}>
+                  <Typography align="left" color="textPrimary">
+                    Questionarios Respondidos
+                  </Typography>
+                  {userData.quizResponses?.map((response) => (
+                    <QuizData key={response._id} response={response} />
+                  ))}
+                </Grid>
+                <Grid xs={6} className={classes.DataContainer}>
+                  <Typography align="left" color="textPrimary">
+                    Questionarios Criados
+                  </Typography>
+                  {userData.quizCreated?.map((quiz) => (
+                    <ResponseData key={quiz._id} quiz={quiz} />
+                  ))}
+                </Grid>
+              </Grid>
+            </div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
